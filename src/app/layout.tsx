@@ -17,12 +17,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Athlete | Free Agent Portal',
-  description: 'Athlete portal',
+  title: 'Team | Free Agent Portal',
+  description: 'Team portal',
   openGraph: {
-    title: 'Athlete | Free Agent Portal',
+    title: 'Team | Free Agent Portal',
     description: 'Log in or register to access your profile on the Free Agent Portal.',
-    url: 'https://athlete.freeagentportal.com',
+    url: 'https://team.freeagentportal.com',
     siteName: 'Free Agent Portal',
     images: [
       {
