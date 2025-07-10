@@ -3,11 +3,13 @@ import React from 'react';
 import styles from './Report.module.scss';
 import { useQueryClient } from '@tanstack/react-query';
 import SearchWrapper from '@/layout/searchWrapper/SearchWrapper.layout';
-import { FaEye, FaEyeSlash, FaPlus } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaEye, FaEyeSlash, FaPlus } from 'react-icons/fa';
 import useApiHook from '@/hooks/useApi';
 import { Button, Table, Tooltip } from 'antd';
+import { useRouter } from 'next/navigation';
 
 const Report = () => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const selectedProfile = queryClient.getQueryData(['profile', 'team']) as any;
 
@@ -72,12 +74,10 @@ const Report = () => {
             render: (text) => <span>{text?.length || 0}</span>,
           },
           {
-            title: "Viewed",
+            title: 'Viewed',
             dataIndex: 'opened',
             key: 'opened',
-            render: (_, record) => (
-              <span>{record.opened ? 'Yes' : 'No'}</span>
-            ),
+            render: (_, record) => <span>{record.opened ? 'Yes' : 'No'}</span>,
           },
           {
             title: 'Actions',
@@ -85,6 +85,15 @@ const Report = () => {
             key: 'actions',
             render: (text, record) => (
               <div style={{ display: 'flex', gap: '10px' }}>
+                <Tooltip title="View Report">
+                  <Button
+                    onClick={() => {
+                      router.push(`/opportunities_hub/reports/${record._id}`);
+                    }}
+                  >
+                    <FaExternalLinkAlt />
+                  </Button>
+                </Tooltip>
                 <Tooltip title={!record.opened ? 'Mark as Viewed' : 'Mark as Not Viewed'}>
                   <Button
                     onClick={() => {

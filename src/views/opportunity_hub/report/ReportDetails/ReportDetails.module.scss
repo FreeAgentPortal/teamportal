@@ -1,0 +1,512 @@
+.container {
+  padding: 1rem;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #f8fafc;
+  border-radius: 12px;
+  @media (max-width: 768px) {
+    padding: 0.75rem;
+  }
+}
+
+.loading,
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  font-size: 1.1rem;
+  color: #64748b;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.error {
+  color: #ef4444;
+  border: 1px solid #fecaca;
+  background: #fef2f2;
+}
+
+// Header Section
+.header {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid var(--primary);
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.3;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+}
+
+.reportMeta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  color: #64748b;
+  font-size: 0.9rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &::before {
+    content: '•';
+    color: #3b82f6;
+    font-weight: bold;
+  }
+
+  &:first-child::before {
+    content: '📊';
+  }
+
+  &:last-child::before {
+    content: '👥';
+  }
+}
+
+// Search Preferences Section
+.searchPreferences {
+  margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &::before {
+    content: '🔍';
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
+}
+
+.preferencesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.preferenceCard {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.cardTitle {
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  color: white;
+  padding: 1rem 1.5rem;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+
+  @media (max-width: 768px) {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+  }
+}
+
+.cardContent {
+  padding: 1.5rem;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
+.preferenceItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.value {
+  color: #1f2937;
+  font-size: 1rem;
+}
+
+.positions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.positionTag {
+  background: #dbeafe;
+  color: #1d4ed8;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid #3b82f6;
+}
+
+// Performance Metrics
+.metricsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+.metricItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.metricLabel {
+  font-weight: 500;
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.metricValue {
+  color: #1f2937;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+// Results Section
+.resultsSection {
+  .sectionTitle::before {
+    content: '🏆';
+  }
+}
+
+.noResults {
+  background: white;
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  text-align: center;
+  color: #64748b;
+  font-size: 1.1rem;
+  border: 2px dashed #e2e8f0;
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+    font-size: 1rem;
+  }
+}
+
+.athletesList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.athleteCard {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
+.athleteImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 1rem auto;
+  border: 3px solid #e2e8f0;
+  background: #f8fafc;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+.athleteInfo {
+  text-align: center;
+  flex: 1;
+}
+
+.athleteName {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.3;
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+}
+
+.athleteDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  gap: 1rem;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.athleteAge {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.athletePositions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.positionBadge {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.birthdate {
+  color: #6b7280;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.cardActions {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.viewButton {
+  width: 100%;
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.85rem;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 480px) {
+  .container {
+    padding: 0.5rem;
+  }
+
+  .header {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.1rem;
+  }
+
+  .athleteCard {
+    padding: 1rem;
+  }
+
+  .athleteName {
+    font-size: 1rem;
+  }
+}
+
+// Scrollbar styling for webkit browsers
+.athletesList {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+
+    &:hover {
+      background: #94a3b8;
+    }
+  }
+}
+
+// Animation for loading states
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.athleteCard,
+.preferenceCard {
+  animation: fadeIn 0.4s ease-out;
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .athleteCard,
+  .preferenceCard {
+    border: 2px solid #000;
+  }
+
+  .positionTag,
+  .positionBadge {
+    border: 1px solid #000;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .athleteCard,
+  .preferenceCard,
+  .viewButton,
+  .athleteImage img {
+    transition: none;
+    animation: none;
+  }
+
+  .athleteCard:hover {
+    transform: none;
+  }
+
+  .viewButton:hover {
+    transform: none;
+  }
+}
