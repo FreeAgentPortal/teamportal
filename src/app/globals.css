@@ -12,7 +12,7 @@
   --color-info-blue: #17a2b8;
 
   --color-bg-dark: var(--color-black);
-  --color-bg-gradient: linear-gradient(120deg, var(--color-black) 0%, var(--color-metallic-blue-dark) 100%);
+  --color-bg-gradient: linear-gradient(120deg, var(--color-black) 0%, var(--primary) 100%);
   --color-text-primary: var(--color-black);
   --color-accent: var(--color-metallic-blue);
 
