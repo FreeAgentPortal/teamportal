@@ -9,9 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.3.4",    
     "@ant-design/nextjs-registry": "^1.0.2",
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@tanstack/react-query": "^5.80.6",
@@ -20,8 +17,12 @@
     "axios": "^1.9.0",
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.13",
-    "framer-motion": "^12.16.0", 
-    "nextjs-toploader": "^3.8.16", 
+    "framer-motion": "^12.16.0",
+    "moment": "^2.30.1",
+    "next": "15.3.4",
+    "nextjs-toploader": "^3.8.16",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-hook-form": "^7.57.0",
     "react-icons": "^5.5.0",
     "react-masonry-css": "^1.0.16",
@@ -32,7 +33,7 @@
     "zustand": "^5.0.5"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
     "@tanstack/react-query-devtools": "^5.80.6",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -40,6 +41,6 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
     "simple-zustand-devtools": "^1.1.0",
-    "@eslint/eslintrc": "^3"
+    "typescript": "^5"
   }
 }

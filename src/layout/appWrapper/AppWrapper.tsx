@@ -3,7 +3,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import io from 'socket.io-client';
-import { useUser } from '@/state/auth';
+import { logout, useUser } from '@/state/auth';
 import { useSocketStore } from '@/state/socket';
 import PageLayout from '../page/Page.layout';
 import BillingSetup from '../billingSetup/BillingSetup.layout';
@@ -22,9 +22,9 @@ const AppWrapper = (props: Props) => {
   const { data: loggedInData, isLoading: userIsLoading } = useUser(token);
   const { data: selectedProfile } = useApiHook({
     method: 'GET',
-    key: ['profile', 'athlete'],
-    url: `/athlete/profile/${loggedInData?.profileRefs['athlete']}`,
-    enabled: !!loggedInData?.profileRefs['athlete'],
+    key: ['profile', 'team'],
+    url: `/team/profile/${loggedInData?.profileRefs['team']}`,
+    enabled: !!loggedInData?.profileRefs['team'],
   });
   //Set up socket connection
   const { socket, isConnecting, setSocket, setIsConnecting } = useSocketStore((state: any) => state);
@@ -60,6 +60,16 @@ const AppWrapper = (props: Props) => {
       }
     };
   }, [socket]);
+
+  // if the profile data is missing or the user doesnt have access to this profile log them out
+  useEffect(() => {
+    if (loggedInData && !loggedInData?.profileRefs['team']) {
+      // alert
+      console.error('Profile data is missing or user does not have access to this profile. Logging out.');
+      alert('Profile data is missing or user does not have access to this profile. Logging out.');
+      logout();
+    }
+  }, [loggedInData, selectedProfile]);
 
   if (userIsLoading || (!userIsLoading && !selectedProfile)) {
     return (

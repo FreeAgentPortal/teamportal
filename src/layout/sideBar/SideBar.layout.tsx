@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { useUser } from '@/state/auth';
 import { useLayoutStore } from '@/state/layout';
+import { useQueryClient } from '@tanstack/react-query';
 
 //make a type with children as a prop
 type Props = {
@@ -14,9 +15,12 @@ type Props = {
   large?: boolean;
 };
 const SideBar = (props: Props) => {
+  const queryClient = useQueryClient();
   const sideBarOpen = useLayoutStore((state) => state.sideBarOpen);
   const toggleSideBar = useLayoutStore((state) => state.toggleSideBar);
   const { data: loggedInData } = useUser();
+  // get query client for selectedProfile
+  const selectedProfile = queryClient.getQueryData(['profile', 'team']) as any;
 
   return (
     <div className={`${styles.container} ${props.large ? '' : styles.small}`}>
@@ -43,20 +47,16 @@ const SideBar = (props: Props) => {
         /> */}
 
         <Image
-          src={'/images/logo.png'}
+          src={selectedProfile?.payload?.logos[0].href ?? '/images/logo.png'}
           width={75}
           height={50}
-          className={styles.logo + ' ' + styles.truthcastingLogo}
+          className={styles.logo}
           style={{
             objectFit: 'contain',
           }}
           alt="logo"
         />
-        <p
-          className={`${styles.productName}`}
-        >
-          Athlete
-        </p>
+        <p className={`${styles.productName}`}>{selectedProfile?.payload?.name} Portal</p>
       </div>
 
       {Object.values(
