@@ -8,6 +8,7 @@ import { ConfigProvider } from 'antd';
 
 function ReactQueryProvider({ children }: React.PropsWithChildren) {
   const { addAlert } = useInterfaceStore.getState();
+  const [theme, setTheme] = useState({ ...themeOverride });
   const [client] = useState(
     new QueryClient({
       queryCache: new QueryCache({
@@ -50,6 +51,14 @@ function ReactQueryProvider({ children }: React.PropsWithChildren) {
       const { color, alternateColor } = currentProfile.payload;
       documentRoot.style.setProperty('--primary', color);
       documentRoot.style.setProperty('--secondary', alternateColor);
+      // update antd theme
+      setTheme({
+        ...themeOverride,
+        token: {
+          ...themeOverride.token,
+          colorPrimary: color,
+        },
+      });
     }
 
     return () => {
@@ -59,7 +68,7 @@ function ReactQueryProvider({ children }: React.PropsWithChildren) {
 
   return (
     <QueryClientProvider client={client}>
-      <ConfigProvider theme={{ ...themeOverride }}>
+      <ConfigProvider theme={{ ...theme }}>
         {children}
         <ReactQueryDevtools initialIsOpen={false} />
       </ConfigProvider>
