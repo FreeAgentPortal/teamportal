@@ -33,11 +33,18 @@ export const navigation = (options?: any) => {
     opportunities_hub: {
       title: 'Opportunities Hub',
       links: {
-        team_finder: {
-          title: 'Team Finder',
-          link: '/team-finder',
+        search_preferences: {
+          title: 'Dynamic Search Hub',
+          link: '/opportunities_hub/search_preferences',
           icon: <BsFillPeopleFill />,
         },
+        //TODO: add the ability to create a badge to wrap the icon to show how many new
+        // reports there are
+        reports: {
+          title: 'Reports',
+          link: '/opportunities_hub/reports',
+          icon: <BsBox />,
+        }
       },
       hidden: true,
     },

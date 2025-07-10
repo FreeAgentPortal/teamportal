@@ -25,7 +25,7 @@ const SideBar = (props: Props) => {
   return (
     <div className={`${styles.container} ${props.large ? '' : styles.small}`}>
       <div className={styles.logoContainer}>
-        {sideBarOpen && (
+        {/* {sideBarOpen && (
           <div
             className={styles.hamburger}
             onClick={() => {
@@ -34,28 +34,29 @@ const SideBar = (props: Props) => {
           >
             <RxHamburgerMenu />
           </div>
-        )}
-        {/* <Image
-          src="/images/logo.png"
-          width={30}
-          height={50}
-          className={styles.logo + " " + styles.saltLogo}
-          style={{
-            objectFit: "contain",
-          }}
-          alt="logo"
-        /> */}
-
+        )} */}
         <Image
           src={selectedProfile?.payload?.logos[0].href ?? '/images/logo.png'}
-          width={75}
+          width={30}
           height={50}
-          className={styles.logo}
+          className={styles.logo + ' ' + styles.saltLogo}
           style={{
             objectFit: 'contain',
           }}
           alt="logo"
         />
+
+        <Image
+          src={selectedProfile?.payload?.logos[0].href ?? '/images/logo.png'}
+          width={75}
+          height={50}
+          className={styles.logo + ' ' + styles.largeLogo}
+          style={{
+            objectFit: 'contain',
+          }}
+          alt="logo"
+        />
+
         <p className={`${styles.productName}`}>{selectedProfile?.payload?.name} Portal</p>
       </div>
 
