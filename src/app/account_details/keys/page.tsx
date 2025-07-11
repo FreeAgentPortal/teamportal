@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 
 export default function Component() {
   return (
-    <Suspense fallback={<div>Loading API keys...</div>}>
+    <Suspense fallback={<div>Loading API keys....</div>}>
       <PageLayout pages={[navigation().account_details.links.keys]}>
         <ApiKeys />
       </PageLayout>
