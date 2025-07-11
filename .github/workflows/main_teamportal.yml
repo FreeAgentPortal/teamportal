@@ -65,4 +65,4 @@ jobs:
           app-name: 'teamportal'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_260F9BEA6C7D4ED2AA5F36D305BAF9D2 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_01128CCAD9D24B05B5D269E38C834333  }}
