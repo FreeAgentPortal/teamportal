@@ -29,6 +29,7 @@ export interface IAthlete {
   college?: string;
   positions?: [
     {
+      _id: string;
       name: string;
       abbreviation: string;
     }
