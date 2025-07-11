@@ -2,6 +2,7 @@ import { navigation } from '@/data/navigation';
 import PageLayout from '@/layout/page/Page.layout';
 import Report from '@/views/opportunity_hub/report/Report.view';
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Dynamic Reports',
@@ -12,7 +13,9 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <PageLayout pages={[navigation().opportunities_hub.links.reports]} largeSideBar>
-      <Report />
+      <Suspense fallback={<div>Loading reports...</div>}>
+        <Report />
+      </Suspense>
     </PageLayout>
   );
 }

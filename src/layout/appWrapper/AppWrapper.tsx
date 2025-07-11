@@ -1,13 +1,11 @@
 'use client';
 import { useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import io from 'socket.io-client';
 import { logout, useUser } from '@/state/auth';
 import { useSocketStore } from '@/state/socket';
 import PageLayout from '../page/Page.layout';
-import BillingSetup from '../billingSetup/BillingSetup.layout';
-import { navigation } from '@/data/navigation';
 import useApiHook from '@/hooks/useApi';
 import { Skeleton } from 'antd';
 
@@ -78,17 +76,7 @@ const AppWrapper = (props: Props) => {
       </PageLayout>
     ); // or skeleton loader
   }
-  return (
-    <>
-      {selectedProfile?.payload?.needsBillingSetup ? (
-        <PageLayout pages={[navigation().billing.links.account_center]}>
-          <BillingSetup />
-        </PageLayout>
-      ) : (
-        <>{props.children}</>
-      )}
-    </>
-  );
+  return <Suspense fallback={<Skeleton active />}>{props.children}</Suspense>;
 };
 
 export default AppWrapper;

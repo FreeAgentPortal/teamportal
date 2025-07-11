@@ -18,7 +18,7 @@ import { LoaderProvider } from '../progressBar/LoaderProvider.component';
 //make a type with children as a prop
 type Props = {
   children: React.ReactNode;
-  pages?: Array<{ title: string; link?: string; icon?: ReactNode; onClick?: () => {} }>;
+  pages?: Array<{ title: string; link?: string; icon?: ReactNode; onClick?: () => void }>;
   largeSideBar?: boolean;
   backgroundColor?: string;
   hideControlLayout?: boolean;
@@ -42,16 +42,16 @@ const PageLayout = (props: Props) => {
   const { data: loggedInData } = useUser();
   const getPageBlockData: () => boolean | 'blacklist' | 'feature' | 'verification' = () => {
     if (!props.enableBlockCheck) return false;
-    if (loggedInData.user.isBlacklisted) {
+    if (loggedInData?.isBlacklisted) {
       return 'blacklist';
     }
 
-    if (!loggedInData.user.isEmailVerified) {
+    if (!loggedInData?.isEmailVerified) {
       return 'verification';
     }
 
     if (props.neededFeature) {
-      if (!hasFeature(loggedInData.user, props.neededFeature)) {
+      if (!hasFeature(loggedInData, props.neededFeature)) {
         return 'feature';
       }
     }
@@ -60,7 +60,7 @@ const PageLayout = (props: Props) => {
   };
 
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <div className={`${styles.container} ${props.largeSideBar ? '' : styles.small} ${sideBarOpen && styles.sideBarActive}`}>
         {loggedInData ? (
           <>
@@ -113,12 +113,10 @@ const PageLayout = (props: Props) => {
             </div>
           </>
         ) : (
-          <Suspense>
-            <Auth />
-          </Suspense>
+          <Auth />
         )}
       </div>
-    </>
+    </Suspense>
   );
 };
 export default PageLayout;

@@ -1,4 +1,4 @@
-@use "@/styles/globals.scss" as *;
+@use '@/styles/globals.scss' as *;
 .container {
   display: flex;
   flex-direction: column;
@@ -29,64 +29,64 @@
       display: flex;
       flex-direction: column-reverse;
       gap: 1rem;
-      flex: 1; 
-    .chat {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      width: 100%;
+      flex: 1;
+      .chat {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
 
-      .chatBubble {
-        padding: 1rem;
-        border-radius: 1rem;
-        background-color: white;
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-        width: 80%;
-        .chatText {
-          font-size: 1rem;
-          font-weight: 300;
-          color: black;
-        }
-        .sender {
-          font-size: 0.75rem;
-          font-weight: 300;
-          color: rgb(49, 49, 49);
-        }
-        &.chatBubbleRight {
-          background-color: $primary-color;
-          color: white;
-          // add a border to the right side making it look like a chat bubble
-          border-top-right-radius: 10;
-          border-bottom-right-radius: 0;
-
-          // align the text to the right
-          display: flex;
-          flex-direction: column;
-          align-items: flex-end;
-          text-align: right;
-          justify-content: center;
+        .chatBubble {
+          padding: 1rem;
+          border-radius: 1rem;
+          background-color: white;
+          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+          width: 80%;
           .chatText {
-            color: white;
+            font-size: 1rem;
+            font-weight: 300;
+            color: black;
           }
           .sender {
-            color: rgb(209, 209, 209);
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: rgb(49, 49, 49);
+          }
+          &.chatBubbleRight {
+            background-color: var(--primary);
+            color: white;
+            // add a border to the right side making it look like a chat bubble
+            border-top-right-radius: 10;
+            border-bottom-right-radius: 0;
+
+            // align the text to the right
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            text-align: right;
+            justify-content: center;
+            .chatText {
+              color: white;
+            }
+            .sender {
+              color: rgb(209, 209, 209);
+            }
           }
         }
-      }
-      .chatTime {
-        font-size: 0.75rem;
-        font-weight: 300;
-        color: rgb(48, 48, 48);
+        .chatTime {
+          font-size: 0.75rem;
+          font-weight: 300;
+          color: rgb(48, 48, 48);
 
-        &.chatTimeRight {
-          display: flex;
-          justify-content: flex-end;
+          &.chatTimeRight {
+            display: flex;
+            justify-content: flex-end;
+          }
+        }
+        &.rightChat {
+          align-items: flex-end;
         }
       }
-      &.rightChat {
-        align-items: flex-end;
-      }
-    }
     }
   }
   .responseContainer {

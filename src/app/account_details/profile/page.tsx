@@ -1,6 +1,7 @@
 import PageLayout from '@/layout/page/Page.layout';
 import { navigation } from '@/data/navigation';
 import Profile from '@/views/profile/Profile.view';
+import { Suspense } from 'react';
 
 export const metadata = {
   title: 'FAP | Profile',
@@ -13,7 +14,9 @@ export const metadata = {
 export default function Page() {
   return (
     <PageLayout pages={[navigation().account_details.links.profile]}>
-      <Profile />
+      <Suspense fallback={<div>Loading profile...</div>}>
+        <Profile />
+      </Suspense>
     </PageLayout>
   );
 }

@@ -18,6 +18,7 @@ export default interface User {
   token?: string;
   needsBillingSetup: boolean;
   permissions: string[];
+  isBlacklisted: boolean;
   emailVerificationToken: string | undefined | null;
   emailVerificationExpires: Date | undefined | null;
   profileRefs: Record<string, string | null>;
