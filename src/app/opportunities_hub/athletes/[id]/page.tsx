@@ -3,12 +3,26 @@ import { navigation } from '@/data/navigation';
 import { Metadata } from 'next';
 import AthleteDetails from '@/views/opportunity_hub/athlete/athleteDetails/AthleteDetails.view';
 import axios from '@/utils/axios';
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const athlete = await fetchAthleteData(id);
 
-export const metadata: Metadata = {
-  title: 'FAP | Athlete Details',
-  description: 'Details for a specific athlete in the FAP system',
+  if (!athlete) {
+    return {
+      title: "Athlete not found",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  return {
+    title: `FAP | ${athlete.name} Details`,
+    description: `Details for athlete ${athlete.name} in the FAP system`,
+  };
 };
-
+ 
 export default async function Home({ params }: { params: Promise<{ id: string }>; }) {
   // Fetch athlete data
   const { id } = await params;

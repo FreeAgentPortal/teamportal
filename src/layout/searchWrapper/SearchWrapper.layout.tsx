@@ -1,12 +1,13 @@
-import { useSearchStore } from "@/state/search";
-import { useQueryClient } from "@tanstack/react-query";
-import { Badge, Button, Dropdown, Input, Pagination, Skeleton, Space, Tooltip } from "antd";
-import { useEffect, useState } from "react";
-import { AiFillFilter } from "react-icons/ai";
-import styles from "./SearchWrapper.module.scss";
-import type { MenuProps } from "antd";
-import { MdSort } from "react-icons/md";
-import { useRouter } from "next/navigation";
+import { useSearchStore } from '@/state/search';
+import { useQueryClient } from '@tanstack/react-query';
+import { Badge, Button, Dropdown, Input, Pagination, Skeleton, Space, Tooltip } from 'antd';
+import { useEffect, useState } from 'react';
+import { AiFillFilter } from 'react-icons/ai';
+import styles from './SearchWrapper.module.scss';
+import type { MenuProps } from 'antd';
+import { MdSort } from 'react-icons/md';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const { Search } = Input;
 
@@ -14,9 +15,10 @@ type Props = {
   buttons?: {
     icon: React.ReactNode;
     onClick: () => void;
-    type: "link" | "text" | "primary" | "dashed" | "default" | undefined;
+    type: 'link' | 'text' | 'primary' | 'dashed' | 'default' | undefined;
     toolTip?: string;
     shouldPulse?: boolean;
+    href?: string;
   }[];
   filters?: {
     label: string;
@@ -37,7 +39,7 @@ const SearchWrapper = (props: Props) => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState('');
   const {
     setSearch,
     setPageNumber,
@@ -70,7 +72,7 @@ const SearchWrapper = (props: Props) => {
     setQueryKey(props.queryKey);
 
     return () => {
-      setSearch("");
+      setSearch('');
       setPageNumber(1);
       setPageLimit(10);
       removeFilter();
@@ -79,7 +81,7 @@ const SearchWrapper = (props: Props) => {
     };
   }, []);
 
-  const filterItems: MenuProps["items"] = props.filters
+  const filterItems: MenuProps['items'] = props.filters
     ? [
         ...props.filters.map((filter, index) => {
           return {
@@ -94,7 +96,7 @@ const SearchWrapper = (props: Props) => {
       ]
     : [];
 
-  const sortItems: MenuProps["items"] = props.sort
+  const sortItems: MenuProps['items'] = props.sort
     ? [
         ...props.sort.map((sort, index) => {
           return {
@@ -138,7 +140,7 @@ const SearchWrapper = (props: Props) => {
               <Button type="text">
                 <Space>
                   <MdSort className={`${styles.icon}`} />
-                  {sort !== "" && <Badge dot status="default" />}
+                  {sort !== '' && <Badge dot status="default" />}
                 </Space>
               </Button>
             </Dropdown>
@@ -148,22 +150,25 @@ const SearchWrapper = (props: Props) => {
               <Button type="text">
                 <Space>
                   <AiFillFilter className={`${styles.icon} ${filter.length > 0 && styles.active}`} />
-                  {filter !== "" && <Badge dot status="default" />}
+                  {filter !== '' && <Badge dot status="default" />}
                 </Space>
               </Button>
             </Dropdown>
           )}
 
           {props.buttons?.map((button, indx) => (
-            <Tooltip title={button.toolTip} placement="bottomRight" key={indx + "tooltip" + button.toolTip}>
-              <Button
-                type={button.type}
-                shape="round"
-                className={`${styles.button} ${button.shouldPulse && styles.pulse}`}
-                onClick={button.onClick}
-              >
-                {button.icon}
-              </Button>
+            <Tooltip title={button.toolTip} placement="bottomRight" key={indx + 'tooltip' + button.toolTip}>
+              {button.type === 'link' ? (
+                <Link href={button.href!} passHref>
+                  <Button type={button.type} shape="round" className={`${styles.button} ${button.shouldPulse && styles.pulse}`} onClick={button.onClick}>
+                    {button.icon}
+                  </Button>
+                </Link>
+              ) : (
+                <Button type={button.type} shape="round" className={`${styles.button} ${button.shouldPulse && styles.pulse}`} onClick={button.onClick}>
+                  {button.icon}
+                </Button>
+              )}
             </Tooltip>
           ))}
         </div>
@@ -171,7 +176,7 @@ const SearchWrapper = (props: Props) => {
 
       <div className={styles.childrenContainer}>
         <p className={styles.searchStats}>
-          {props.total} items {search !== "" && <span>for {search}</span>}
+          {props.total} items {search !== '' && <span>for {search}</span>}
         </p>
         {props.isFetching ? <Skeleton active /> : props.children}
       </div>

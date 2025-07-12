@@ -104,6 +104,7 @@ const PageLayout = (props: Props) => {
                         shadow="0 0 10px var(--primary-dark),0 0 5px var(--primary)"
                         showForHashAnchor
                       />
+
                       <AlertCenter />
                       <LoaderProvider>{props.children}</LoaderProvider>
                     </>

@@ -3,10 +3,13 @@ import useApiHook from '@/hooks/useApi';
 import SearchWrapper from '@/layout/searchWrapper/SearchWrapper.layout';
 import { useQueryClient } from '@tanstack/react-query';
 import { Button, Table } from 'antd';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react';
-import { FaPlus, FaTrash } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaPlus, FaTrash } from 'react-icons/fa';
 
 const SearchPreferences = () => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const selectedProfile = queryClient.getQueryData(['profile', 'team']) as any;
 
@@ -17,6 +20,12 @@ const SearchPreferences = () => {
     key: 'search_preferences',
     enabled: !!selectedProfile?.payload?._id,
   }) as any;
+
+  const { mutate: removePreference } = useApiHook({
+    method: 'DELETE',
+    key: 'search_remove',
+    queriesToInvalidate: ['search_preferences'],
+  }) as any;
   return (
     <SearchWrapper
       placeholder="Filter search preferences"
@@ -24,8 +33,9 @@ const SearchPreferences = () => {
       buttons={[
         {
           icon: <FaPlus />,
-          toolTip: 'Add new API Key',
+          toolTip: 'Create Search',
           type: 'link',
+          href: '/opportunities_hub/search_preferences/create',
           onClick: () => {},
         },
       ]}
@@ -33,14 +43,6 @@ const SearchPreferences = () => {
         {
           key: '',
           label: 'All',
-        },
-        {
-          key: 'isActive;true',
-          label: 'Active',
-        },
-        {
-          key: 'isActive;false',
-          label: 'Expired',
         },
       ]}
       sort={[
@@ -51,7 +53,6 @@ const SearchPreferences = () => {
       ]}
       total={data?.payload?.totalCount}
       isFetching={isFetching}
-      // disableButtons={isFetching}
     >
       <Table
         dataSource={data?.payload}
@@ -91,11 +92,16 @@ const SearchPreferences = () => {
             title: 'Actions',
             dataIndex: 'actions',
             key: 'actions',
-            render: (text, record) => (
+            render: (_, record) => (
               <div style={{ display: 'flex', gap: '10px' }}>
+                <Link href={`/opportunities_hub/search_preferences/${record._id}`} passHref>
+                  <Button>
+                    <FaExternalLinkAlt />
+                  </Button>
+                </Link>
                 <Button
                   onClick={() => {
-                    // handleDelete(record._id);
+                    removePreference({ url: `/search-preference/${record._id}` });
                   }}
                 >
                   <FaTrash style={{ color: 'red' }} />

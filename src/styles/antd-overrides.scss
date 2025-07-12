@@ -1,0 +1,146 @@
+// Global Ant Design style overrides for search preferences
+// This file contains global styles that need to override Ant Design components
+
+.ant-card {
+  // background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid var(--primary) !important;
+  border-radius: var(--radius-lg) !important;
+
+  .ant-card-head {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border-bottom: 1px solid var(--secondary) !important;
+
+    .ant-card-head-title {
+      color: var(--text-color) !important;
+      font-weight: 600 !important;
+    }
+  }
+
+  .ant-card-body {
+    background: transparent !important;
+  }
+}
+
+.ant-form-item-label > label {
+  color: var(--text-color) !important;
+  font-weight: 500 !important;
+}
+
+.ant-input,
+.ant-select-selector,
+.ant-input-number,
+.ant-mentions {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid var(--primary) !important;
+  color: var(--text-color) !important;
+
+  &:hover,
+  &:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 2px rgba(122, 205, 242, 0.2) !important;
+  }
+}
+
+.ant-select-selection-placeholder,
+.ant-input::placeholder {
+  color: var(--secondary-dark) !important;
+}
+
+.ant-select-arrow,
+.ant-input-number-handler-wrap {
+  color: var(--secondary) !important;
+}
+
+.ant-slider {
+  .ant-slider-rail {
+    background: var(--secondary) !important;
+  }
+
+  .ant-slider-track {
+    background: var(--primary) !important;
+  }
+
+  .ant-slider-handle {
+    &:hover,
+    &:focus {
+      box-shadow: 0 0 0 5px rgba(122, 205, 242, 0.2) !important;
+    }
+  }
+
+  .ant-slider-mark-text {
+    color: var(--text-color) !important;
+  }
+}
+
+.ant-collapse {
+  background: transparent !important;
+  border: none !important;
+
+  .ant-collapse-item {
+    border: 1px solid var(--secondary) !important;
+    border-radius: var(--radius-md) !important;
+    margin-bottom: 12px !important;
+
+    .ant-collapse-header {
+      background: rgba(255, 255, 255, 0.05) !important;
+      color: var(--text-color) !important;
+      font-weight: 600 !important;
+      border-radius: var(--radius-md) var(--radius-md) 0 0 !important;
+    }
+
+    .ant-collapse-content {
+      background: rgba(255, 255, 255, 0.02) !important;
+      border-top: 1px solid var(--secondary) !important;
+    }
+  }
+}
+
+.ant-tag {
+  background: var(--primary) !important;
+  color: white !important;
+  border: 1px solid var(--primary) !important;
+  border-radius: var(--radius-sm) !important;
+
+  .ant-tag-close-icon {
+    color: rgba(255, 255, 255, 0.8) !important;
+
+    &:hover {
+      color: white !important;
+    }
+  }
+}
+
+.ant-btn {
+  border-radius: var(--radius-md) !important;
+  font-weight: 600 !important;
+
+  &.ant-btn-primary {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+
+    &:hover {
+      background: var(--primary-dark) !important;
+      border-color: var(--primary-dark) !important;
+    }
+  }
+
+  &.ant-btn-default {
+    background: transparent !important;
+    border-color: var(--secondary) !important;
+    color: var(--text-color) !important;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1) !important;
+      border-color: var(--primary) !important;
+      color: var(--primary) !important;
+    }
+  }
+}
+
+.ant-typography {
+  color: var(--text-color) !important;
+
+  &.ant-typography-caption {
+    color: var(--secondary-dark) !important;
+  }
+}

@@ -39,7 +39,7 @@ const Athlete = () => {
     >
       <div className={styles.container}>
         <div className={styles.athletesList}>
-          {data.payload?.map((athlete: IAthlete) => (
+          {data?.payload?.map((athlete: IAthlete) => (
             <AthleteCard key={athlete._id} athlete={athlete} />
           ))}
         </div>
