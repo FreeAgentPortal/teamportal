@@ -9,9 +9,9 @@ export const metadata: Metadata = {
   description: 'Details for a specific athlete in the FAP system',
 };
 
-export default async function Home({ params }: { params: { id: string } }) {
+export default async function Home({ params }: { params: Promise<{ id: string }>; }) {
   // Fetch athlete data
-  const id = params.id; 
+  const { id } = await params;
   // Pre-fetch the first page of blogs for static generation
   const athleteData = await fetchAthleteData(id);
   return (
