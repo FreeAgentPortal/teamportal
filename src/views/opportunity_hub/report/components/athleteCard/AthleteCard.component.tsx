@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './AthleteCard.module.scss';
 import { IAthlete } from '@/types/IAthleteType';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface CardProps {
   athlete: IAthlete;
@@ -36,7 +37,9 @@ const AthleteCard = ({ athlete }: CardProps) => {
         <div className={styles.birthdate}>Born: {new Date(athlete?.birthdate as any).toLocaleDateString()}</div>
       </div>
       <div className={styles.cardActions}>
-        <button className={styles.viewButton}>View Profile</button>
+        <Link href={`/opportunities_hub/athletes/${athlete._id}`} className={styles.viewProfileLink} passHref>
+          <button className={styles.viewButton}>View Profile</button>
+        </Link>
       </div>
     </div>
   );

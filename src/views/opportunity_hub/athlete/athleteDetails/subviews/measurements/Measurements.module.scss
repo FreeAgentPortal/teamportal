@@ -1,0 +1,219 @@
+@use '@/styles/globals.scss' as *;
+
+.container {
+  width: 100%;
+}
+
+.empty {
+  padding: 4rem 2rem;
+
+  :global(.ant-empty-description) {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+  }
+}
+
+.header {
+  margin-bottom: 2rem;
+  text-align: center;
+
+  @include mobile {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+
+  @include mobile {
+    font-size: 1.6rem;
+  }
+}
+
+.description {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 700px;
+  margin: 0 auto;
+
+  @include mobile {
+    font-size: 1rem;
+  }
+}
+
+.measurementCard,
+.personalCard,
+.infoCard,
+.bioCard {
+  height: 100%;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.cardIcon {
+  color: var(--primary);
+  font-size: 1.3rem;
+}
+
+.measurementGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.measurementItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem;
+  background: var(--card-background-light);
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-light);
+}
+
+.measurementLabel {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.measurementValue {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.descriptions {
+  :global(.ant-descriptions-item-label) {
+    font-weight: 600;
+    color: var(--text-primary);
+    width: 30%;
+  }
+
+  :global(.ant-descriptions-item-content) {
+    color: var(--text-primary);
+  }
+}
+
+.birthdateTag {
+  margin-left: 0.5rem;
+  background: var(--primary-light);
+  color: var(--primary);
+  border: none;
+  font-size: 0.85rem;
+}
+
+.birthplaceInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.locationIcon {
+  color: var(--primary);
+}
+
+.contactLink {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+  }
+}
+
+.additionalInfo {
+  margin-top: 1.5rem;
+}
+
+.infoText {
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.awardsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.awardTag {
+  background: var(--success-light);
+  color: var(--success);
+  border: 1px solid var(--success);
+  font-size: 0.9rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+}
+
+.bioCard {
+  margin-top: 1.5rem;
+
+  :global(.ant-card-head-title) {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+}
+
+.bioText {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  margin: 0;
+  text-align: justify;
+}
+
+// Responsive design
+@include mobile {
+  .measurementItem {
+    padding: 0.75rem;
+  }
+
+  .measurementValue {
+    font-size: 1.2rem;
+  }
+
+  .descriptions {
+    :global(.ant-descriptions-item-label) {
+      width: 35%;
+    }
+  }
+
+  .cardTitle {
+    font-size: 1.1rem;
+  }
+
+  .cardIcon {
+    font-size: 1.2rem;
+  }
+}

@@ -44,7 +44,12 @@ export const navigation = (options?: any) => {
           title: 'Reports',
           link: '/opportunities_hub/reports',
           icon: <BsBox />,
-        }
+        },
+        athletes: {
+          title: 'Athletes',
+          link: '/opportunities_hub/athletes',
+          icon: <BsFillPeopleFill />,
+        },
       },
       hidden: true,
     },

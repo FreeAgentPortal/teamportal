@@ -17,6 +17,11 @@ const ReportDetails = () => {
     enabled: !!reportId,
   }) as { data: { payload: ISearchReport }; isLoading: boolean };
 
+  const { mutate: mutateReport } = useApiHook({
+    key: 'report_update',
+    method: 'PUT',
+    queriesToInvalidate: ['reports'],
+  }) as any;
 
   const formatMetricRange = (metric: { min: number; max: number } | undefined, unit: string = '') => {
     if (!metric) return 'Not specified';
@@ -32,7 +37,15 @@ const ReportDetails = () => {
       minute: '2-digit',
     });
   };
-
+  React.useEffect(() => {
+    // update the report to viewed status
+    if (reportId) {
+      mutateReport({
+        url: `/search-preference/report/${reportId}`,
+        formData: { opened: true },
+      });
+    }
+  }, [reportId]);
   if (isLoading) {
     return (
       <div className={styles.container}>

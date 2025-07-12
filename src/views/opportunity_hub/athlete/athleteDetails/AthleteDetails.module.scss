@@ -1,0 +1,223 @@
+@use '@/styles/globals.scss' as *;
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: var(--background);
+  min-height: 100vh;
+
+  @include mobile {
+    padding: 1rem;
+  }
+}
+
+.noData {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+
+  p {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+  }
+}
+
+.header {
+  background: var(--card-background);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+
+  @include mobile {
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+}
+
+.athleteInfo {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  flex: 1;
+
+  @include mobile {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.avatarSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar {
+  border: 3px solid var(--primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.basicInfo {
+  flex: 1;
+}
+
+.athleteName {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+
+  @include mobile {
+    font-size: 2rem;
+  }
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.positions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+
+  @include mobile {
+    justify-content: center;
+  }
+}
+
+.positionTag {
+  background: var(--primary);
+  color: white;
+  border: none;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+}
+
+.college {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.graduationYear,
+.experience {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.ratingLabel {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.ratingValue {
+  font-size: 1.2rem;
+  color: #ffd700;
+}
+
+.ctaSection {
+  display: flex;
+  align-items: center;
+
+  @include mobile {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.conversationBtn {
+  background: var(--primary);
+  border: none;
+  height: 3rem;
+  padding: 0 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  @include mobile {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+.tabsContainer {
+  background: var(--card-background);
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.tabs {
+  :global(.ant-tabs-nav) {
+    background: var(--card-background);
+    margin: 0;
+    padding: 0 2rem;
+
+    @include mobile {
+      padding: 0 1rem;
+    }
+  }
+
+  :global(.ant-tabs-tab) {
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 1rem 1.5rem;
+
+    @include mobile {
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+    }
+  }
+
+  :global(.ant-tabs-tab-active) {
+    color: var(--primary) !important;
+  }
+
+  :global(.ant-tabs-ink-bar) {
+    background: var(--primary);
+  }
+
+  :global(.ant-tabs-content-holder) {
+    padding: 2rem;
+
+    @include mobile {
+      padding: 1rem;
+    }
+  }
+}

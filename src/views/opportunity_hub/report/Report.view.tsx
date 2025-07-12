@@ -60,6 +60,7 @@ const Report = () => {
         loading={isLoading}
         pagination={false}
         rowKey={(record: any) => record._id}
+        scroll={{ x: 'max-content' }}
         columns={[
           {
             title: 'Report Generated For',
