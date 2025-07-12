@@ -142,7 +142,7 @@ const Details = () => {
   return (
     <div className={styles.container}>
       <Title level={2}>{id ? 'Edit Search Preference' : 'Create Search Preference'}</Title>
-      <Text type="secondary">Build expressive search criteria to find athletes that match your team's needs</Text>
+      <Text type="secondary">Build expressive search criteria to find athletes that match your team&apos;s needs</Text>
 
       <Form form={form} layout="vertical" onFinish={handleSubmit} className={formStyles.form} style={{ marginTop: 24 }} disabled={loading}>
         {/* Basic Information */}
