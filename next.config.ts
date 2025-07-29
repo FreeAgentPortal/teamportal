@@ -20,6 +20,15 @@ const nextConfig: NextConfig = {
         pathname: '**',
       },
     ],
+    // loader: 'custom',
+    loaderFile: './src/utils/customImageLoader.ts',
+
+    // Image optimization settings
+    minimumCacheTTL: 60,
+    formats: ['image/webp', 'image/avif'],
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 };
 
