@@ -12,6 +12,18 @@ const nextConfig: NextConfig = {
     SCOUT_APP_URL: process.env.SCOUT_APP_URL,
   },
   images: {
+    domains:[
+      //cloudinary, espn, and nfldraftdiamonds
+      'res.cloudinary.com',
+      'a.espncdn.com',
+      'nfldraftdiamonds.com',
+      'cdn.freeagentportal.com',
+      'images.freeagentportal.com',
+      'www.freeagentportal.com',
+      'freeagentportal.com',
+      'api.freeagentportal.com',
+      'www.nfldraftdiamonds.com',
+    ],
     remotePatterns: [
       {
         protocol: 'https',
@@ -20,7 +32,7 @@ const nextConfig: NextConfig = {
         pathname: '**',
       },
     ],
-    // loader: 'custom',
+    loader: 'custom',
     loaderFile: './src/utils/customImageLoader.ts',
 
     // Image optimization settings
