@@ -7,6 +7,7 @@ import { IAthlete } from '@/types/IAthleteType';
 import MetricsView from './subviews/metrics/Metrics.view';
 import MeasurementsView from './subviews/measurements/Measurements.view';
 import ScoutReportsView from './subviews/scoutReports/ScoutReports.view';
+import DiamondRating from '@/components/diamondRating/DiamondRating.component';
 
 interface AthleteDetailsProps {
   athlete?: IAthlete;
@@ -80,10 +81,7 @@ const AthleteDetails: React.FC<AthleteDetailsProps> = ({ athlete }) => {
               {athlete.diamondRating && (
                 <div className={styles.rating}>
                   <span className={styles.ratingLabel}>Diamond Rating:</span>
-                  <span className={styles.ratingValue}>
-                    {'★'.repeat(athlete.diamondRating)}
-                    {'☆'.repeat(5 - athlete.diamondRating)}
-                  </span>
+                  <DiamondRating rating={athlete.diamondRating} size="large" showValue={true} className={styles.athleteRating} />
                 </div>
               )}
             </div>
