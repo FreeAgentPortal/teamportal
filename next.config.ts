@@ -32,7 +32,7 @@ const nextConfig: NextConfig = {
         pathname: '**',
       },
     ],
-    loader: 'custom',
+    // loader: 'custom',
     loaderFile: './src/utils/customImageLoader.ts',
 
     // Image optimization settings
