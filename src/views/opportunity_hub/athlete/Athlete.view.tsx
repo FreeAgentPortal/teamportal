@@ -11,6 +11,7 @@ const Athlete = () => {
     url: '/athlete',
     method: 'GET',
     key: 'athletes',
+    filter: `isActive;true`,
   }) as any;
 
   return (
