@@ -1,32 +1,116 @@
-@use "@/styles/globals.scss" as *;
+@use '@/styles/globals.scss' as *;
 
 .container {
   display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  gap: 2rem;
 
-  @include tablet {
-    flex-direction: column;
+  @include mobile {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+}
+
+.headerSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  .title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+
+    @include mobile {
+      font-size: 1.5rem;
+    }
   }
 
-  .subContainer {
+  .description {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 0;
+    max-width: 500px;
+    line-height: 1.5;
+  }
+
+  .photoSection {
+    margin-top: 1rem;
+  }
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.formSection {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+
+  @include mobile {
+    padding: 1rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .formGroup {
     display: flex;
     flex-direction: column;
-    margin-right: 20px;
-    flex: 1;
-    .label {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 5px;
-    }
+    gap: 1rem;
+  }
+}
 
-    .value {
-      font-size: 16px;
-      color: #333;
+.switchContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+
+  .switchField {
+    margin-bottom: 0 !important;
+
+    :global(.ant-form-item-label) {
+      margin-right: 1rem;
     }
   }
 }
+
 .actionContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  margin-top: 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+
+  .button {
+    min-width: 200px;
+    height: 48px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+
+    @include mobile {
+      min-width: 160px;
+      height: 42px;
+      font-size: 0.9rem;
+    }
+  }
 }

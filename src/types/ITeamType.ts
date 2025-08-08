@@ -4,6 +4,7 @@ export interface ITeamType  {
   name: string;
   email?: string;
   phone?: string;
+  logoUrl?: string;
   slug?: string; // Optional slug for URL-friendly team name
   abbreviation?: string; // e.g., "SF" for San Francisco 49ers
   shortDisplayName?: string; // e.g., "49ers"
