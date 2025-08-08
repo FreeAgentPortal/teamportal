@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './Report.module.scss';
 import { useQueryClient } from '@tanstack/react-query';
 import SearchWrapper from '@/layout/searchWrapper/SearchWrapper.layout';
-import { FaExternalLinkAlt, FaEye, FaEyeSlash, FaPlus } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaEye, FaEyeSlash, FaPlus, FaTrash } from 'react-icons/fa';
 import useApiHook from '@/hooks/useApi';
 import { Button, Table, Tooltip } from 'antd';
 import { useRouter } from 'next/navigation';
@@ -25,6 +25,13 @@ const Report = () => {
     method: 'PUT',
     key: 'update_report',
     queriesToInvalidate: ['reports'],
+  }) as any;
+
+  const { mutate: remove } = useApiHook({
+    method: 'DELETE',
+    key: 'delete_report',
+    queriesToInvalidate: ['reports'],
+    successMessage: 'Report deleted successfully',
   }) as any;
 
   return (
@@ -66,7 +73,7 @@ const Report = () => {
             title: 'Report Generated For',
             // This should be the name of the search preference, searchPreference.name
             key: 'reportId',
-            render: (_, record) => <span style={{ maxWidth: '100px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{record.searchPreference.name}</span>,
+            render: (_, record) => <span style={{ maxWidth: '100px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{record?.searchPreference?.name}</span>,
           },
           {
             title: '# of Opportunities',
@@ -106,6 +113,20 @@ const Report = () => {
                   >
                     {/* Switches between a view and viewed icon */}
                     {!record.opened ? <FaEye /> : <FaEyeSlash />}
+                  </Button>
+                </Tooltip>
+                <Tooltip title="Delete Report">
+                  <Button
+                    danger
+                    onClick={() => {
+                      if (confirm('Are you sure you want to delete this report?')) {
+                        remove({
+                          url: `/search-preference/report/${record._id}`,
+                        });
+                      }
+                    }}
+                  >
+                    <FaTrash />
                   </Button>
                 </Tooltip>
               </div>
