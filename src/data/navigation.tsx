@@ -69,6 +69,7 @@ export const navigation = (options?: any) => {
           title: 'API Keys',
           link: '/account_details/keys',
           icon: <IoCodeSlashOutline />,
+          hidden: true,
         },
         support: {
           title: 'Support',
@@ -88,7 +89,7 @@ export const navigation = (options?: any) => {
           icon: <BsBox />,
         },
       },
-      hidden: options?.user ? false : true,
+      hidden: true,
     }, // error and 404 boundary, always hidden but something for the page layout to point to
     error_boundary: {
       title: 'Error Boundary',
