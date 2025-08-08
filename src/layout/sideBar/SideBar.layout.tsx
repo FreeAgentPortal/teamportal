@@ -62,10 +62,10 @@ const SideBar = (props: Props) => {
 
       {Object.values(
         navigation({
-          loggedInData,
+          user: loggedInData,
         })
       )
-        .filter((i: any) => i.hidden)
+        .filter((i: any) => !i.hidden)
         .map((item: any) => {
           return (
             <div key={item.title} className={`${styles.group}`}>

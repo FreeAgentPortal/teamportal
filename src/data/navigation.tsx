@@ -51,7 +51,6 @@ export const navigation = (options?: any) => {
           icon: <BsFillPeopleFill />,
         },
       },
-      hidden: true,
     },
     account_details: {
       title: 'Account Details',
@@ -90,33 +89,22 @@ export const navigation = (options?: any) => {
         },
       },
       hidden: options?.user ? false : true,
-    },
-    auth: {
-      title: 'Auth',
+    }, // error and 404 boundary, always hidden but something for the page layout to point to
+    error_boundary: {
+      title: 'Error Boundary',
       links: {
-        login: {
-          title: 'Login',
-          link: '/auth/login',
-          icon: <CgProfile />,
-          hidden: false,
+        not_found: {
+          title: 'Not Found',
+          link: '/404',
+          icon: <BsBroadcastPin />,
         },
-        register: {
-          title: 'Register',
-          link: '/auth/register',
-          icon: <CgProfile />,
-        },
-        forgot_password: {
-          title: 'Forgot Password',
-          link: '/auth/forgotpassword',
-          icon: <CgProfile />,
-        },
-        reset_password: {
-          title: 'Reset Password',
-          link: '/auth/resetpassword',
-          icon: <CgProfile />,
+        error: {
+          title: 'Error',
+          link: '/error',
+          icon: <BsBroadcastPin />,
         },
       },
-      hidden: options?.user ? true : false,
+      hidden: true,
     },
   };
 };
