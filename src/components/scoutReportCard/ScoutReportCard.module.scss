@@ -1,0 +1,250 @@
+@use "@/styles/globals.scss" as *;
+
+.reportCard {
+  background: var(--bg-gradient, #ffffff);
+  border: 1px solid var(--primary, #e0e0e0);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+
+  &.clickable {
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.15);
+      transform: translateY(-1px);
+    }
+  }
+
+  @include mobile {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+  }
+}
+
+/* Card Header */
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+
+  @include mobile {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.scoutProfile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0; // Allow text truncation
+
+  @include mobile {
+    gap: 0.5rem;
+  }
+}
+
+.scoutAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  flex-shrink: 0;
+
+  @include mobile {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+}
+
+.scoutInfo {
+  min-width: 0; // Allow text truncation
+  flex: 1;
+}
+
+.scoutName {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary, #ffffff);
+  margin: 0 0 0.25rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @include mobile {
+    font-size: 0.9rem;
+  }
+}
+
+.scoutOrg {
+  font-size: 0.8rem;
+  color: var(--text-secondary, #ffffff);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @include mobile {
+    font-size: 0.75rem;
+  }
+}
+
+/* Rating Section */
+.rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.cardRating {
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.cardRating {
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Card Body */
+.cardBody {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+
+  @include mobile {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+.reportMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  flex: 1;
+
+  @include mobile {
+    gap: 0.25rem;
+    font-size: 0.85rem;
+  }
+}
+
+.reportType {
+  background: var(--primary, #007bff);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  @include mobile {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.7rem;
+  }
+}
+
+.reportDate {
+  color: var(--secondary, #666);
+  font-size: 0.8rem;
+
+  @include mobile {
+    font-size: 0.75rem;
+  }
+}
+
+.sportInfo {
+  color: var(--secondary, #666);
+  font-size: 0.8rem;
+
+  @include mobile {
+    font-size: 0.75rem;
+  }
+}
+
+/* Status Badges */
+.statusBadges {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  flex-shrink: 0;
+
+  @include mobile {
+    align-self: flex-end;
+  }
+}
+
+.finalizedBadge,
+.draftBadge,
+.publicBadge {
+  font-size: 0.8rem;
+  padding: 0.15rem 0.3rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+
+  @include mobile {
+    font-size: 0.75rem;
+    padding: 0.1rem 0.25rem;
+  }
+}
+
+.finalizedBadge {
+  background: #d4edda;
+  color: #155724;
+}
+
+.draftBadge {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.publicBadge {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
+.statusBadge {
+  font-size: 0.7rem;
+  padding: 0.15rem 0.3rem;
+  border-radius: 4px;
+  text-transform: capitalize;
+
+  @include mobile {
+    font-size: 0.65rem;
+    padding: 0.1rem 0.25rem;
+  }
+
+  &.pending {
+    background: #fff3cd;
+    color: #856404;
+  }
+
+  &.approved {
+    background: #d4edda;
+    color: #155724;
+  }
+
+  &.denied {
+    background: #f8d7da;
+    color: #721c24;
+  }
+}

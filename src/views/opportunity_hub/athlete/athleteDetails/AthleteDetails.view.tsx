@@ -10,7 +10,8 @@ import ScoutReportsView from './subviews/scoutReports/ScoutReports.view';
 import useApiHook from '@/hooks/useApi';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-
+import DiamondRating from '@/components/diamondRating/DiamondRating.component';
+        
 interface AthleteDetailsProps {
   athlete?: IAthlete;
 }
@@ -103,10 +104,7 @@ const AthleteDetails: React.FC<AthleteDetailsProps> = ({ athlete }) => {
               {athlete.diamondRating && (
                 <div className={styles.rating}>
                   <span className={styles.ratingLabel}>Diamond Rating:</span>
-                  <span className={styles.ratingValue}>
-                    {'★'.repeat(athlete.diamondRating)}
-                    {'☆'.repeat(5 - athlete.diamondRating)}
-                  </span>
+                  <DiamondRating rating={athlete.diamondRating} size="large" showValue={true} className={styles.athleteRating} />
                 </div>
               )}
             </div>

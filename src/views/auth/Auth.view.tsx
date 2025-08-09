@@ -32,6 +32,7 @@ const Auth = () => {
                 objectFit: 'contain',
               }}
               alt="logo"
+              loader ={({ src }) => src}
             />
             {process.env.SERVICE_NAME}
           </div>

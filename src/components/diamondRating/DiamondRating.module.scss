@@ -1,0 +1,178 @@
+@use "@/styles/globals.scss" as *;
+
+.diamondRating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ratingValue {
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  text-align: center;
+  white-space: nowrap;
+
+  &.small {
+    font-size: 0.8rem;
+    padding: 0.15rem 0.35rem;
+    min-width: 35px;
+  }
+
+  &.medium {
+    font-size: 1rem;
+    padding: 0.25rem 0.5rem;
+    min-width: 45px;
+  }
+
+  &.large {
+    font-size: 1.2rem;
+    padding: 0.3rem 0.6rem;
+    min-width: 55px;
+  }
+
+  &.excellent {
+    background: #d4edda;
+    color: #155724;
+  }
+
+  &.good {
+    background: #d1ecf1;
+    color: #0c5460;
+  }
+
+  &.average {
+    background: #fff3cd;
+    color: #856404;
+  }
+
+  &.poor {
+    background: #f8d7da;
+    color: #721c24;
+  }
+
+  @include mobile {
+    &.small {
+      font-size: 0.75rem;
+      min-width: 30px;
+    }
+
+    &.medium {
+      font-size: 0.9rem;
+      min-width: 40px;
+    }
+
+    &.large {
+      font-size: 1.1rem;
+      min-width: 50px;
+    }
+  }
+}
+
+.diamondsContainer {
+  display: flex;
+  gap: 2px;
+
+  &.small {
+    gap: 1px;
+  }
+
+  &.medium {
+    gap: 2px;
+  }
+
+  &.large {
+    gap: 3px;
+  }
+
+  @include mobile {
+    &.small {
+      gap: 0;
+    }
+
+    &.medium {
+      gap: 1px;
+    }
+
+    &.large {
+      gap: 2px;
+    }
+  }
+}
+
+.diamond {
+  position: relative;
+  color: #ddd;
+  transition: all 0.2s ease;
+  line-height: 1;
+
+  &.small {
+    font-size: 0.7rem;
+  }
+
+  &.medium {
+    font-size: 0.85rem;
+  }
+
+  &.large {
+    font-size: 1.1rem;
+  }
+
+  .diamondIcon {
+    display: block;
+  }
+
+  &.filled {
+    color: #ffc107;
+    text-shadow: 0 0 3px rgba(255, 193, 7, 0.6);
+  }
+
+  &.halfFilled {
+    color: #ddd;
+
+    .diamondIcon {
+      background: linear-gradient(90deg, #ffc107 50%, #ddd 50%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      // Add a subtle glow to the filled half
+      filter: drop-shadow(0 0 1px rgba(255, 193, 7, 0.3));
+    }
+
+    // Enhanced fallback for browsers that don't support background-clip: text
+    @supports not (background-clip: text) {
+      &::before {
+        content: "♦";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%;
+        height: 100%;
+        overflow: hidden;
+        color: #ffc107;
+        text-shadow: 0 0 2px rgba(255, 193, 7, 0.5);
+        z-index: 1;
+      }
+
+      .diamondIcon {
+        position: relative;
+        z-index: 0;
+      }
+    }
+  }
+
+  @include mobile {
+    &.small {
+      font-size: 0.65rem;
+    }
+
+    &.medium {
+      font-size: 0.8rem;
+    }
+
+    &.large {
+      font-size: 1rem;
+    }
+  }
+}
