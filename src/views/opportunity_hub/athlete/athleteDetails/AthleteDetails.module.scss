@@ -36,6 +36,8 @@
   align-items: flex-start;
   gap: 2rem;
 
+  cursor: pointer;
+
   @include mobile {
     flex-direction: column;
     padding: 1.5rem;
