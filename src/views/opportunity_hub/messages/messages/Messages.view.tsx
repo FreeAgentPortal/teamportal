@@ -10,20 +10,21 @@ type Props = {
   id: string;
 };
 const MessagesView = (props: Props) => {
-  const { data, isFetching } = useApiHook({
+  const { data, isLoading: isLoadingMessages } = useApiHook({
     url: '/messaging/' + props.id + '/messages?role=team',
     method: 'GET',
     key: ['messages', props.id],
+    refetchInterval: 1000,
   }) as any;
 
-  const { mutate, isLoading } = useApiHook({
+  const { mutate, isLoading: isLoadingSendMessage } = useApiHook({
     url: '/messaging/' + props.id + '/messages?role=team',
     method: 'POST',
     key: ['sendMessage'],
     queriesToInvalidate: ['messages', props.id],
   }) as any;
 
-  if (isFetching || isLoading) {
+  if (isLoadingMessages || isLoadingSendMessage) {
     return <div className={styles.container}>Loading messages...</div>;
   }
 
