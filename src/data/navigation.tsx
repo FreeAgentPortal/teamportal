@@ -5,6 +5,9 @@ import { CgProfile } from 'react-icons/cg';
 import { BsBox, BsBroadcastPin } from 'react-icons/bs';
 import { BsFillPeopleFill } from 'react-icons/bs';
 import { IoCodeSlashOutline } from 'react-icons/io5';
+import { MdMessage } from 'react-icons/md';
+import { profile } from 'console';
+
 export const navigation = (options?: any) => {
   return {
     home: {
@@ -42,6 +45,11 @@ export const navigation = (options?: any) => {
           title: 'Reports',
           link: '/opportunities_hub/reports',
           icon: <BsBox />,
+        },
+        messages: {
+          title: 'Messages',
+          link: '/opportunities_hub/messages',
+          icon: <MdMessage />,
         },
         athletes: {
           title: 'Athletes',

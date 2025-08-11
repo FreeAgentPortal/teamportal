@@ -78,6 +78,7 @@ const useApiHook = (options: {
   refetchOnWindowFocus?: boolean;
   staleTime?: number;
   cacheTime?: number;
+  refetchInterval?: number;
   onSuccessCallback?: (data: any) => void;
   onErrorCallback?: (error: any) => void;
 }) => {
@@ -101,6 +102,7 @@ const useApiHook = (options: {
     refetchOnWindowFocus = false,
     staleTime = 1000 * 60 * 5, // 5 minutes
     cacheTime = 1000 * 60 * 10, // 10 minutes
+    refetchInterval,
     onSuccessCallback,
     onErrorCallback,
   } = options;
@@ -122,6 +124,7 @@ const useApiHook = (options: {
     retry: 1,
     staleTime: staleTime,
     gcTime: cacheTime,
+    refetchInterval: refetchInterval,
     meta: {
       errorMessage: `An error occurred while fetching data for ${Array.isArray(key) ? key.join(', ') : key}`,
     },
