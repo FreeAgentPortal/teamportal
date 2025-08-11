@@ -40,7 +40,7 @@ const BasicInfo = () => {
       <div className={styles.container}>
         <div className={styles.headerSection}>
           <h1 className={styles.title}>Team Basic Info</h1>
-          <p className={styles.description}>Update your team's basic information here.</p>
+          <p className={styles.description}>Update your team&apos;s basic information here.</p>
           <div className={styles.photoSection}>
             <PhotoUpload form={form} default={teamLogo} />
           </div>
