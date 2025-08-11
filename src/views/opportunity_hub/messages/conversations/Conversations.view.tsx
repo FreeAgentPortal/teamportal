@@ -12,7 +12,7 @@ const ConversationsView = () => {
     key: 'conversations',
   }) as any;
 
-  if (isFetching) {
+  if (isFetching || !data) {
     return <div>Loading Messages...</div>;
   }
 

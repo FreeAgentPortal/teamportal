@@ -11,7 +11,7 @@ import useApiHook from '@/hooks/useApi';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import DiamondRating from '@/components/diamondRating/DiamondRating.component';
-        
+
 interface AthleteDetailsProps {
   athlete?: IAthlete;
 }
@@ -36,7 +36,7 @@ const AthleteDetails: React.FC<AthleteDetailsProps> = ({ athlete }) => {
   }) as any;
   const handleStartConversation = () => {
     if (athlete?.userId) {
-      createConversation({ formData: { athleteId: athlete._id, message: 'Testing' } });
+      createConversation({ formData: { athleteId: athlete._id, message: "Hello, let's connect." } });
     } else {
       alert('Athlete is not registered with Free Agent Portal');
     }
