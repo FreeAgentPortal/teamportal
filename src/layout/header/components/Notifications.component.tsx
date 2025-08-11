@@ -7,13 +7,39 @@ import getNotificationLink from '@/utils/getNotificationLink';
 import NotificationItem from '@/components/notificationItem/NotificationItem.component';
 import NotificationType from '@/types/NotificationType';
 import useApiHook from '@/hooks/useApi';
+import { useUser } from '@/state/auth';
 
 const Notifications = () => {
   const [isOpen, setIsOpen] = useState<any>();
+  const { data: loggedInUser } = useUser();
+
+  // Create include query for user and all profile references
+  // const createIncludeQuery = () => {
+  //   if (!loggedInUser) return '';
+
+  //   // Start with the user's direct ID
+  //   const includeItems = [`userTo;${loggedInUser._id}`];
+
+  //   // Add all profileRefs if they exist
+  //   if (loggedInUser.profileRefs && typeof loggedInUser.profileRefs === 'object') {
+  //     let counter = 0;
+  //     Object.values(loggedInUser.profileRefs).forEach((profileId) => {
+  //       if (profileId && profileId !== null) {
+  //         includeItems.push(`userTo${counter};${profileId}`);
+  //         counter++;
+  //       }
+  //     });
+  //   }
+
+  //   return includeItems.join('|');
+  // };
+
   const { data } = useApiHook({
     url: `/notification`,
-    key: 'notifications',
+    key: ['notifications', 'header'],
     method: 'GET',
+    filter: `userTo;${loggedInUser?._id}`,
+    limit: 5,
   }) as any;
 
   return (

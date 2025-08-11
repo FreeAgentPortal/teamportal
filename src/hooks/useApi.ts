@@ -69,6 +69,7 @@ const useApiHook = (options: {
   filter?: any;
   keyword?: string;
   sort?: any;
+  limit?: number;
   include?: any;
   queriesToInvalidate?: string[];
   successMessage?: string;
@@ -91,6 +92,7 @@ const useApiHook = (options: {
     filter,
     sort,
     include,
+    limit,
     queriesToInvalidate,
     successMessage,
     redirectUrl,
@@ -113,6 +115,7 @@ const useApiHook = (options: {
         defaultFilter: filter,
         defaultSort: sort,
         defaultInclude: include,
+        defaultPageLimit: limit,
       }),
     enabled: enabled && method === 'GET',
     refetchOnWindowFocus,
@@ -120,7 +123,7 @@ const useApiHook = (options: {
     staleTime: staleTime,
     gcTime: cacheTime,
     meta: {
-      errorMessage: 'An error occurred while fetching data',
+      errorMessage: `An error occurred while fetching data for ${Array.isArray(key) ? key.join(', ') : key}`,
     },
   });
 
@@ -144,6 +147,7 @@ const useApiHook = (options: {
       }
     },
     onError: (error: any) => {
+      console.error(`Error in useApiHook for ${Array.isArray(key) ? key.join(', ') : key}:`, error);
       const messageTxt = error.response && error.response.data.message ? error.response.data.message : error.message;
 
       addAlert({ message: messageTxt, type: 'error', duration: 10000 });

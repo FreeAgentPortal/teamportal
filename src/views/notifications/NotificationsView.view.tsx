@@ -11,13 +11,38 @@ import getNotificationLink from '@/utils/getNotificationLink';
 import NotificationItem from '@/components/notificationItem/NotificationItem.component';
 import NotificationType from '@/types/NotificationType';
 import useApiHook from '@/hooks/useApi';
+import { useQueryClient } from '@tanstack/react-query';
+import { useUser } from '@/state/auth';
 
 const NotificationsView = () => {
-  // const { data } = useApiHook({
-  //   url: `/notification`,
-  //   key: 'notifications',
-  //   method: 'GET',
-  // });
+  const { data: loggedInUser } = useUser();
+
+  // Create include query for user and all profile references
+  const createIncludeQuery = () => {
+    if (!loggedInUser) return '';
+
+    // Start with the user's direct ID
+    const includeItems = [`userTo;${loggedInUser._id}`];
+
+    // Add all profileRefs if they exist
+    if (loggedInUser.profileRefs && typeof loggedInUser.profileRefs === 'object') {
+      Object.values(loggedInUser.profileRefs).forEach((profileId) => {
+        if (profileId && profileId !== null) {
+          includeItems.push(`userTo;${profileId}`);
+        }
+      });
+    }
+
+    return includeItems.join('|');
+  };
+
+  const { data } = useApiHook({
+    url: `/notification`,
+    key: ['notifications', 'view'],
+    method: 'GET',
+    filter: `userTo;${loggedInUser?._id}`,
+    limit: 20,
+  }) as any;
 
   const { mutate: updateNotification } = useApiHook({
     queriesToInvalidate: ['notifications'],
@@ -44,13 +69,13 @@ const NotificationsView = () => {
       }
     >
       <div className={styles.notifications}>
-        {/* {data?.notifications?.length > 0 ? (
-          data?.notifications.map((notification: NotificationType) => {
+        {data?.payload?.length > 0 ? (
+          data?.payload.map((notification: NotificationType) => {
             return <NotificationItem notification={notification} key={notification.entityId} />;
           })
         ) : (
           <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="You have no notifications" />
-        )} */}
+        )}
       </div>
     </Container>
   );
