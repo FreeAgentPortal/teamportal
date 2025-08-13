@@ -36,7 +36,7 @@ const SideBar = (props: Props) => {
           </div>
         )} */}
         <Image
-          src={selectedProfile?.payload?.logos[0].href ?? '/images/logo.png'}
+          src={selectedProfile?.payload?.logos[0]?.href || selectedProfile?.payload?.logoUrl || '/images/logo.png'}
           width={30}
           height={50}
           className={styles.logo + ' ' + styles.saltLogo}
@@ -47,7 +47,7 @@ const SideBar = (props: Props) => {
         />
 
         <Image
-          src={selectedProfile?.payload?.logos[0].href ?? '/images/logo.png'}
+          src={selectedProfile?.payload?.logos[0]?.href || selectedProfile?.payload?.logoUrl || '/images/logo.png'}
           width={75}
           height={50}
           className={styles.logo + ' ' + styles.largeLogo}
