@@ -119,7 +119,7 @@ const Details = () => {
           },
           {
             onSuccess: (response: any) => {
-              router.push(`/opportunities_hub/search_preferences/${response.payload._id}`);
+              router.push(`/opportunities_hub/search_preferences`);
             },
           }
         );

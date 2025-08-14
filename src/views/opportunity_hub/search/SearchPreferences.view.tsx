@@ -2,11 +2,11 @@
 import useApiHook from '@/hooks/useApi';
 import SearchWrapper from '@/layout/searchWrapper/SearchWrapper.layout';
 import { useQueryClient } from '@tanstack/react-query';
-import { Button, Table } from 'antd';
+import { Button, Table, Tooltip } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import { FaExternalLinkAlt, FaPlus, FaTrash } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaPlay, FaPlus, FaRunning, FaTrash } from 'react-icons/fa';
 
 const SearchPreferences = () => {
   const router = useRouter();
@@ -26,6 +26,16 @@ const SearchPreferences = () => {
     key: 'search_remove',
     queriesToInvalidate: ['search_preferences'],
   }) as any;
+
+  const { mutate: triggerRun } = useApiHook({
+    method: 'POST',
+    key: 'search_run',
+    queriesToInvalidate: ['search_preferences'],
+    onSuccessCallback(payload) {
+      router.push(`/opportunities_hub/reports/${payload.data._id}`);
+    },
+  }) as any;
+
   return (
     <SearchWrapper
       placeholder="Filter search preferences"
@@ -106,6 +116,15 @@ const SearchPreferences = () => {
                 >
                   <FaTrash style={{ color: 'red' }} />
                 </Button>
+                <Tooltip title="Trigger Search">
+                  <Button
+                    onClick={() => {
+                      triggerRun({ url: `/search-preference/scheduler/trigger/${record._id}` });
+                    }}
+                  >
+                    <FaPlay style={{ color: 'green' }} />
+                  </Button>
+                </Tooltip>
               </div>
             ),
           },
