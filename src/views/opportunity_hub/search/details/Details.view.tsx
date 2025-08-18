@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import useApiHook from '@/hooks/useApi';
 import { useParams, useRouter } from 'next/navigation';
 import { Form, Input, Select, InputNumber, Button, Card, Space, Tag, Typography, Slider, Row, Col, message, Collapse, Tooltip, Divider } from 'antd';
-import { PlusOutlined, DeleteOutlined, InfoCircleOutlined, SearchOutlined, SaveOutlined, FilterOutlined } from '@ant-design/icons';
+import { PlusOutlined, DeleteOutlined, InfoCircleOutlined, SearchOutlined, SaveOutlined, FilterOutlined, PlayCircleFilled } from '@ant-design/icons';
 import styles from './Details.module.scss';
 import formStyles from '@/styles/Form.module.scss';
 import '@/styles/antd-overrides.scss';
@@ -43,6 +43,15 @@ const Details = () => {
     method: 'POST',
     key: 'create_search_preference',
     successMessage: 'Search preference created successfully',
+  }) as any;
+
+  const { mutate: triggerRun } = useApiHook({
+    method: 'POST',
+    key: 'search_run',
+    queriesToInvalidate: ['search_preferences'],
+    onSuccessCallback(payload) {
+      router.push(`/opportunities_hub/reports/${payload.data._id}`);
+    },
   }) as any;
 
   useEffect(() => {
@@ -325,6 +334,11 @@ const Details = () => {
             >
               {id ? 'Update Search Preference' : 'Create Search Preference'}
             </Button>
+            {id && (
+              <Button type="text" color="default" onClick={() => triggerRun({ url: `/search-preference/scheduler/trigger/${id}` })} size="large" icon={<PlayCircleFilled />}>
+                Trigger Search Run
+              </Button>
+            )}
             <Button type="default" onClick={() => router.back()} size="large">
               Cancel
             </Button>
