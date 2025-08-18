@@ -6,13 +6,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const ConversationsView = () => {
-  const { data, isFetching } = useApiHook({
+  const { data, isLoading } = useApiHook({
     url: '/messaging?role=team',
     method: 'GET',
     key: 'conversations',
+    refetchInterval: 2000,
   }) as any;
 
-  if (isFetching || !data) {
+  if (isLoading || !data) {
     return <div>Loading Messages...</div>;
   }
 
@@ -43,7 +44,7 @@ const ConversationsView = () => {
         ) : (
           <div className={styles.noMessages}>No messages found</div>
         )}
-        {data?.payload?.length === 0 && !isFetching && <div className={styles.noMessages}>No conversations available</div>}
+        {data?.payload?.length === 0 && !isLoading && <div className={styles.noMessages}>No conversations available</div>}
       </div>
     </div>
   );
