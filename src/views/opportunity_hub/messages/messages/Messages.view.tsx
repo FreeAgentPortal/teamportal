@@ -5,6 +5,7 @@ import { IoSend } from 'react-icons/io5';
 import Link from 'next/link';
 import { CgChevronLeft } from 'react-icons/cg';
 import { Button } from 'antd';
+import { formatDate } from '@/utils/formatDate';
 
 type Props = {
   id: string;
@@ -30,10 +31,6 @@ const MessagesView = (props: Props) => {
 
   const { participants, messages } = data.payload;
   const athlete = participants.athlete;
-
-  const formatTime = (dateString: string) => {
-    return new Date(dateString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  };
 
   const handleSendMessage = () => {
     const messageContent = (document.getElementById('messageInput') as HTMLInputElement).value;
@@ -71,7 +68,7 @@ const MessagesView = (props: Props) => {
             <div key={message._id} className={`${styles.messageWrapper} ${isOutgoing ? styles.outgoing : styles.incoming}`}>
               <div className={styles.messageBubble}>
                 <p className={styles.messageContent}>{message.content}</p>
-                <p className={styles.timestamp}>{formatTime(message.createdAt)}</p>
+                <p className={styles.timestamp}>{formatDate(message.createdAt)}</p>
               </div>
             </div>
           );

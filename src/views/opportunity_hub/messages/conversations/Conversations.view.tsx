@@ -4,6 +4,7 @@ import styles from './Conversations.module.scss';
 import useApiHook from '@/hooks/useApi';
 import Image from 'next/image';
 import Link from 'next/link';
+import { formatDate } from '@/utils/formatDate';
 
 const ConversationsView = () => {
   const { data, isLoading } = useApiHook({
@@ -13,7 +14,7 @@ const ConversationsView = () => {
     refetchInterval: 2000,
   }) as any;
 
-  if (isLoading || !data) {
+  if (isLoading || !data.payload) {
     return <div>Loading Messages...</div>;
   }
 
@@ -37,7 +38,7 @@ const ConversationsView = () => {
                     height={50}
                   />
                   <span className={styles.senderName}>{conversation.participants.athlete?.fullName || 'Unknown Athlete'}</span>
-                  <span className={styles.lastMessageTime}>{new Date(conversation.updatedAt).toLocaleTimeString()}</span>
+                  <span className={styles.lastMessageTime}>{formatDate(conversation.updatedAt)}</span>
                 </div>
               </Link>
             ))
