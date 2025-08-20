@@ -14,3 +14,21 @@
     }
   }
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  h2 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+  }
+}
+
+.noFavoritesMessage {
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  text-align: center;
+}

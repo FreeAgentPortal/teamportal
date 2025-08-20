@@ -11,6 +11,7 @@ import useApiHook from '@/hooks/useApi';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import DiamondRating from '@/components/diamondRating/DiamondRating.component';
+import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 
 interface AthleteDetailsProps {
   athlete?: IAthlete;
@@ -28,15 +29,36 @@ const AthleteDetails: React.FC<AthleteDetailsProps> = ({ athlete }) => {
     },
   }) as any;
 
+  const { data: favoritedAthletes } = useApiHook({
+    url: `/team/favorite-athlete`,
+    method: 'GET',
+    key: 'favoritedAthletes',
+  }) as any;
+
+  const { mutate: toggleFavoritedAthletes } = useApiHook({
+    method: 'POST',
+    key: 'toggleFavoritedAthletes',
+    queriesToInvalidate: ['athlete'],
+  }) as any;
+
   const { data: conversations } = useApiHook({
     url: `/messaging?role=team`,
     method: 'GET',
     key: 'conversations',
     queriesToInvalidate: ['conversations'],
   }) as any;
+
   const handleStartConversation = () => {
     if (athlete?.userId) {
       createConversation({ formData: { athleteId: athlete._id, message: "Hello, let's connect." } });
+    } else {
+      alert('Athlete is not registered with Free Agent Portal');
+    }
+  };
+
+  const handleToggleFavoriteAthlete = () => {
+    if (athlete?._id) {
+      toggleFavoritedAthletes({ url: `/team/favorite-athlete/${athlete._id}` });
     } else {
       alert('Athlete is not registered with Free Agent Portal');
     }
@@ -71,6 +93,8 @@ const AthleteDetails: React.FC<AthleteDetailsProps> = ({ athlete }) => {
   }
 
   const hasConversation = conversations?.payload?.some((conv: any) => conv.participants.athlete?._id === athlete._id);
+
+  const hasFavorited = favoritedAthletes?.payload?.some((fav: IAthlete) => fav?._id === athlete._id);
 
   return (
     <div className={styles.container}>
@@ -125,6 +149,17 @@ const AthleteDetails: React.FC<AthleteDetailsProps> = ({ athlete }) => {
             ) : (
               <Button type="primary" size="large" icon={<MessageOutlined />} onClick={handleStartConversation} className={styles.conversationBtn} disabled={!athlete.userId}>
                 Start Conversation
+              </Button>
+            )}
+          </Tooltip>
+          <Tooltip title={athlete.userId ? (hasFavorited ? 'Remove from favorites list' : 'Add to favorites list') : 'Athlete Is not registered with Free Agent Portal'}>
+            {hasFavorited ? (
+              <Button type="primary" size="large" icon={<MdFavorite />} className={styles.conversationBtn} onClick={handleToggleFavoriteAthlete} disabled={!athlete.userId}>
+                Remove from favorites
+              </Button>
+            ) : (
+              <Button type="primary" size="large" icon={<MdFavoriteBorder />} onClick={handleToggleFavoriteAthlete} className={styles.conversationBtn} disabled={!athlete.userId}>
+                Add to favorites
               </Button>
             )}
           </Tooltip>

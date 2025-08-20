@@ -146,6 +146,7 @@
 .ctaSection {
   display: flex;
   align-items: center;
+  gap: 1rem;
 
   @include mobile {
     width: 100%;
