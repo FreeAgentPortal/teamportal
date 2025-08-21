@@ -3,11 +3,8 @@ import React, { useState } from 'react';
 import styles from './Athlete.module.scss';
 import useApiHook from '@/hooks/useApi';
 import SearchWrapper from '@/layout/searchWrapper/SearchWrapper.layout';
-import { IAthlete } from '@/types/IAthleteType';
-import AthleteCard from '../report/components/athleteCard/AthleteCard.component';
-import { MdFavorite, MdFavoriteBorder, MdGrid4X4, MdGridOn, MdList, MdListAlt } from 'react-icons/md';
+import { MdFavorite, MdFavoriteBorder, MdGridOn, MdList } from 'react-icons/md';
 import { Button } from 'antd';
-import { BsPerson } from 'react-icons/bs';
 import { useLocalStorage } from '@uidotdev/usehooks';
 import AthleteList from '../report/components/athleteList/AthleteList.component';
 
@@ -16,7 +13,7 @@ const Athlete = () => {
     url: '/athlete',
     method: 'GET',
     key: 'athletes',
-    filter: 'isActive;true',
+    filter: `isActive;true|profileImageUrl;{"$exists": true}`,
   }) as any;
 
   const { data: favoritedAthletes } = useApiHook({

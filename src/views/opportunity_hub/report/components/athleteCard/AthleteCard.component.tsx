@@ -3,6 +3,8 @@ import styles from './AthleteCard.module.scss';
 import { IAthlete } from '@/types/IAthleteType';
 import Image from 'next/image';
 import Link from 'next/link';
+import DiamondRating from '@/components/diamondRating/DiamondRating.component';
+
 import { Button, TableProps, Tag } from 'antd';
 
 export const athleteColumns: TableProps<IAthlete>['columns'] = [
@@ -38,7 +40,7 @@ export const athleteColumns: TableProps<IAthlete>['columns'] = [
     render: (_: any, record: IAthlete) => (
       <div className={styles.positions}>
         {record?.positions?.map((position) => (
-          <span key={position?._id} className={styles.positionBadge}>
+          <span key={position?.name} className={styles.positionBadge}>
             {position?.abbreviation}
           </span>
         ))}
@@ -85,6 +87,9 @@ const AthleteCard = ({ athlete }: CardProps) => {
       {/* Info Section */}
       <div className={styles.info}>
         <h2 className={styles.name}>{athlete.fullName}</h2>
+        <div className={styles.ratingBadge}>
+          <DiamondRating rating={athlete.diamondRating || 0} maxRating={5} size="small" showValue={true} />
+        </div>
 
         <div className={styles.meta}>
           <span className={styles.age}>Age: {calculateAge(athlete?.birthdate as any)}</span>
@@ -94,7 +99,7 @@ const AthleteCard = ({ athlete }: CardProps) => {
         {/* Positions */}
         <div className={styles.positions}>
           {athlete?.positions?.map((position) => (
-            <span key={position?._id} className={styles.positionBadge}>
+            <span key={position?.name} className={styles.positionBadge}>
               {position?.abbreviation}
             </span>
           ))}

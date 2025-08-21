@@ -127,7 +127,7 @@ const MeasurementsView: React.FC<MeasurementsViewProps> = ({ athlete }) => {
                     </div>
                   </Descriptions.Item>
                 )}
-
+{/*}
                 {athlete?.contactNumber && (
                   <Descriptions.Item label="Phone">
                     <a href={`tel:${athlete.contactNumber}`} className={styles.contactLink}>
@@ -143,6 +143,7 @@ const MeasurementsView: React.FC<MeasurementsViewProps> = ({ athlete }) => {
                     </a>
                   </Descriptions.Item>
                 )}
+{*/}
               </Descriptions>
             </Card>
           </Col>

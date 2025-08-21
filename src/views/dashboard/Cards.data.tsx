@@ -2,6 +2,7 @@ import { QueryClient } from '@tanstack/react-query';
 import NewsCard from './components/cards/newsCard/NewsCard.component';
 import PaymentCard from './components/cards/paymentCard/PaymentCard.component';
 import { DashboardRulesEngine } from './DashboardRulesEngine';
+import RecentAthleteSignups from './components/cards/recentAthletes/RecentAthleteSignups.component';
 export interface CardComponentProps {
   data: any; // or AthleteProfile | TeamProfile | etc when you type it
 }
@@ -19,10 +20,19 @@ export default [
   {
     title: 'Related News',
     component: ({ data }: CardComponentProps) => <NewsCard />,
-    gridKey: 'news',
+    gridKey: 'news-content',
     order: 2,
     size: 2,
     isCard: true,
-    hideIf: DashboardRulesEngine.noNews,
+    // hideIf: DashboardRulesEngine.noNews,
+  },
+  {
+    title: 'Recent Athlete Signups',
+    component: ({ data }: CardComponentProps) => <RecentAthleteSignups />,
+    gridKey: 'recent-athlete-signups',
+    order: 3,
+    size: 1,
+    isCard: true,
+    // hideIf: DashboardRulesEngine.noRecentAthletes,
   },
 ] as Card[];

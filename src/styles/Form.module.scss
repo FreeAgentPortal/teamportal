@@ -19,6 +19,14 @@
     flex-direction: column;
   }
 }
+// container to hold form items fields in a column
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
 .field {
   display: flex;
   flex-direction: column;

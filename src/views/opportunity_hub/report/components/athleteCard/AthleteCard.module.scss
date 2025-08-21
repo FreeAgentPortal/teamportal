@@ -11,6 +11,25 @@
   transition: all 0.25s ease;
   gap: 20px;
 
+  .ratingBadge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    padding: 0.25rem 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(226, 232, 240, 0.5);
+
+    @media (max-width: 768px) {
+      top: 0.5rem;
+      right: 0.5rem;
+      padding: 0.2rem 0.4rem;
+    }
+  }
+
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
