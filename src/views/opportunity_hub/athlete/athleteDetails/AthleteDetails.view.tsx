@@ -112,7 +112,7 @@ const AthleteDetails: React.FC<AthleteDetailsProps> = ({ athlete }) => {
               {athlete.positions && athlete.positions.length > 0 && (
                 <div className={styles.positions}>
                   {athlete.positions.map((position) => (
-                    <Tag key={position._id} className={styles.positionTag}>
+                    <Tag key={position.name} className={styles.positionTag}>
                       {position.name}
                     </Tag>
                   ))}

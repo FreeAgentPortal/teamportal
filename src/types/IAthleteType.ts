@@ -29,7 +29,6 @@ export interface IAthlete {
   college?: string;
   positions?: [
     {
-      _id: string;
       name: string;
       abbreviation: string;
     }
@@ -43,6 +42,7 @@ export interface IAthlete {
   experienceYears?: number; // Years of playing experience
   testimony?: string;
   profileImageUrl?: string;
+  isActive?: boolean; // Whether the athlete is currently active
   highlightVideos?: string[]; // Max 5
   diamondRating?: number; // 1–5, assigned by scouts later
   createdAt: Date;

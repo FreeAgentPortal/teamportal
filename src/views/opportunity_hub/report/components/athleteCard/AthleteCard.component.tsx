@@ -35,7 +35,7 @@ const AthleteCard = ({ athlete }: CardProps) => {
           <div className={styles.athleteAge}>Age: {calculateAge(athlete?.birthdate as any)}</div>
           <div className={styles.athletePositions}>
             {athlete?.positions?.map((position) => (
-              <span key={position?._id} className={styles.positionBadge}>
+              <span key={position?.name} className={styles.positionBadge}>
                 {position?.abbreviation}
               </span>
             ))}
