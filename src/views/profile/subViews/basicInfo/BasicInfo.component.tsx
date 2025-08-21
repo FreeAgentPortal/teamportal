@@ -31,7 +31,7 @@ const BasicInfo = () => {
 
   const handleSubmit = async (values: ITeamType) => {
     await updateProfile({
-      url: `/team/${profile?.payload?._id}`,
+      url: `/profiles/team/${profile?.payload?._id}`,
       formData: values,
     });
   };
@@ -41,27 +41,49 @@ const BasicInfo = () => {
         <div className={styles.headerSection}>
           <h1 className={styles.title}>Team Basic Info</h1>
           <p className={styles.description}>Update your team&apos;s basic information here.</p>
-          <div className={styles.photoSection}>
-            <PhotoUpload form={form} default={teamLogo} />
-          </div>
         </div>
 
         <Form form={form} layout="vertical" className={styles.formContainer} onFinish={handleSubmit}>
           <div className={styles.formSection}>
             <h3 className={styles.sectionTitle}>Essential Information</h3>
             <div className={styles.formGroup}>
-              <Form.Item label="Team Name" name="name" rules={[{ required: true, message: 'Please enter the team name' }]} className={formStyles.field}>
-                <Input type="text" size="large" />
-              </Form.Item>
-              <Form.Item
-                label="Coach Name"
-                name="coachName"
-                tooltip="For administrative purposes only - not displayed publicly"
-                help="This information is used for internal communication and is not shown to athletes or other teams"
-                className={formStyles.field}
-              >
-                <Input type="text" size="large" placeholder="Enter coach's name" />
-              </Form.Item>
+              <div className={formStyles.row}>
+                <div className={`${styles.imageContainer} ${formStyles.field}`}>
+                  <PhotoUpload
+                    default={teamLogo}
+                    name="logoUrl"
+                    label="Upload Team Logo"
+                    action={`${process.env.API_URL}/upload/cloudinary/file`}
+                    isAvatar={false}
+                    form={form}
+                    aspectRatio={1}
+                    placeholder="Upload team logo"
+                    tooltip="Upload a team logo image file"
+                    imgStyle={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      width: '200px',
+                      height: '200px',
+                      objectFit: 'contain',
+                    }}
+                  />
+                </div>
+                <div className={`${formStyles.row} ${formStyles.column}`}>
+                  <Form.Item label="Team Name" name="name" rules={[{ required: true, message: 'Please enter the team name' }]} className={formStyles.field}>
+                    <Input type="text" size="large" />
+                  </Form.Item>
+                  <Form.Item
+                    label="Coach Name"
+                    name="coachName"
+                    tooltip="For administrative purposes only - not displayed publicly"
+                    help="This information is used for internal communication and is not shown to athletes or other teams"
+                    className={formStyles.field}
+                  >
+                    <Input type="text" size="large" placeholder="Enter coach's name" />
+                  </Form.Item>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -126,10 +148,15 @@ const BasicInfo = () => {
               </div>
               <div className={formStyles.row}>
                 <Form.Item label="Team Color" name="color" rules={[{ required: true, message: 'Please select a team color' }]} className={formStyles.field}>
-                  <ColorPicker size="large" showText />
+                  <ColorPicker size="large" showText value={form.getFieldValue('color')} onChange={(color) => form.setFieldsValue({ color: color.toHexString() })} />
                 </Form.Item>
                 <Form.Item label="Alternate Color" name="alternateColor" className={formStyles.field}>
-                  <ColorPicker size="large" showText />
+                  <ColorPicker
+                    size="large"
+                    showText
+                    value={form.getFieldValue('alternateColor')}
+                    onChange={(color) => form.setFieldsValue({ alternateColor: color.toHexString() })}
+                  />
                 </Form.Item>
               </div>
             </div>
