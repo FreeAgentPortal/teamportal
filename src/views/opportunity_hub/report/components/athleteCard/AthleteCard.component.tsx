@@ -3,6 +3,7 @@ import styles from './AthleteCard.module.scss';
 import { IAthlete } from '@/types/IAthleteType';
 import Image from 'next/image';
 import Link from 'next/link';
+import DiamondRating from '@/components/diamondRating/DiamondRating.component';
 
 interface CardProps {
   athlete: IAthlete;
@@ -11,6 +12,11 @@ interface CardProps {
 const AthleteCard = ({ athlete }: CardProps) => {
   return (
     <div className={styles.athleteCard}>
+      {/* Diamond Rating - Top Right Corner */}
+      <div className={styles.ratingBadge}>
+        <DiamondRating rating={athlete.diamondRating || 0} maxRating={5} size="small" showValue={true} />
+      </div>
+
       <div className={styles.athleteImage}>
         <Image
           src={athlete.profileImageUrl || '/images/no-photo.png'}
@@ -24,6 +30,7 @@ const AthleteCard = ({ athlete }: CardProps) => {
       </div>
       <div className={styles.athleteInfo}>
         <h3 className={styles.athleteName}>{athlete.fullName}</h3>
+
         <div className={styles.athleteDetails}>
           <div className={styles.athleteAge}>Age: {calculateAge(athlete?.birthdate as any)}</div>
           <div className={styles.athletePositions}>

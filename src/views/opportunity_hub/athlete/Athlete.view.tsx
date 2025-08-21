@@ -60,14 +60,31 @@ const Athlete = () => {
                 label: 'All',
               },
               {
-                key: 'userId;{"$exists": true}',
-                label: 'FAP Athlete',
+                key: 'diamondRating;{"$exists": true}',
+                label: 'Diamond Athlete',
               },
             ]}
             sort={[
               {
                 key: '',
                 label: 'Default',
+              },
+              {
+                key: 'fullName',
+                label: 'Name (A-Z)',
+              },
+              {
+                key: '-fullName',
+                label: 'Name (Z-A)',
+              },
+              {
+                // sort by diamondRating
+                key: 'diamondRating',
+                label: '◆ Rating (Ascending)',
+              },
+              {
+                key: '-diamondRating',
+                label: '◆ Rating (Descending)',
               },
             ]}
             total={data?.metadata?.totalCount}
