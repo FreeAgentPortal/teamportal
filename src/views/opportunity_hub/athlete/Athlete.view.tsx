@@ -5,16 +5,18 @@ import useApiHook from '@/hooks/useApi';
 import SearchWrapper from '@/layout/searchWrapper/SearchWrapper.layout';
 import { IAthlete } from '@/types/IAthleteType';
 import AthleteCard from '../report/components/athleteCard/AthleteCard.component';
-import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
+import { MdFavorite, MdFavoriteBorder, MdGrid4X4, MdGridOn, MdList, MdListAlt } from 'react-icons/md';
 import { Button } from 'antd';
 import { BsPerson } from 'react-icons/bs';
+import { useLocalStorage } from '@uidotdev/usehooks';
+import AthleteList from '../report/components/athleteList/AthleteList.component';
 
 const Athlete = () => {
   const { data, isFetching } = useApiHook({
     url: '/athlete',
     method: 'GET',
     key: 'athletes',
-    filter: `isActive;true`,
+    filter: 'isActive;true',
   }) as any;
 
   const { data: favoritedAthletes } = useApiHook({
@@ -24,64 +26,64 @@ const Athlete = () => {
   }) as any;
 
   const [showingFavorites, setShowingFavorites] = useState(false);
+  const [isList, setIsList] = useLocalStorage('athlete-view-is-list', false);
 
   return (
     <div>
-      {showingFavorites ? (
-        <>
-          <div className={styles.header}>
-            <h2>Favorite Athletes</h2>
-            <Button type="primary" icon={<BsPerson />} onClick={() => setShowingFavorites(false)} className={styles.toggleFavoritesBtn}>
-              Show All Athletes
-            </Button>
-          </div>
-          <div className={styles.favoritesList}>
-            {favoritedAthletes?.payload?.map((athlete: IAthlete) => (
-              <AthleteCard key={athlete._id} athlete={athlete} />
-            ))}
-            {favoritedAthletes?.payload?.length === 0 && <div className={styles.noFavoritesMessage}>No favorite athletes found.</div>}
-          </div>
-        </>
-      ) : (
-        <>
-          <div className={styles.header}>
-            <h2>All Athletes</h2>
-            <Button type="primary" icon={<MdFavorite />} onClick={() => setShowingFavorites(true)} className={styles.toggleFavoritesBtn}>
-              Show Favorite Athletes
-            </Button>
-          </div>
-
-          <SearchWrapper
-            placeholder="Filter athletes"
-            queryKey="athletes"
-            filters={[
-              {
-                key: '',
-                label: 'All',
-              },
-              {
-                key: 'userId;{"$exists": true}',
-                label: 'FAP Athlete',
-              },
-            ]}
-            sort={[
-              {
-                key: '',
-                label: 'Default',
-              },
-            ]}
-            total={data?.metadata?.totalCount}
-            isFetching={isFetching}
+      <div className={styles.header}>
+        <h1 className={styles.title}>{showingFavorites ? 'Favorite Athletes' : 'All Athletes'}</h1>
+        <div className={styles.actions}>
+          <Button
+            type="primary"
+            icon={showingFavorites ? <MdFavorite /> : <MdFavoriteBorder />}
+            onClick={() => setShowingFavorites(!showingFavorites)}
+            className={styles.toggleFavoritesBtn}
           >
-            <div className={styles.container}>
-              <div className={styles.athletesList}>
-                {data?.payload?.map((athlete: IAthlete) => (
-                  <AthleteCard key={athlete._id} athlete={athlete} />
-                ))}
-              </div>
+            {showingFavorites ? 'Hide Favorites' : 'Show Favorites'}
+          </Button>
+          <Button type="primary" icon={isList ? <MdGridOn /> : <MdList />} onClick={() => setIsList(!isList)}>
+            {isList ? 'Show as Grid' : 'Show as List'}
+          </Button>
+        </div>
+      </div>
+      {showingFavorites ? (
+        <div className={styles.favoritesList}>
+          <AthleteList data={favoritedAthletes?.payload || []} isTable={isList} />
+        </div>
+      ) : (
+        <SearchWrapper
+          placeholder="Filter athletes"
+          queryKey="athletes"
+          filters={[
+            { label: 'All', key: '' },
+            { label: 'QB', key: 'positions.abbreviation;{"$in":"QB"}' },
+            { label: 'RB', key: 'positions.abbreviation;{"$in":"RB"}' },
+            { label: 'FB', key: 'positions.abbreviation;{"$in":"FB"}' },
+            { label: 'WR', key: 'positions.abbreviation;{"$in":"WR"}' },
+            { label: 'TE', key: 'positions.abbreviation;{"$in":"TE"}' },
+            { label: 'OT', key: 'positions.abbreviation;{"$in":"OT"}' },
+            { label: 'OG', key: 'positions.abbreviation;{"$in":"OG"}' },
+            { label: 'C', key: 'positions.abbreviation;{"$in":"C"}' },
+            { label: 'DE', key: 'positions.abbreviation;{"$in":"DE"}' },
+            { label: 'DT', key: 'positions.abbreviation;{"$in":"DT"}' },
+            { label: 'LB', key: 'positions.abbreviation;{"$in":"LB"}' },
+            { label: 'CB', key: 'positions.abbreviation;{"$in":"CB"}' },
+            { label: 'S', key: 'positions.abbreviation;{"$in":"S"}' },
+            { label: 'K', key: 'positions.abbreviation;{"$in":"K"}' },
+            { label: 'P', key: 'positions.abbreviation;{"$in":"P"}' },
+            { label: 'LS', key: 'positions.abbreviation;{"$in":"LS"}' },
+            { label: 'KR', key: 'positions.abbreviation;{"$in":"KR"}' },
+            { label: 'PR', key: 'positions.abbreviation;{"$in":"PR"}' },
+          ]}
+          total={data?.metadata?.totalCount}
+          isFetching={isFetching}
+        >
+          <div className={styles.container}>
+            <div className={styles.athletesList}>
+              <AthleteList data={data?.payload || []} isTable={isList} />
             </div>
-          </SearchWrapper>
-        </>
+          </div>
+        </SearchWrapper>
       )}
     </div>
   );

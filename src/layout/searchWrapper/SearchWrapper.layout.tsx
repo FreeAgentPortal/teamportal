@@ -37,7 +37,6 @@ type Props = {
 
 const SearchWrapper = (props: Props) => {
   const queryClient = useQueryClient();
-  const router = useRouter();
 
   const [searchText, setSearchText] = useState('');
   const {
@@ -58,8 +57,6 @@ const SearchWrapper = (props: Props) => {
     setQueryKey,
     queryKey,
   } = useSearchStore((state: any) => state);
-
-  // const { isFetching } = props.hook();
 
   useEffect(() => {
     if (props.queryKey === queryKey)

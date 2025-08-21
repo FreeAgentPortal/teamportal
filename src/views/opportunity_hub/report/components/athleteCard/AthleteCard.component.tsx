@@ -3,6 +3,63 @@ import styles from './AthleteCard.module.scss';
 import { IAthlete } from '@/types/IAthleteType';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Button, TableProps, Tag } from 'antd';
+
+export const athleteColumns: TableProps<IAthlete>['columns'] = [
+  {
+    title: 'Photo',
+    render: (_: any, record: IAthlete) => (
+      <Image
+        src={record.profileImageUrl || '/images/no-photo.png'}
+        alt={record.fullName}
+        onError={(e) => {
+          (e.target as HTMLImageElement).src = '/images/no-photo.png';
+        }}
+        width={50}
+        height={50}
+        style={{ borderRadius: '50%' }}
+      />
+    ),
+    key: 'photo',
+  },
+  {
+    title: 'Name',
+    dataIndex: 'fullName',
+    key: 'name',
+  },
+  {
+    title: 'Age',
+    key: 'age',
+    render: (_: any, record: IAthlete) => calculateAge(record.birthdate as any),
+  },
+  {
+    title: 'Positions',
+    key: 'positions',
+    render: (_: any, record: IAthlete) => (
+      <div className={styles.positions}>
+        {record?.positions?.map((position) => (
+          <span key={position?._id} className={styles.positionBadge}>
+            {position?.abbreviation}
+          </span>
+        ))}
+      </div>
+    ),
+  },
+  {
+    title: 'Birthdate',
+    key: 'birthdate',
+    render: (_: any, record: IAthlete) => new Date(record.birthdate as any).toLocaleDateString(),
+  },
+  {
+    title: 'Actions',
+    key: 'actions',
+    render: (_: any, record: IAthlete) => (
+      <Link href={`/opportunities_hub/athletes/${record._id}`} passHref>
+        <Button type="primary">View</Button>
+      </Link>
+    ),
+  },
+];
 
 interface CardProps {
   athlete: IAthlete;
@@ -10,38 +67,40 @@ interface CardProps {
 
 const AthleteCard = ({ athlete }: CardProps) => {
   return (
-    <div className={styles.athleteCard}>
-      <div className={styles.athleteImage}>
+    <Link href={`/opportunities_hub/athletes/${athlete._id}`} passHref className={styles.card}>
+      {/* Athlete Photo */}
+      <div className={styles.imageWrapper}>
         <Image
           src={athlete.profileImageUrl || '/images/no-photo.png'}
           alt={athlete.fullName}
           onError={(e) => {
             (e.target as HTMLImageElement).src = '/images/no-photo.png';
           }}
-          width={300}
-          height={300}
+          width={200}
+          height={400}
+          className={styles.image}
         />
       </div>
-      <div className={styles.athleteInfo}>
-        <h3 className={styles.athleteName}>{athlete.fullName}</h3>
-        <div className={styles.athleteDetails}>
-          <div className={styles.athleteAge}>Age: {calculateAge(athlete?.birthdate as any)}</div>
-          <div className={styles.athletePositions}>
-            {athlete?.positions?.map((position) => (
-              <span key={position?._id} className={styles.positionBadge}>
-                {position?.abbreviation}
-              </span>
-            ))}
-          </div>
+
+      {/* Info Section */}
+      <div className={styles.info}>
+        <h2 className={styles.name}>{athlete.fullName}</h2>
+
+        <div className={styles.meta}>
+          <span className={styles.age}>Age: {calculateAge(athlete?.birthdate as any)}</span>
+          <span className={styles.birthdate}>Born: {new Date(athlete?.birthdate as any).toLocaleDateString()}</span>
         </div>
-        <div className={styles.birthdate}>Born: {new Date(athlete?.birthdate as any).toLocaleDateString()}</div>
+
+        {/* Positions */}
+        <div className={styles.positions}>
+          {athlete?.positions?.map((position) => (
+            <span key={position?._id} className={styles.positionBadge}>
+              {position?.abbreviation}
+            </span>
+          ))}
+        </div>
       </div>
-      <div className={styles.cardActions}>
-        <Link href={`/opportunities_hub/athletes/${athlete._id}`} className={styles.viewProfileLink} passHref>
-          <button className={styles.viewButton}>View Profile</button>
-        </Link>
-      </div>
-    </div>
+    </Link>
   );
 };
 

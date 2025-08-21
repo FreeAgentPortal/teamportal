@@ -21,14 +21,12 @@ const fetchData = async (url: string, method: 'GET' | 'POST' | 'PUT' | 'DELETE',
   let response;
   switch (method) {
     case 'GET':
-      const {
-        defaultKeyword = options?.defaultKeyword || store.getState().search,
-        defaultPageNumber = options?.defaultPageNumber || store.getState().pageNumber,
-        defaultPageLimit = options?.defaultPageLimit || store.getState().pageLimit,
-        defaultFilter = `${options?.defaultFilter ?? ''}${store.getState().filter ? `|${store.getState().filter}` : ''}`,
-        defaultSort = options?.defaultSort || store.getState().sort,
-        defaultInclude = options?.defaultInclude || store.getState().include,
-      } = options || {};
+      const defaultKeyword = options?.defaultKeyword || store.getState().search;
+      const defaultPageNumber = options?.defaultPageNumber || store.getState().pageNumber;
+      const defaultPageLimit = options?.defaultPageLimit || store.getState().pageLimit;
+      const defaultFilter = `${options?.defaultFilter ?? ''}${store.getState().filter ? `|${store.getState().filter}` : ''}`;
+      const defaultSort = options?.defaultSort || store.getState().sort;
+      const defaultInclude = options?.defaultInclude || store.getState().include;
 
       response = await axios.get(url, {
         params: {

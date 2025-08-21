@@ -1,29 +1,17 @@
-.container {
-  .athletesList {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1.5rem;
-
-    @media (max-width: 768px) {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    @media (max-width: 480px) {
-      grid-template-columns: 1fr;
-    }
-  }
-}
-
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
 
-  h2 {
+  .title {
     font-size: 1.5rem;
+    font-weight: 600;
     color: var(--text-primary);
+  }
+  .actions {
+    display: flex;
+    gap: 0.5rem;
   }
 }
 
