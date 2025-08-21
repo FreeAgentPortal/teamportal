@@ -127,11 +127,11 @@ const MeasurementsView: React.FC<MeasurementsViewProps> = ({ athlete }) => {
                     </div>
                   </Descriptions.Item>
                 )}
-
+{/*}
                 {athlete?.contactNumber && (
                   <Descriptions.Item label="Phone">
                     <a href={`tel:${athlete.contactNumber}`} className={styles.contactLink}>
-                      {//athlete.contactNumber}
+                      {athlete.contactNumber}
                     </a>
                   </Descriptions.Item>
                 )}
@@ -139,10 +139,11 @@ const MeasurementsView: React.FC<MeasurementsViewProps> = ({ athlete }) => {
                 {athlete?.email && (
                   <Descriptions.Item label="Email">
                     <a href={`mailto:${athlete.email}`} className={styles.contactLink}>
-                      {//athlete.email}
+                      {athlete.email}
                     </a>
                   </Descriptions.Item>
                 )}
+{*/}
               </Descriptions>
             </Card>
           </Col>
