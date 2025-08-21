@@ -5,7 +5,7 @@ import useApiHook from '@/hooks/useApi';
 import SearchWrapper from '@/layout/searchWrapper/SearchWrapper.layout';
 import { IAthlete } from '@/types/IAthleteType';
 import AthleteCard from '../report/components/athleteCard/AthleteCard.component';
-import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
+import { MdFavorite } from 'react-icons/md';
 import { Button } from 'antd';
 import { BsPerson } from 'react-icons/bs';
 
@@ -14,7 +14,7 @@ const Athlete = () => {
     url: '/athlete',
     method: 'GET',
     key: 'athletes',
-    filter: `isActive;true`,
+    filter: `isActive;true|profileImageUrl;{"$exists": true}`,
   }) as any;
 
   const { data: favoritedAthletes } = useApiHook({
