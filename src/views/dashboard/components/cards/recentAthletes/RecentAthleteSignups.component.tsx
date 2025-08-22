@@ -22,7 +22,7 @@ const RecentAthleteSignups = () => {
   return (
     <div className={styles.container}>
       {data?.payload?.map((athlete: any) => (
-        <Link key={athlete._id} href={`/athletes/${athlete._id}`} passHref>
+        <Link key={athlete._id} href={`/opportunities_hub/athletes/${athlete._id}`} passHref>
           <AthleteCard key={athlete._id} athlete={athlete} variant="compact" />
         </Link>
       ))}
