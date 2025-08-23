@@ -5,8 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { Button, Table, Tooltip } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React from 'react';
-import { FaExternalLinkAlt, FaPlay, FaPlus, FaRunning, FaTrash } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaPlay, FaPlus, FaTrash } from 'react-icons/fa';
 
 const SearchPreferences = () => {
   const router = useRouter();
@@ -47,18 +46,6 @@ const SearchPreferences = () => {
           type: 'link',
           href: '/opportunities_hub/search_preferences/create',
           onClick: () => {},
-        },
-      ]}
-      filters={[
-        {
-          key: '',
-          label: 'All',
-        },
-      ]}
-      sort={[
-        {
-          key: '',
-          label: 'Default',
         },
       ]}
       total={data?.payload?.totalCount}

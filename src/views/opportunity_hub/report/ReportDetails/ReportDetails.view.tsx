@@ -1,11 +1,13 @@
 'use client';
-import React from 'react';
+import { useEffect, useState } from 'react';
 import styles from './ReportDetails.module.scss';
 import { useParams } from 'next/navigation';
 import useApiHook from '@/hooks/useApi';
-import AthleteCard from '../components/athleteCard/AthleteCard.component';
-import { IAthlete } from '@/types/IAthleteType';
 import { ISearchReport } from '@/types/ISearchReport';
+import AthleteList from '@/components/athleteList/AthleteList.component';
+import { Button } from 'antd';
+import { MdGridOn, MdList } from 'react-icons/md';
+import { PositionBadges } from '@/components/positionBadge/PositionBadges.component';
 
 const ReportDetails = () => {
   // fetch the id from the search params
@@ -37,7 +39,10 @@ const ReportDetails = () => {
       minute: '2-digit',
     });
   };
-  React.useEffect(() => {
+
+  const [isList, setIsList] = useState(true);
+
+  useEffect(() => {
     // update the report to viewed status
     if (reportId) {
       mutateReport({
@@ -95,13 +100,7 @@ const ReportDetails = () => {
               </div>
               <div className={styles.preferenceItem}>
                 <span className={styles.label}>Positions:</span>
-                <div className={styles.positions}>
-                  {searchPreference?.positions?.map((position, index) => (
-                    <span key={index} className={styles.positionTag}>
-                      {position}
-                    </span>
-                  ))}
-                </div>
+                <PositionBadges positions={searchPreference?.positions || []} />
               </div>
             </div>
           </div>
@@ -125,16 +124,13 @@ const ReportDetails = () => {
 
       {/* Results Section */}
       <div className={styles.resultsSection}>
-        <h2 className={styles.sectionTitle}>Search Results</h2>
-        {results.length === 0 ? (
-          <div className={styles.noResults}>No athletes found matching your search criteria.</div>
-        ) : (
-          <div className={styles.athletesList}>
-            {results.map((athlete: IAthlete) => (
-              <AthleteCard key={athlete._id} athlete={athlete} />
-            ))}
-          </div>
-        )}
+        <div className={styles.resultsHeader}>
+          <h2 className={styles.sectionTitle}>Search Results</h2>
+          <Button type={isList ? 'primary' : 'default'} onClick={() => setIsList(!isList)} className={styles.viewToggleBtn} icon={isList ? <MdGridOn /> : <MdList />}>
+            {isList ? 'Show as Grid' : 'Show as List'}
+          </Button>
+        </div>
+        {results.length === 0 ? <div className={styles.noResults}>No athletes found matching your search criteria.</div> : <AthleteList data={results || []} isTable={isList} />}
       </div>
     </div>
   );

@@ -235,8 +235,11 @@
 
 // Results Section
 .resultsSection {
-  .sectionTitle::before {
-    content: '🏆';
+  .resultsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
   }
 }
 
@@ -254,23 +257,6 @@
     font-size: 1rem;
   }
 }
-
-.athletesList {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-
 
 // Responsive adjustments
 @media (max-width: 480px) {
@@ -300,27 +286,6 @@
   }
 }
 
-// Scrollbar styling for webkit browsers
-.athletesList {
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: #f1f5f9;
-    border-radius: 3px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 3px;
-
-    &:hover {
-      background: #94a3b8;
-    }
-  }
-}
-
 // Animation for loading states
 @keyframes fadeIn {
   from {
@@ -330,42 +295,5 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-.athleteCard,
-.preferenceCard {
-  animation: fadeIn 0.4s ease-out;
-}
-
-// High contrast mode support
-@media (prefers-contrast: high) {
-  .athleteCard,
-  .preferenceCard {
-    border: 2px solid #000;
-  }
-
-  .positionTag,
-  .positionBadge {
-    border: 1px solid #000;
-  }
-}
-
-// Reduced motion support
-@media (prefers-reduced-motion: reduce) {
-  .athleteCard,
-  .preferenceCard,
-  .viewButton,
-  .athleteImage img {
-    transition: none;
-    animation: none;
-  }
-
-  .athleteCard:hover {
-    transform: none;
-  }
-
-  .viewButton:hover {
-    transform: none;
   }
 }
