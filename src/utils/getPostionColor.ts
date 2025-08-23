@@ -5,37 +5,37 @@
  */
 export const getPositionColor = (position: string): string => {
   switch (position?.toLowerCase()) {
-    case "quarterback":
-    case "qb":
-      return "#f50";
-    case "running back":
-    case "rb":
-      return "#52c41a";
-    case "wide receiver":
-    case "wr":
-      return "#1890ff";
-    case "tight end":
-    case "te":
-      return "#722ed1";
-    case "offensive line":
-    case "ol":
-      return "#fa8c16";
-    case "defensive line":
-    case "dl":
-      return "#eb2f96";
-    case "linebacker":
-    case "lb":
-      return "#13c2c2";
-    case "defensive back":
-    case "db":
-      return "#a0d911";
-    case "safety":
-      return "#fadb14";
-    case "cornerback":
-    case "cb":
-      return "#722ed1";
+    case 'quarterback':
+    case 'qb':
+      return '#f50';
+    case 'running back':
+    case 'rb':
+      return '#52c41a';
+    case 'wide receiver':
+    case 'wr':
+      return '#1890ff';
+    case 'tight end':
+    case 'te':
+      return '#722ed1';
+    case 'offensive line':
+    case 'ol':
+      return '#fa8c16';
+    case 'defensive line':
+    case 'dl':
+      return '#eb2f96';
+    case 'linebacker':
+    case 'lb':
+      return '#13c2c2';
+    case 'defensive back':
+    case 'db':
+      return '#a0d911';
+    case 'safety':
+      return '#fadb14';
+    case 'cornerback':
+    case 'cb':
+      return '#722ed1';
     default:
-      return "#8c8c8c";
+      return '#8c8c8c';
   }
 };
 
