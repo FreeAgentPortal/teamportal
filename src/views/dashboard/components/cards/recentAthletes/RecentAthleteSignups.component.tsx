@@ -1,8 +1,6 @@
-import AthleteCard from '@/components/athleteCard/AthleteCard.component';
 import useApiHook from '@/hooks/useApi';
-import React from 'react';
 import styles from './RecentAthleteSignups.module.scss';
-import Link from 'next/link';
+import AthleteList from '@/components/athleteList/AthleteList.component';
 
 const RecentAthleteSignups = () => {
   // find results from the last 30 days
@@ -21,11 +19,7 @@ const RecentAthleteSignups = () => {
   }) as any;
   return (
     <div className={styles.container}>
-      {data?.payload?.map((athlete: any) => (
-        <Link key={athlete._id} href={`/athletes/${athlete._id}`} passHref>
-          <AthleteCard key={athlete._id} athlete={athlete} variant="compact" />
-        </Link>
-      ))}
+      <AthleteList data={data?.payload} isTable={true} />
     </div>
   );
 };
