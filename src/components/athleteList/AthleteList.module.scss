@@ -1,0 +1,12 @@
+.container {
+  overflow-x: auto;
+  margin: -16px;
+  padding: 0 16px;
+  .athleteTable {
+    width: 100%;
+    min-width: 980px;
+  }
+  .clickableRow {
+    cursor: pointer;
+  }
+}

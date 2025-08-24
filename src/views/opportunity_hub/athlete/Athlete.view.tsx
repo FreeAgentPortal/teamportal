@@ -1,12 +1,13 @@
 'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from './Athlete.module.scss';
 import useApiHook from '@/hooks/useApi';
 import SearchWrapper from '@/layout/searchWrapper/SearchWrapper.layout';
 import { MdFavorite, MdFavoriteBorder, MdGridOn, MdList } from 'react-icons/md';
 import { Button } from 'antd';
 import { useLocalStorage } from '@uidotdev/usehooks';
-import AthleteList from '../report/components/athleteList/AthleteList.component';
+import AthleteList from '../../../components/athleteList/AthleteList.component';
+import { useFavoriteAthlete } from '@/hooks/useFavoriteAthlete';
 
 const Athlete = () => {
   const { data, isFetching } = useApiHook({
@@ -16,11 +17,7 @@ const Athlete = () => {
     filter: `isActive;true|profileImageUrl;{"$exists": true}`,
   }) as any;
 
-  const { data: favoritedAthletes } = useApiHook({
-    url: `/team/favorite-athlete`,
-    method: 'GET',
-    key: 'favoritedAthletes',
-  }) as any;
+  const { favoritedAthletes } = useFavoriteAthlete();
 
   const [showingFavorites, setShowingFavorites] = useState(false);
   const [isList, setIsList] = useLocalStorage('athlete-view-is-list', false);
@@ -45,7 +42,7 @@ const Athlete = () => {
       </div>
       {showingFavorites ? (
         <div className={styles.favoritesList}>
-          <AthleteList data={favoritedAthletes?.payload || []} isTable={isList} />
+          <AthleteList data={favoritedAthletes || []} isTable={isList} />
         </div>
       ) : (
         <SearchWrapper

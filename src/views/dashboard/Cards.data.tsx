@@ -28,7 +28,7 @@ export default [
     title: 'Recent Athlete Signups',
     component: ({ data }: CardComponentProps) => <RecentAthleteSignups />,
     gridKey: 'recent-athlete-signups',
-    order: 3,
+    order: 5,
     size: 3,
     isCard: true,
     // hideIf: DashboardRulesEngine.noRecentAthletes,

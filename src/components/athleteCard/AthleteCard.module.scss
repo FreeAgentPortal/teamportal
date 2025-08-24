@@ -1,159 +1,96 @@
-@use "@/styles/globals.scss" as *;
-/* stylelint-disable selector-class-pattern */
-
 .card {
-  --card-radius: 12px;
-  --pad-x: 12px;
-  --pad-y: 10px;
-
-  display: grid;
-  grid-template-rows: auto auto;
-  gap: 8px;
-  padding: var(--pad-y) var(--pad-x);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   background: #fff;
-  border-radius: var(--card-radius);
-  box-shadow: var(--shadow-default);
-  transition: box-shadow 160ms ease, transform 160ms ease, border-color 160ms ease;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  min-height: 80px;
-  cursor: pointer;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  padding: 16px 20px;
+  transition: all 0.25s ease;
+  gap: 20px;
+
+  .favoriteBtn {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    padding: 0.25rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(226, 232, 240, 0.5);
+
+    @media (max-width: 768px) {
+      top: 0.5rem;
+      left: 0.5rem;
+      padding: 0.2rem;
+    }
+  }
+
+  .ratingBadge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    padding: 0.25rem 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(226, 232, 240, 0.5);
+
+    @media (max-width: 768px) {
+      top: 0.5rem;
+      right: 0.5rem;
+      padding: 0.2rem 0.4rem;
+    }
+  }
 
   &:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-hover);
-    border-color: var(--primary);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
   }
-}
 
-.compact {
-  grid-template-rows: auto; /* hide bottom row */
-  --pad-y: 8px; /* reduce vertical padding */
-}
-
-.rowTop {
-  display: grid;
-  grid-template-columns: 48px 1fr auto;
-  align-items: center;
-  gap: 12px;
-}
-
-.compact .rowTop {
-  grid-template-columns: 36px 1fr auto; /* smaller avatar column */
-  gap: 10px; /* tighter spacing */
-}
-
-.avatar {
-  border: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.main {
-  min-width: 0; /* allow clamps */
-}
-
-.nameLine {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.name {
-  font-size: clamp(0.95rem, 1.6vw, 1.05rem);
-  font-weight: 600;
-  letter-spacing: 0.2px;
-  line-height: 1.2;
-  margin: 0;
-  max-width: 100%;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
-  -webkit-box-orient: vertical;
-}
-
-.compact .name {
-  font-size: 0.95rem; /* slightly smaller in compact mode */
-}
-
-.chips {
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.chip {
-  margin: 0 !important;
-  line-height: 18px;
-  height: 20px;
-  padding-inline: 6px !important;
-  font-size: 12px;
-}
-
-.metaLine {
-  margin-top: 4px;
-  font-size: 12px;
-  color: #666;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.meta {
-  margin-right: 8px;
-}
-
-.right {
-  display: grid;
-  align-items: center;
-  justify-items: end;
-  gap: 6px;
-}
-
-.rating {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-weight: 600;
-}
-
-.star {
-  font-size: 16px;
-}
-
-.ratingText {
-  font-size: 13px;
-}
-
-.ratingMuted {
-  font-size: 12px;
-  color: #999;
-}
-
-.actions {
-  margin-top: 4px;
-}
-
-.rowBottom {
-  display: flex;
-  align-items: center;
-}
-
-.rateSmall {
-  font-size: 14px !important;
-}
-
-/* === Responsiveness === */
-@media (max-width: 640px) {
-  .card {
-    --pad-x: 10px;
-    --pad-y: 10px;
+  .imageWrapper {
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+    position: relative;
   }
-  .rowTop {
-    grid-template-columns: 44px 1fr auto;
+
+  .image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-position: top;
+    border-radius: 5px;
   }
-  .chip {
-    display: none;
-  } /* keep top row ultra clean on mobile */
-  .rateSmall {
-    display: none;
+
+  .info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    padding: 0 16px 16px 16px;
+  }
+
+  .name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .meta {
+    font-size: 0.9rem;
+    color: #666;
+    display: flex;
+    gap: 12px;
+  }
+
+  .actions {
+    flex-shrink: 0;
   }
 }

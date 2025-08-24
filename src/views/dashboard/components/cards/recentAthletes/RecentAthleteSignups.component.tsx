@@ -19,7 +19,7 @@ const RecentAthleteSignups = () => {
   }) as any;
   return (
     <div className={styles.container}>
-      <AthleteList data={data?.payload} isTable={true} />
+      <AthleteList data={data?.payload} isTable={true} minimal />
     </div>
   );
 };
