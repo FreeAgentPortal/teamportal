@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { Tabs, Tag, Tooltip } from 'antd';
-import { MessageOutlined, UserOutlined } from '@ant-design/icons';
+import { MessageOutlined } from '@ant-design/icons';
 import styles from './AthleteDetails.module.scss';
 import { IAthlete } from '@/types/IAthleteType';
 import MetricsView from './subviews/metrics/Metrics.view';
@@ -59,7 +59,7 @@ const AthleteDetails: React.FC<AthleteDetailsProps> = ({ athlete }) => {
       <div className={styles.header}>
         <div className={styles.athleteInfo}>
           <div className={styles.avatarSection}>
-            <Image alt={athlete.fullName} width={200} height={200} src={athlete.profileImageUrl} icon={<UserOutlined />} className={styles.avatar} />
+            <Image alt={athlete.fullName} width={200} height={200} src={athlete.profileImageUrl || '/images/no-photo.png'} className={styles.avatar} />
           </div>
 
           <div className={styles.basicInfo}>
