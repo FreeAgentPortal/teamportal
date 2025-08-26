@@ -1,8 +1,7 @@
-@use "@/styles/globals.scss" as *;
+@use '@/styles/globals.scss' as *;
 
 .reportCard {
-  background: var(--bg-gradient, #ffffff);
-  border: 1px solid var(--primary, #e0e0e0);
+  background: black;
   border-radius: 12px;
   padding: 1rem;
   margin-bottom: 0.75rem;
@@ -124,9 +123,11 @@
 /* Card Body */
 .cardBody {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
+  color: white;
 
   @include mobile {
     flex-direction: column;
@@ -163,7 +164,7 @@
 }
 
 .reportDate {
-  color: var(--secondary, #666);
+  color: white;
   font-size: 0.8rem;
 
   @include mobile {
@@ -172,7 +173,7 @@
 }
 
 .sportInfo {
-  color: var(--secondary, #666);
+  color: rgb(239, 239, 239);
   font-size: 0.8rem;
 
   @include mobile {

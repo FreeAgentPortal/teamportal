@@ -5,9 +5,9 @@ import { useParams } from 'next/navigation';
 import useApiHook from '@/hooks/useApi';
 import { ISearchReport } from '@/types/ISearchReport';
 import AthleteList from '@/components/athleteList/AthleteList.component';
-import { Button } from 'antd';
 import { MdGridOn, MdList } from 'react-icons/md';
 import { PositionBadges } from '@/components/positionBadge/PositionBadges.component';
+import TheButton from '@/components/button/Button.component';
 
 const ReportDetails = () => {
   // fetch the id from the search params
@@ -126,9 +126,9 @@ const ReportDetails = () => {
       <div className={styles.resultsSection}>
         <div className={styles.resultsHeader}>
           <h2 className={styles.sectionTitle}>Search Results</h2>
-          <Button type={isList ? 'primary' : 'default'} onClick={() => setIsList(!isList)} className={styles.viewToggleBtn} icon={isList ? <MdGridOn /> : <MdList />}>
+          <TheButton type={'primary'} onClick={() => setIsList(!isList)} className={styles.viewToggleBtn} icon={isList ? <MdGridOn /> : <MdList />}>
             {isList ? 'Show as Grid' : 'Show as List'}
-          </Button>
+          </TheButton>
         </div>
         {results.length === 0 ? <div className={styles.noResults}>No athletes found matching your search criteria.</div> : <AthleteList data={results || []} isTable={isList} />}
       </div>

@@ -41,7 +41,7 @@ export default function NotFound() {
   };
 
   return (
-    <PageLayout pages={[navigation().error_boundary.links.not_found]}>
+    <PageLayout pages={[navigation().error_boundary.links.not_found]} largeSideBar>
       <div className={styles.container}>
         <div className={styles.content}>
           {/* Error Code */}

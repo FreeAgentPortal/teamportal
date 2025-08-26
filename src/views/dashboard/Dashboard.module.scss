@@ -4,7 +4,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm);
 }
 
 .container {
@@ -54,9 +54,5 @@
 
   @media (max-width: 1100px) {
     grid-column: span 2; // 2 columns on tablet (out of 2)
-  }
-
-  @media (max-width: 700px) {
-    grid-column: span 1; // 1 column on mobile
   }
 }

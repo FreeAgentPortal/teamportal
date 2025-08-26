@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useInterfaceStore } from '@/state/interface';
 import { default as themeOverride } from '@/styles/theme.json';
 import { ConfigProvider } from 'antd';
+import fontColorContrast from 'font-color-contrast';
 
 function ReactQueryProvider({ children }: React.PropsWithChildren) {
   const { addAlert } = useInterfaceStore.getState();
@@ -37,28 +38,50 @@ function ReactQueryProvider({ children }: React.PropsWithChildren) {
           const { color, alternateColor } = profileData.payload;
           documentRoot.style.setProperty('--primary', color);
           documentRoot.style.setProperty('--secondary', alternateColor);
+          documentRoot.style.setProperty('--accent', alternateColor);
+          documentRoot.style.setProperty('--font-primary', fontColorContrast(color));
+          documentRoot.style.setProperty('--font-secondary', fontColorContrast(alternateColor));
+          documentRoot.style.setProperty('--link', alternateColor);
+
+          setTheme({
+            ...themeOverride,
+            token: {
+              ...themeOverride.token,
+              colorPrimary: color,
+              colorLink: alternateColor,
+              colorBorder: alternateColor,
+              colorPrimaryActive: alternateColor,
+              colorPrimaryHover: alternateColor,
+              colorTextSecondary: alternateColor,
+            },
+          });
         } else {
           // Reset to default colors if no team colors are available
           documentRoot.style.removeProperty('--primary');
           documentRoot.style.removeProperty('--secondary');
+          documentRoot.style.removeProperty('--accent');
+          documentRoot.style.removeProperty('--text-primary');
+          documentRoot.style.removeProperty('--text-secondary');
+          documentRoot.style.removeProperty('--link');
         }
       }
     });
 
     // Set initial colors if profile data is already available
+
     const currentProfile = client.getQueryData(['profile', 'team']) as any;
+
+    console.log('Current profile data:', currentProfile);
+
     if (currentProfile?.payload?.color && currentProfile?.payload?.alternateColor) {
       const { color, alternateColor } = currentProfile.payload;
       documentRoot.style.setProperty('--primary', color);
       documentRoot.style.setProperty('--secondary', alternateColor);
-      // update antd theme
-      setTheme({
-        ...themeOverride,
-        token: {
-          ...themeOverride.token,
-          colorPrimary: color,
-        },
-      });
+      documentRoot.style.setProperty('--accent', alternateColor);
+      documentRoot.style.setProperty('--text-primary', fontColorContrast(color));
+      documentRoot.style.setProperty('--text-secondary', fontColorContrast(alternateColor));
+
+      console.log('Setting theme colors:', { color, alternateColor, fontColor: fontColorContrast(color) });
     }
 
     return () => {

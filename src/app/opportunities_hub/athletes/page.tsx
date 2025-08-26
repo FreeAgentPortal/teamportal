@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <PageLayout pages={[navigation().opportunities_hub.links.athletes]}>
+    <PageLayout pages={[navigation().opportunities_hub.links.athletes]} largeSideBar>
       <Athlete />
     </PageLayout>
   );

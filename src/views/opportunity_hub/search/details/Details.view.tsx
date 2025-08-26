@@ -1,15 +1,16 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import useApiHook from '@/hooks/useApi';
 import { useParams, useRouter } from 'next/navigation';
-import { Form, Input, Select, InputNumber, Button, Card, Space, Tag, Typography, Slider, Row, Col, message, Collapse, Tooltip, Divider } from 'antd';
-import { PlusOutlined, DeleteOutlined, InfoCircleOutlined, SearchOutlined, SaveOutlined, FilterOutlined, PlayCircleFilled } from '@ant-design/icons';
+import { Form, Input, Select, InputNumber, Card, Space, Tag, Typography, Slider, Row, Col, message, Collapse, Tooltip } from 'antd';
+import { PlusOutlined, DeleteOutlined, InfoCircleOutlined, SearchOutlined, SaveOutlined, PlayCircleFilled } from '@ant-design/icons';
 import styles from './Details.module.scss';
 import formStyles from '@/styles/Form.module.scss';
 import '@/styles/antd-overrides.scss';
 import { ISearchPreferences } from '@/types/ISearchPreferences';
-import { FOOTBALL_POSITIONS, PERFORMANCE_METRICS, METRICS_BY_CATEGORY, FREQUENCY_OPTIONS, OWNER_TYPE_OPTIONS, AGE_RANGE, PerformanceMetric } from '@/data/searchConstants';
+import { FOOTBALL_POSITIONS, PERFORMANCE_METRICS, METRICS_BY_CATEGORY, FREQUENCY_OPTIONS, AGE_RANGE } from '@/data/searchConstants';
 import { useQueryClient } from '@tanstack/react-query';
+import TheButton from '@/components/button/Button.component';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -155,7 +156,7 @@ const Details = () => {
 
       <Form form={form} layout="vertical" onFinish={handleSubmit} className={formStyles.form} style={{ marginTop: 24 }} disabled={loading}>
         {/* Basic Information */}
-        <Card title="Basic Information" style={{ marginBottom: 24 }}>
+        <Card title="Basic Information" style={{ marginBottom: 24 }} className={styles.card}>
           <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please enter a name for this search' }]}>
             <Input placeholder="e.g., Elite Quarterbacks for 2025" />
           </Form.Item>
@@ -190,7 +191,7 @@ const Details = () => {
         </Card>
 
         {/* Exclusive Filters */}
-        <Card title="Exclusive Filters" style={{ marginBottom: 24 }}>
+        <Card title="Exclusive Filters" style={{ marginBottom: 24 }} className={styles.card}>
           <Text type="secondary" style={{ marginBottom: 16, display: 'block' }}>
             Athletes must match ALL of these criteria
           </Text>
@@ -236,7 +237,7 @@ const Details = () => {
         </Card>
 
         {/* Performance Metrics */}
-        <Card title="Performance Metrics (OR Filters)" style={{ marginBottom: 24 }}>
+        <Card title="Performance Metrics (OR Filters)" style={{ marginBottom: 24 }} className={styles.card}>
           <Text type="secondary" style={{ marginBottom: 16, display: 'block' }}>
             Athletes need to match at least ONE of these performance criteria
           </Text>
@@ -323,7 +324,7 @@ const Details = () => {
         {/* Submit Button */}
         <Form.Item>
           <Space>
-            <Button
+            <TheButton
               type="primary"
               icon={id ? <SaveOutlined /> : <SearchOutlined />}
               loading={loading}
@@ -333,15 +334,15 @@ const Details = () => {
               }}
             >
               {id ? 'Update Search Preference' : 'Create Search Preference'}
-            </Button>
+            </TheButton>
             {id && (
-              <Button type="text" color="default" onClick={() => triggerRun({ url: `/search-preference/scheduler/trigger/${id}` })} size="large" icon={<PlayCircleFilled />}>
+              <TheButton onClick={() => triggerRun({ url: `/search-preference/scheduler/trigger/${id}` })} size="large" icon={<PlayCircleFilled />}>
                 Trigger Search Run
-              </Button>
+              </TheButton>
             )}
-            <Button type="default" onClick={() => router.back()} size="large">
+            <TheButton onClick={() => router.back()} size="large">
               Cancel
-            </Button>
+            </TheButton>
           </Space>
         </Form.Item>
       </Form>

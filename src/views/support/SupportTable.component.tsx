@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from './Support.module.scss';
 import SearchWrapper from '@/layout/searchWrapper/SearchWrapper.layout';
 import { useRouter } from 'next/navigation';
@@ -51,12 +51,7 @@ const SupportTable = () => {
 
   return (
     <>
-      <Modal
-        open={createModalOpen}
-        title="Create new Support request"
-        onOk={handleCreate}
-        onCancel={() => setCreateModalOpen(false)}
-      >
+      <Modal open={createModalOpen} title="Create new Support request" onOk={handleCreate} onCancel={() => setCreateModalOpen(false)}>
         <SupportForm form={form} />
       </Modal>
       <SearchWrapper
@@ -70,103 +65,104 @@ const SupportTable = () => {
             type: 'primary',
           },
         ]}
-      placeholder="Search for ministries"
-      total={data?.payload?.totalCount}
-      queryKey={'ministryList'}
-      isFetching={isFetching}
-    >
-      <div className={styles.contentContainer}>
-        <Table
-          className={styles.table}
-          dataSource={data?.payload}
-          loading={loading}
-          size="small"
-          rowKey={(record: any) => record._id}
-          columns={[
-            {
-              title: 'Subject',
-              dataIndex: 'subject',
-              key: 'subject',
-            },
-            {
-              title: 'Group',
-              dataIndex: 'groups',
-              key: 'group',
-              render: (text: string, record: any) => {
-                // group is an array of objects, so we need to return the name of the group
-                return record.groups?.map((group: any) => group.name).join(', ');
+        placeholder="Search for ministries"
+        total={data?.payload?.totalCount}
+        queryKey={'ministryList'}
+        isFetching={isFetching}
+      >
+        <div className={styles.contentContainer}>
+          <Table
+            className={styles.table}
+            dataSource={data?.payload}
+            loading={loading}
+            size="small"
+            rowKey={(record: any) => record._id}
+            columns={[
+              {
+                title: 'Subject',
+                dataIndex: 'subject',
+                key: 'subject',
               },
-            },
-            {
-              title: 'Status',
-              dataIndex: 'status',
-              key: 'status',
-              render: (text: string, record: any) => {
-                // use a switch statement to return the correct status, with a badge
-                switch (record.status) {
-                  case 'open':
-                    return (
-                      <Tooltip title="awaiting response from support">
-                        <Tag color="red">Open</Tag>
-                      </Tooltip>
-                    );
-                  case 'New':
-                    return (
-                      <Tooltip title="has yet to be reviewed by support">
-                        <Tag color="gold">New</Tag>
-                      </Tooltip>
-                    );
-                  case 'solved':
-                  case 'closed':
-                    return (
-                      <Tooltip title="This ticket has been resolved">
-                        <Tag color="gray">Closed</Tag>
-                      </Tooltip>
-                    );
-                  case 'pending':
-                    return (
-                      <Tooltip title="awaiting response from user">
-                        <Tag color="blue">Pending</Tag>
-                      </Tooltip>
-                    );
-                  default:
-                    return (
-                      <Tooltip title="awaiting response from support">
-                        <Tag color="red">Open</Tag>
-                      </Tooltip>
-                    );
-                }
+              {
+                title: 'Group',
+                dataIndex: 'groups',
+                key: 'group',
+                render: (text: string, record: any) => {
+                  // group is an array of objects, so we need to return the name of the group
+                  return record.groups?.map((group: any) => group.name).join(', ');
+                },
               },
-            },
-            {
-              title: 'Priority',
-              dataIndex: 'priority',
-              key: 'priority',
-            },
-            {
-              title: 'Actions',
-              dataIndex: 'actions',
-              key: 'actions',
-              render: (text: string, record: any) => {
-                return (
-                  <div>
-                    <Button
-                      onClick={() => {
-                        router.push(`/account_details/support/${record._id}`);
-                      }}
-                      className={styles.actionButton}
-                    >
-                      <MdOpenInNew />
-                    </Button>
-                  </div>
-                );
+              {
+                title: 'Status',
+                dataIndex: 'status',
+                key: 'status',
+                render: (text: string, record: any) => {
+                  // use a switch statement to return the correct status, with a badge
+                  switch (record.status) {
+                    case 'open':
+                      return (
+                        <Tooltip title="awaiting response from support">
+                          <Tag color="red">Open</Tag>
+                        </Tooltip>
+                      );
+                    case 'New':
+                      return (
+                        <Tooltip title="has yet to be reviewed by support">
+                          <Tag color="gold">New</Tag>
+                        </Tooltip>
+                      );
+                    case 'solved':
+                    case 'closed':
+                      return (
+                        <Tooltip title="This ticket has been resolved">
+                          <Tag color="gray">Closed</Tag>
+                        </Tooltip>
+                      );
+                    case 'pending':
+                      return (
+                        <Tooltip title="awaiting response from user">
+                          <Tag color="blue">Pending</Tag>
+                        </Tooltip>
+                      );
+                    default:
+                      return (
+                        <Tooltip title="awaiting response from support">
+                          <Tag color="red">Open</Tag>
+                        </Tooltip>
+                      );
+                  }
+                },
               },
-            },
-          ]}
-          pagination={false}
-        />
-      </div>
-    </SearchWrapper>
+              {
+                title: 'Priority',
+                dataIndex: 'priority',
+                key: 'priority',
+              },
+              {
+                title: 'Actions',
+                dataIndex: 'actions',
+                key: 'actions',
+                render: (text: string, record: any) => {
+                  return (
+                    <div>
+                      <Button
+                        onClick={() => {
+                          router.push(`/account_details/support/${record._id}`);
+                        }}
+                        className={styles.actionButton}
+                        type="link"
+                      >
+                        <MdOpenInNew />
+                      </Button>
+                    </div>
+                  );
+                },
+              },
+            ]}
+            pagination={false}
+          />
+        </div>
+      </SearchWrapper>
     </>
   );
 };

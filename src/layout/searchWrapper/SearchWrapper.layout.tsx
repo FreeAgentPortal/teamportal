@@ -6,7 +6,6 @@ import { AiFillFilter } from 'react-icons/ai';
 import styles from './SearchWrapper.module.scss';
 import type { MenuProps } from 'antd';
 import { MdSort } from 'react-icons/md';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 const { Search } = Input;
@@ -120,9 +119,9 @@ const SearchWrapper = (props: Props) => {
             setSearchText(e.target.value);
           }}
           rootClassName={styles.search}
-          size="large"
+          size="middle"
           enterButton
-          variant="outlined"
+          variant="borderless"
           value={searchText}
         />
         <div className={styles.buttonContainer}>

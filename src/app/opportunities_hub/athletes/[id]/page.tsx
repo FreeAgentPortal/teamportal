@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
   if (!athlete) {
     return {
-      title: "Athlete not found",
+      title: 'Athlete not found',
       robots: {
         index: false,
         follow: false,
@@ -21,16 +21,16 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     title: `FAP | ${athlete.name} Details`,
     description: `Details for athlete ${athlete.name} in the FAP system`,
   };
-};
- 
-export default async function Home({ params }: { params: Promise<{ id: string }>; }) {
+}
+
+export default async function Home({ params }: { params: Promise<{ id: string }> }) {
   // Fetch athlete data
   const { id } = await params;
   // Pre-fetch the first page of blogs for static generation
   const athleteData = await fetchAthleteData(id);
   return (
-    <PageLayout pages={[navigation().opportunities_hub.links.athletes]}>
-        <AthleteDetails athlete={athleteData as any} />
+    <PageLayout pages={[navigation().opportunities_hub.links.athletes]} largeSideBar>
+      <AthleteDetails athlete={athleteData as any} />
     </PageLayout>
   );
 }

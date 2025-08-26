@@ -10,9 +10,7 @@
   height: 100dvh;
   overflow: hidden;
 
-  //   padding: 0 1rem;
   background-color: #f5f5f5;
-  //   height: 100%;
 
   grid-template-areas:
     'sidebar header'
@@ -67,12 +65,11 @@
     grid-area: sidebar;
     transition: $animation;
     -webkit-transition: $animation;
-    width: auto;
     position: fixed;
     width: 265px;
   }
   .content {
-    background-color: var(--quaternary-light);
+    background-color: white;
     height: 100dvh;
     grid-area: content;
 
@@ -114,7 +111,7 @@
       cursor: pointer;
       display: none;
     }
-    @include mobile {
+    @include tablet {
       grid-template-columns: auto;
 
       .controlContainer {
@@ -128,7 +125,7 @@
     }
 
     &.controlContainerActive {
-      @include mobile {
+      @include tablet {
         &::after {
           opacity: 1;
           pointer-events: all;
@@ -158,31 +155,6 @@
         width: 100%;
         overflow: hidden;
         overflow-y: auto;
-      }
-    }
-  }
-  @include desktop {
-    @include tablet {
-      grid-template-columns: 70px auto;
-
-      .sideBar {
-        width: 70px;
-        &:hover {
-          width: fit-content;
-        }
-      }
-    }
-    &.small {
-      grid-template-columns: 70px auto;
-      @include mobile {
-        grid-template-columns: auto;
-      }
-
-      .sideBar {
-        width: 70px;
-        &:hover {
-          width: 265px;
-        }
       }
     }
   }

@@ -3,7 +3,6 @@
 
 .ant-card {
   // background: rgba(255, 255, 255, 0.05) !important;
-  border: 1px solid var(--primary) !important;
   border-radius: var(--radius-lg) !important;
 
   .ant-card-head {
@@ -31,7 +30,6 @@
 .ant-input-number,
 .ant-mentions {
   background: rgba(255, 255, 255, 0.1) !important;
-  border: 1px solid var(--primary) !important;
   color: var(--text-color) !important;
 
   &:hover,
@@ -121,18 +119,6 @@
     &:hover {
       background: var(--primary-dark) !important;
       border-color: var(--primary-dark) !important;
-    }
-  }
-
-  &.ant-btn-default {
-    background: transparent !important;
-    border-color: var(--secondary) !important;
-    color: var(--text-color) !important;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.1) !important;
-      border-color: var(--primary) !important;
-      color: var(--primary) !important;
     }
   }
 }

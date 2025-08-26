@@ -1,4 +1,5 @@
 'use client';
+import styles from './SearchPreferences.module.scss';
 import useApiHook from '@/hooks/useApi';
 import SearchWrapper from '@/layout/searchWrapper/SearchWrapper.layout';
 import { useQueryClient } from '@tanstack/react-query';
@@ -51,72 +52,76 @@ const SearchPreferences = () => {
       total={data?.payload?.totalCount}
       isFetching={isFetching}
     >
-      <Table
-        dataSource={data?.payload}
-        loading={isLoading}
-        pagination={false}
-        rowKey={(record: any) => record._id}
-        columns={[
-          {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
-          },
-          {
-            title: 'Description',
-            dataIndex: 'description',
-            key: 'description',
-            render: (text) => <span style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{text}</span>,
-          },
-          {
-            title: 'Frequency',
-            dataIndex: 'frequencyType',
-          },
-          {
-            title: 'Date Last Ran',
-            dataIndex: 'dateLastRan',
-            render: (date) => {
-              return date ? new Date(date).toLocaleDateString() : 'Never';
+      <div className={styles.table}>
+        <Table
+          dataSource={data?.payload}
+          loading={isLoading}
+          pagination={false}
+          rowKey={(record: any) => record._id}
+          columns={[
+            {
+              title: 'Name',
+              dataIndex: 'name',
+              key: 'name',
             },
-          },
-          {
-            title: 'Tags',
-            dataIndex: 'tags',
-            key: 'tags',
-            render: (tags) => <span>{tags?.length > 0 ? tags.join(', ') : 'No tags'}</span>,
-          },
-          {
-            title: 'Actions',
-            dataIndex: 'actions',
-            key: 'actions',
-            render: (_, record) => (
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <Link href={`/opportunities_hub/search_preferences/${record._id}`} passHref>
-                  <Button>
-                    <FaExternalLinkAlt />
-                  </Button>
-                </Link>
-                <Button
-                  onClick={() => {
-                    removePreference({ url: `/search-preference/${record._id}` });
-                  }}
-                >
-                  <FaTrash style={{ color: 'red' }} />
-                </Button>
-                <Tooltip title="Trigger Search">
+            {
+              title: 'Description',
+              dataIndex: 'description',
+              key: 'description',
+              render: (text) => <span style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{text}</span>,
+            },
+            {
+              title: 'Frequency',
+              dataIndex: 'frequencyType',
+            },
+            {
+              title: 'Date Last Ran',
+              dataIndex: 'dateLastRan',
+              render: (date) => {
+                return date ? new Date(date).toLocaleDateString() : 'Never';
+              },
+            },
+            {
+              title: 'Tags',
+              dataIndex: 'tags',
+              key: 'tags',
+              render: (tags) => <span>{tags?.length > 0 ? tags.join(', ') : 'No tags'}</span>,
+            },
+            {
+              title: 'Actions',
+              dataIndex: 'actions',
+              key: 'actions',
+              render: (_, record) => (
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <Link href={`/opportunities_hub/search_preferences/${record._id}`} passHref>
+                    <Button type="link">
+                      <FaExternalLinkAlt color="black" />
+                    </Button>
+                  </Link>
                   <Button
                     onClick={() => {
-                      triggerRun({ url: `/search-preference/scheduler/trigger/${record._id}` });
+                      removePreference({ url: `/search-preference/${record._id}` });
                     }}
+                    type="link"
                   >
-                    <FaPlay style={{ color: 'green' }} />
+                    <FaTrash style={{ color: 'darkred' }} />
                   </Button>
-                </Tooltip>
-              </div>
-            ),
-          },
-        ]}
-      />
+                  <Tooltip title="Trigger Search">
+                    <Button
+                      onClick={() => {
+                        triggerRun({ url: `/search-preference/scheduler/trigger/${record._id}` });
+                      }}
+                      type="link"
+                    >
+                      <FaPlay style={{ color: 'green' }} />
+                    </Button>
+                  </Tooltip>
+                </div>
+              ),
+            },
+          ]}
+        />
+      </div>
     </SearchWrapper>
   );
 };

@@ -1,7 +1,7 @@
 import { navigation } from '@/data/navigation';
 import PageLayout from '@/layout/page/Page.layout';
 import ConversationsView from '@/views/opportunity_hub/messages/conversations/Conversations.view';
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 
 const Conversations = () => {
   return (

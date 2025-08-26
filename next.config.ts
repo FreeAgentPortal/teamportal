@@ -10,9 +10,10 @@ const nextConfig: NextConfig = {
     TEAMS_APP_URL: process.env.TEAMS_APP_URL,
     ADMIN_APP_URL: process.env.ADMIN_APP_URL,
     SCOUT_APP_URL: process.env.SCOUT_APP_URL,
+    APP_VERSION: process.env.APP_VERSION,
   },
   images: {
-    domains:[
+    domains: [
       //cloudinary, espn, and nfldraftdiamonds
       'res.cloudinary.com',
       'a.espncdn.com',

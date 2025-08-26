@@ -1,4 +1,12 @@
 .container {
+  padding: 24px;
+
+  .card {
+    border-radius: 0 !important;
+    border: none !important;
+    background-color: white;
+    box-shadow: var(--shadow-default);
+  }
   .metricCard {
     border: 2px solid var(--primary);
     transition: all 0.3s ease;
@@ -11,7 +19,6 @@
 
   .selectedMetric {
     border: 2px solid var(--primary);
-    // background: linear-gradient(135deg, var(--primary) 0%, rgba(122, 205, 242, 0.1) 100%);
     box-shadow: var(--shadow-default);
 
     :global(.ant-card-meta-title) {
