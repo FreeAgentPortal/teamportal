@@ -91,7 +91,7 @@ const AthleteList = ({ data, isTable, minimal }: ListProps) => {
           className={styles.athleteTable}
           columns={athleteColumns.filter((col) => !col.isHidden)}
           dataSource={data}
-          pagination={minimal ? false : { pageSize: 10 }}
+          pagination={false}
           onRow={!minimal ? undefined : (record) => ({ onClick: () => (window.location.href = `/opportunities_hub/athletes/${record._id}`) })}
           rowClassName={minimal ? styles.clickableRow : undefined}
         />

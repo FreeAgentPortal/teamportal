@@ -1,7 +1,6 @@
 import PageLayout from '@/layout/page/Page.layout';
 import { navigation } from '@/data/navigation';
 import { Metadata } from 'next';
-import axios from '@/utils/axios';
 import Details from '@/views/opportunity_hub/search/details/Details.view';
 
 export const metadata: Metadata = {
@@ -14,4 +13,4 @@ export default async function Home({ params }: { params: Promise<{ id: string }>
       <Details />
     </PageLayout>
   );
-} 
+}

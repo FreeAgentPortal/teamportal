@@ -1,6 +1,6 @@
 :root {
   /* === Core Color Palette === */
-  --color-black: #0a0a0a;
+  --color-black: #000000;
   --color-silver: #c0c0c0;
   --color-silver-dark: #979595;
   --color-metallic-blue: #7acdf2;
@@ -13,7 +13,7 @@
 
   --color-bg-dark: var(--color-black);
   --color-bg-gradient: linear-gradient(120deg, var(--color-black) 0%, var(--primary) 100%);
-  --color-text-primary: var(--color-black);
+  --text-primary: var(--color-black);
   --color-accent: var(--color-metallic-blue);
 
   /* === Semantic Aliases === */
@@ -23,6 +23,9 @@
   --disabled: var(--color-silver-dark);
   --success: var(--color-success-green);
   --secondary: var(--color-silver);
+  /* --text-secondary: white;
+  --text-primary: white; */
+
   --secondary-dark: var(--color-silver-dark);
 
   --text-color: var(--color-text-primary);
@@ -31,8 +34,8 @@
   --accent: var(--color-accent);
 
   /* === Font Families === */
-  --font-family-primary: 'Roboto', sans-serif;
-  --font-family-secondary: 'Montserrat', sans-serif;
+  --font-family-primary: 'Roboto Condensed', sans-serif;
+  --font-family-secondary: 'Roboto Condensed', sans-serif;
 
   /* === Font Sizes === */
   --font-size-xs: 0.75rem;
@@ -71,7 +74,8 @@
   padding: 0;
 }
 
-html, body {
+html,
+body {
   background: var(--color-bg-gradient);
   color: var(--color-text-primary);
   font-family: var(--font-family-primary);

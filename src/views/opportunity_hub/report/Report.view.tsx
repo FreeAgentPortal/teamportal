@@ -1,9 +1,7 @@
 'use client';
-import React from 'react';
-import styles from './Report.module.scss';
 import { useQueryClient } from '@tanstack/react-query';
 import SearchWrapper from '@/layout/searchWrapper/SearchWrapper.layout';
-import { FaExternalLinkAlt, FaEye, FaEyeSlash, FaPlus, FaTrash } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaEye, FaEyeSlash, FaTrash } from 'react-icons/fa';
 import useApiHook from '@/hooks/useApi';
 import { Button, Table, Tooltip } from 'antd';
 import { useRouter } from 'next/navigation';
@@ -98,8 +96,9 @@ const Report = () => {
                     onClick={() => {
                       router.push(`/opportunities_hub/reports/${record._id}`);
                     }}
+                    type="link"
                   >
-                    <FaExternalLinkAlt />
+                    <FaExternalLinkAlt color="black" />
                   </Button>
                 </Tooltip>
                 <Tooltip title={!record.opened ? 'Mark as Viewed' : 'Mark as Not Viewed'}>
@@ -110,9 +109,10 @@ const Report = () => {
                         formData: { opened: !record.opened },
                       });
                     }}
+                    type="link"
                   >
                     {/* Switches between a view and viewed icon */}
-                    {!record.opened ? <FaEye /> : <FaEyeSlash />}
+                    {!record.opened ? <FaEye color="black" /> : <FaEyeSlash color="black" />}
                   </Button>
                 </Tooltip>
                 <Tooltip title="Delete Report">
@@ -125,6 +125,7 @@ const Report = () => {
                         });
                       }
                     }}
+                    type="link"
                   >
                     <FaTrash />
                   </Button>

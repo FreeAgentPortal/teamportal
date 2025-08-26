@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Button, Tabs, Avatar, Tag, Tooltip } from 'antd';
+import { Tabs, Tag, Tooltip } from 'antd';
 import { MessageOutlined, UserOutlined } from '@ant-design/icons';
 import styles from './AthleteDetails.module.scss';
 import { IAthlete } from '@/types/IAthleteType';
@@ -12,6 +12,8 @@ import DiamondRating from '@/components/diamondRating/DiamondRating.component';
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import { useFavoriteAthlete } from '@/hooks/useFavoriteAthlete';
 import { useAthleteConversations } from '@/hooks/useAthleteConversation';
+import TheButton from '@/components/button/Button.component';
+import Image from 'next/image';
 
 interface AthleteDetailsProps {
   athlete?: IAthlete;
@@ -57,7 +59,7 @@ const AthleteDetails: React.FC<AthleteDetailsProps> = ({ athlete }) => {
       <div className={styles.header}>
         <div className={styles.athleteInfo}>
           <div className={styles.avatarSection}>
-            <Avatar size={120} src={athlete.profileImageUrl} icon={<UserOutlined />} className={styles.avatar} />
+            <Image alt={athlete.fullName} width={200} height={200} src={athlete.profileImageUrl} icon={<UserOutlined />} className={styles.avatar} />
           </div>
 
           <div className={styles.basicInfo}>
@@ -95,19 +97,26 @@ const AthleteDetails: React.FC<AthleteDetailsProps> = ({ athlete }) => {
           >
             {hasConversation() ? (
               <Link href={`/opportunities_hub/messages/${getConversationId()}`}>
-                <Button type="primary" size="large" icon={<MessageOutlined />} className={styles.conversationBtn}>
+                <TheButton type="primary" size="large" icon={<MessageOutlined />} className={styles.conversationBtn}>
                   Go to Conversation
-                </Button>
+                </TheButton>
               </Link>
             ) : (
-              <Button type="primary" size="large" icon={<MessageOutlined />} onClick={() => handleStartConversation()} className={styles.conversationBtn} disabled={!athlete._id}>
+              <TheButton
+                type="primary"
+                size="large"
+                icon={<MessageOutlined />}
+                onClick={() => handleStartConversation()}
+                className={styles.conversationBtn}
+                disabled={!athlete._id}
+              >
                 Start Conversation
-              </Button>
+              </TheButton>
             )}
           </Tooltip>
 
           <Tooltip title={athlete.userId ? (isFavorited() ? 'Remove from favorites list' : 'Add to favorites list') : 'Athlete is not registered with Free Agent Portal'}>
-            <Button
+            <TheButton
               type="primary"
               size="large"
               icon={isFavorited() ? <MdFavorite /> : <MdFavoriteBorder />}
@@ -116,7 +125,7 @@ const AthleteDetails: React.FC<AthleteDetailsProps> = ({ athlete }) => {
               disabled={!athlete._id}
             >
               {isFavorited() ? 'Remove from favorites' : 'Add to favorites'}
-            </Button>
+            </TheButton>
           </Tooltip>
         </div>
       </div>

@@ -54,9 +54,9 @@
   }
 
   &.systemNotification {
-    background: var(--color-bg-gradient);
+    background: var(--primary);
+    color: var(--font-primary);
     border-left: 4px solid var(--color-metallic-blue);
-    color: var(--secondary);
     .systemAvatar {
       box-shadow: 0 0 0 2px var(--color-metallic-blue);
     }

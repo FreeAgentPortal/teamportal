@@ -13,7 +13,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <PageLayout pages={[navigation().account_details.links.profile]}>
+    <PageLayout pages={[navigation().account_details.links.profile]} largeSideBar>
       <Suspense fallback={<div>Loading profile...</div>}>
         <Profile />
       </Suspense>

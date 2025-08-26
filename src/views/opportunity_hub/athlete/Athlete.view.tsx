@@ -4,10 +4,10 @@ import styles from './Athlete.module.scss';
 import useApiHook from '@/hooks/useApi';
 import SearchWrapper from '@/layout/searchWrapper/SearchWrapper.layout';
 import { MdFavorite, MdFavoriteBorder, MdGridOn, MdList } from 'react-icons/md';
-import { Button } from 'antd';
 import { useLocalStorage } from '@uidotdev/usehooks';
 import AthleteList from '../../../components/athleteList/AthleteList.component';
 import { useFavoriteAthlete } from '@/hooks/useFavoriteAthlete';
+import Button from '@/components/button/Button.component';
 
 const Athlete = () => {
   const { data, isFetching } = useApiHook({

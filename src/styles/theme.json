@@ -1,32 +1,29 @@
 {
   "token": {
-    "colorPrimary": "#7acdf2",
-    "colorPrimaryHover": "#4ba7d6",
-    "colorPrimaryActive": "#b3e6fc", 
-    "colorTextSecondary": "#6c757d", 
+    "colorPrimary": "#000000",
+    "colorPrimaryHover": "#011111",
+    "colorPrimaryActive": "#033333",
+    "colorTextSecondary": "#6c757d",
     "colorSuccess": "#00b894",
     "colorError": "#d63031",
     "colorWarning": "#f39c12",
-    "colorLink": "#7acdf2",
-    "fontFamily": "'Roboto', sans-serif",
+    "colorLink": "#000000",
+    "fontFamily": "'Roboto Condensed', sans-serif",
     "fontSize": 16,
     "borderRadius": 8,
     "controlHeight": 40,
     "controlOutlineWidth": 2,
-    "colorBorder": "#4ba7d6",
+    "colorBorder": "#000000",
     "boxShadow": "0 2px 6px rgba(0, 0, 0, 0.2)"
   },
   "components": {
     "Button": {
-      "colorPrimary": "#7acdf2",
-      "colorPrimaryHover": "#4ba7d6",
-      "colorPrimaryActive": "#b3e6fc",
-      "borderRadius": 8,
+      "borderRadius": 4,
       "fontWeight": 500
     },
-    "Input": { 
+    "Input": {
       "colorBorder": "#4ba7d6",
-      "fontFamily": "'Roboto', sans-serif"
+      "fontFamily": "'Roboto Condensed', sans-serif"
     },
     "Card": {
       "colorText": "#c0c0c0",
@@ -38,12 +35,11 @@
       "colorText": "#c0c0c0"
     },
     "Tabs": {
-      "colorPrimary": "#7acdf2",
       "colorText": "#c0c0c0",
       "fontWeightStrong": 700
     },
     "Typography": {
-      "fontFamily": "'Roboto', sans-serif",
+      "fontFamily": "'Roboto Condensed', sans-serif",
       "colorText": "#c0c0c0",
       "fontSize": 16
     },
