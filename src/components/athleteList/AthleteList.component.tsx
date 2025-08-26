@@ -110,6 +110,7 @@ const AthleteList = ({ data, isTable, minimal }: ListProps) => {
         xxl: 4,
       }}
       dataSource={data}
+      className={styles.list}
       renderItem={(athlete) => (
         <List.Item>
           <AthleteCard key={athlete._id} athlete={athlete} />

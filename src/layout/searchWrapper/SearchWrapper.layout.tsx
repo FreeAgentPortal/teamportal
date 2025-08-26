@@ -170,12 +170,7 @@ const SearchWrapper = (props: Props) => {
         </div>
       </div>
 
-      <div className={styles.childrenContainer}>
-        <p className={styles.searchStats}>
-          {props.total} items {search !== '' && <span>for {search}</span>}
-        </p>
-        {props.isFetching ? <Skeleton active /> : props.children}
-      </div>
+      <div className={styles.childrenContainer}>{props.isFetching ? <Skeleton active /> : props.children}</div>
       <div className={styles.pagination}>
         <Pagination
           defaultCurrent={1}

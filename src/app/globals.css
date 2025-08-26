@@ -34,8 +34,8 @@
   --accent: var(--color-accent);
 
   /* === Font Families === */
-  --font-family-primary: 'Roboto Condensed', sans-serif;
-  --font-family-secondary: 'Roboto Condensed', sans-serif;
+  --font-family-primary: var(--font-roboto);
+  --font-family-secondary: var(--font-roboto);
 
   /* === Font Sizes === */
   --font-size-xs: 0.75rem;
@@ -78,7 +78,7 @@ html,
 body {
   background: var(--color-bg-gradient);
   color: var(--color-text-primary);
-  font-family: var(--font-family-primary);
+  font-family: var(--font-roboto);
   scroll-behavior: smooth;
   height: 100%;
 }

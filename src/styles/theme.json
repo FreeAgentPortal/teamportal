@@ -8,8 +8,7 @@
     "colorError": "#d63031",
     "colorWarning": "#f39c12",
     "colorLink": "#000000",
-    "fontFamily": "'Roboto Condensed', sans-serif",
-    "fontSize": 16,
+    "fontSize": 14,
     "borderRadius": 8,
     "controlHeight": 40,
     "controlOutlineWidth": 2,
@@ -22,8 +21,7 @@
       "fontWeight": 500
     },
     "Input": {
-      "colorBorder": "#4ba7d6",
-      "fontFamily": "'Roboto Condensed', sans-serif"
+      "colorBorder": "#4ba7d6"
     },
     "Card": {
       "colorText": "#c0c0c0",
