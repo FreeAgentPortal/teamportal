@@ -217,21 +217,6 @@
   color: white;
 }
 
-.viewButton {
-  color: var(--primary);
-  font-weight: 500;
-
-  &:hover {
-    color: var(--primary-hover);
-  }
-}
-
-.videosCard {
-  margin-top: 2rem;
-  border: 1px solid var(--border);
-  border-radius: 0.75rem;
-}
-
 .cardTitle {
   display: flex;
   align-items: center;
@@ -254,44 +239,6 @@
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 1rem;
   }
-}
-
-.videoItem {
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-}
-
-.videoThumbnail {
-  background: var(--card-background-light);
-  border: 2px solid var(--border);
-  border-radius: 0.5rem;
-  height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 0.5rem;
-  transition: all 0.3s ease;
-
-  &:hover {
-    border-color: var(--primary);
-    background: var(--primary-light);
-  }
-}
-
-.playIcon {
-  font-size: 3rem;
-  color: var(--primary);
-}
-
-.videoTitle {
-  font-size: 0.9rem;
-  color: var(--text-primary);
-  margin: 0;
 }
 
 // Modal Styles

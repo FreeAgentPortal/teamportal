@@ -7,6 +7,7 @@ import useApiHook from '@/hooks/useApi';
 import { IScoutReport } from '@/types/IScoutReport';
 import ScoutReportCard from '@/components/scoutReportCard/ScoutReportCard.component';
 import ScoutReportModal from './components/ScoutReportModal.component';
+import VideoLink from './components/VideoLink.component';
 
 interface ScoutReportsViewProps {
   athlete?: IAthlete;
@@ -25,6 +26,28 @@ const ScoutReportsView: React.FC<ScoutReportsViewProps> = ({ athlete }) => {
   }) as any;
 
   const scoutReports = data?.payload || [];
+
+  const fetchMetaImage = async (videoUrl: string) => {
+    if (!videoUrl) return;
+
+    try {
+      // Call the JSONLink API directly from the frontend
+      const response = await fetch(`https://jsonlink.io/api/extractor?url=${encodeURIComponent(videoUrl)}`);
+
+      if (!response.ok) {
+        throw new Error('API request failed');
+      }
+
+      const data = await response.json();
+
+      // Extract the image URL from the response
+      if (data.image) {
+        return data.image;
+      }
+    } catch (error) {
+      console.error('JSONLink API error:', error);
+    }
+  };
 
   const handleViewReport = (report: IScoutReport) => {
     setSelectedReport(report);
@@ -81,12 +104,7 @@ const ScoutReportsView: React.FC<ScoutReportsViewProps> = ({ athlete }) => {
         >
           <div className={styles.videoGrid}>
             {athlete.highlightVideos.map((videoUrl, index) => (
-              <div key={index} className={styles.videoItem}>
-                <div className={styles.videoThumbnail}>
-                  <PlayCircleOutlined className={styles.playIcon} />
-                </div>
-                <p className={styles.videoTitle}>Highlight Reel #{index + 1}</p>
-              </div>
+              <VideoLink key={index} videoUrl={videoUrl} index={index} />
             ))}
           </div>
         </Card>

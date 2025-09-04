@@ -1,4 +1,4 @@
-@use "@/styles/globals.scss" as *;
+@use '@/styles/globals.scss' as *;
 
 .diamondRating {
   display: flex;
@@ -143,7 +143,7 @@
     // Enhanced fallback for browsers that don't support background-clip: text
     @supports not (background-clip: text) {
       &::before {
-        content: "♦";
+        content: '♦';
         position: absolute;
         top: 0;
         left: 0;

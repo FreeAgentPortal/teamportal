@@ -1,16 +1,10 @@
-"use client";
+'use client';
 
-import React from "react";
-import styles from "./DiamondRating.module.scss";
-import { DiamondRatingProps } from "./DiamondRating.types";
+import React from 'react';
+import styles from './DiamondRating.module.scss';
+import { DiamondRatingProps } from './DiamondRating.types';
 
-const DiamondRating: React.FC<DiamondRatingProps> = ({
-  rating,
-  maxRating = 5,
-  size = "medium",
-  showValue = false,
-  className = "",
-}) => {
+const DiamondRating: React.FC<DiamondRatingProps> = ({ rating, maxRating = 5, size = 'medium', showValue = false, className = '' }) => {
   const renderDiamonds = (rating: number, maxRating: number) => {
     // Renders diamonds with support for half-filled diamonds
     // Examples: 3.0 = 3 full, 2 empty | 3.5 = 3 full, 1 half, 1 empty | 4.7 = 4 full, 1 half

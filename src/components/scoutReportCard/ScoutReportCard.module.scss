@@ -1,7 +1,7 @@
 @use '@/styles/globals.scss' as *;
 
 .reportCard {
-  background: black;
+  background: white;
   border-radius: 12px;
   padding: 1rem;
   margin-bottom: 0.75rem;
@@ -76,7 +76,7 @@
 .scoutName {
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--text-primary, #ffffff);
+  color: #000000;
   margin: 0 0 0.25rem 0;
   white-space: nowrap;
   overflow: hidden;
@@ -89,7 +89,7 @@
 
 .scoutOrg {
   font-size: 0.8rem;
-  color: var(--text-secondary, #ffffff);
+  color: #000000;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -127,7 +127,7 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 1rem;
-  color: white;
+  color: black;
 
   @include mobile {
     flex-direction: column;
@@ -164,7 +164,7 @@
 }
 
 .reportDate {
-  color: white;
+  color: #999999;
   font-size: 0.8rem;
 
   @include mobile {
@@ -173,7 +173,7 @@
 }
 
 .sportInfo {
-  color: rgb(239, 239, 239);
+  color: black;
   font-size: 0.8rem;
 
   @include mobile {

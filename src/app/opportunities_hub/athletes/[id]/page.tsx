@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   }
 
   return {
-    title: `FAP | ${athlete.name} Details`,
+    title: `FAP | ${athlete.fullName} Details`,
     description: `Details for athlete ${athlete.name} in the FAP system`,
   };
 }

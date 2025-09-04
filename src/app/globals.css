@@ -17,9 +17,10 @@
   --color-accent: var(--color-metallic-blue);
 
   /* === Semantic Aliases === */
-  --primary: var(--color-metallic-blue-dark);
+  --primary: rgb(22, 30, 42);
   --primary-light: var(--color-metallic-blue-light);
-  --primary-dark: var(--color-black);
+  --primary-dark: #0a0a0a;
+
   --disabled: var(--color-silver-dark);
   --success: var(--color-success-green);
   --secondary: var(--color-silver);
