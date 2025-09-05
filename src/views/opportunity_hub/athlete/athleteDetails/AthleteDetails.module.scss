@@ -149,6 +149,40 @@
   color: #ffd700;
 }
 
+.agentIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(24, 144, 255, 0.1);
+  border: 1px solid rgba(24, 144, 255, 0.2);
+  border-radius: 0.5rem;
+  width: fit-content;
+
+  @include mobile {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+.agentIcon {
+  color: var(--primary);
+  font-size: 1rem;
+}
+
+.agentText {
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.agentName {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
 .ctaSection {
   display: flex;
   align-items: center;

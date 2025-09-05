@@ -1,12 +1,13 @@
 'use client';
 import React, { useState } from 'react';
 import { Tabs, Tag, Tooltip } from 'antd';
-import { MessageOutlined } from '@ant-design/icons';
+import { MessageOutlined, UserOutlined } from '@ant-design/icons';
 import styles from './AthleteDetails.module.scss';
 import { IAthlete } from '@/types/IAthleteType';
 import MetricsView from './subviews/metrics/Metrics.view';
 import MeasurementsView from './subviews/measurements/Measurements.view';
 import ScoutReportsView from './subviews/scoutReports/ScoutReports.view';
+import AgentView from './subviews/agent/Agent.view';
 import Link from 'next/link';
 import DiamondRating from '@/components/diamondRating/DiamondRating.component';
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
@@ -51,6 +52,11 @@ const AthleteDetails: React.FC<AthleteDetailsProps> = ({ athlete }) => {
       label: 'Scout Reports',
       children: <ScoutReportsView athlete={athlete} />,
     },
+    {
+      key: 'agent',
+      label: 'Agent',
+      children: <AgentView athlete={athlete} />,
+    },
   ];
 
   return (
@@ -84,6 +90,15 @@ const AthleteDetails: React.FC<AthleteDetailsProps> = ({ athlete }) => {
                 <div className={styles.rating}>
                   <span className={styles.ratingLabel}>Diamond Rating:</span>
                   <DiamondRating rating={athlete.diamondRating} size="large" showValue={true} className={styles.athleteRating} />
+                </div>
+              )}
+
+              {/* Agent Indicator */}
+              {athlete.agent && (athlete.agent.name || athlete.agent.email || athlete.agent.phone) && (
+                <div className={styles.agentIndicator}>
+                  <UserOutlined className={styles.agentIcon} />
+                  <span className={styles.agentText}>Represented by Agent</span>
+                  {athlete.agent.name && <span className={styles.agentName}>({athlete.agent.name})</span>}
                 </div>
               )}
             </div>
