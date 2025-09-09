@@ -8,6 +8,7 @@ import { useSocketStore } from '@/state/socket';
 import PageLayout from '../page/Page.layout';
 import useApiHook from '@/hooks/useApi';
 import { Skeleton } from 'antd';
+import PolicyCheckWrapper from '../policyCheckWrapper/PolicyCheckWrapper.layout';
 
 type Props = {
   children: React.ReactNode;
@@ -76,7 +77,11 @@ const AppWrapper = (props: Props) => {
       </PageLayout>
     ); // or skeleton loader
   }
-  return <Suspense fallback={<Skeleton active />}>{props.children}</Suspense>;
+  return (
+    <Suspense fallback={<Skeleton active />}>
+      <PolicyCheckWrapper>{props.children}</PolicyCheckWrapper>
+    </Suspense>
+  );
 };
 
 export default AppWrapper;

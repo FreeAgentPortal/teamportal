@@ -2,6 +2,7 @@ export default interface User {
   _id: string;
   firstName: string;
   lastName: string;
+  acceptedPolicies: Record<string, number>;
   customerId: string;
   profileImageUrl: string;
   phoneNumber: string;
