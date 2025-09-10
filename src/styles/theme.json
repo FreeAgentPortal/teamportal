@@ -30,14 +30,14 @@
     },
     "Modal": {
       "borderRadius": 12,
-      "colorText": "#c0c0c0"
+      "colorText": "#000000"
     },
     "Tabs": {
-      "colorText": "#c0c0c0",
+      "colorText": "#000000",
       "fontWeightStrong": 700
     },
     "Typography": {
-      "colorText": "#c0c0c0",
+      "colorText": "#000000",
       "fontSize": 16
     },
     "Menu": {

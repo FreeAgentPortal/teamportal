@@ -1,12 +1,11 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, Card, Space, Divider } from 'antd';
+import { useState, useEffect } from 'react';
+import { Form, Input, Button, Card, Space } from 'antd';
 import { UserOutlined, LockOutlined, MailOutlined, PhoneOutlined, SaveOutlined } from '@ant-design/icons';
 import styles from './AccountDetails.module.scss';
 import formStyles from '@/styles/Form.module.scss';
 import useApiHook from '@/hooks/useApi';
 import { useUser } from '@/state/auth';
-import type User from '@/types/User';
 import PhotoUpload from '@/components/photoUpload/PhotoUpload.component';
 import { useInterfaceStore } from '@/state/interface';
 
@@ -146,7 +145,7 @@ const AccountDetails = () => {
         <Space direction="vertical" size="large" style={{ width: '100%' }}>
           {/* Profile Section */}
           <Card
-            title="Profile Information"
+            title="User Information"
             extra={
               <Button type="link" onClick={() => setIsEditing(!isEditing)} icon={isEditing ? <SaveOutlined /> : <UserOutlined />}>
                 {isEditing ? 'Cancel' : 'Edit Profile'}

@@ -113,7 +113,6 @@ const PolicyCheckWrapper: React.FC<PolicyCheckWrapperProps> = ({ children }) => 
         maskClosable={false}
         footer={null}
         centered
-        bodyStyle={{ borderRadius: 12, background: '#fafcff', padding: 32 }}
         style={{ width: 'auto', maxWidth: 800 }}
         wrapClassName={styles.policyModal}
       >
