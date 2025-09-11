@@ -65,9 +65,11 @@ const BenefitModal = (props: Props) => {
         </Form.Item>
       </Form>
 
-      <Button type="primary" onClick={() => deleteBenefit()} danger>
-        Delete
-      </Button>
+      {props.index !== undefined && (
+        <Button type="primary" onClick={() => deleteBenefit()} danger>
+          Delete
+        </Button>
+      )}
     </Modal>
   );
 };

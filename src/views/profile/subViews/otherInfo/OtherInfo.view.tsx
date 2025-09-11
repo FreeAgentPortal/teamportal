@@ -39,12 +39,11 @@ const OtherInfo = () => {
     <div className={styles.container}>
       <div className={styles.headerSection}>
         <h1 className={styles.title}>Additional Team Info</h1>
-        <p className={styles.description}>Update your team&apos;s additional information here.</p>
+        <p className={styles.description}>Add some additional information about your team.</p>
       </div>
 
       <Form form={form} layout="vertical" className={styles.formContainer} onFinish={handleSubmit}>
         <div className={styles.formSection}>
-          <h3 className={styles.sectionTitle}>Essential Information</h3>
           <div className={styles.formGroup}>
             <div className={formStyles.row}>
               <Form.Item label="Team Biography" name="bio" className={formStyles.field}>

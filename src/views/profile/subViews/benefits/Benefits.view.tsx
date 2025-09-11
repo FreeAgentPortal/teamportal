@@ -24,7 +24,7 @@ const Benefits = () => {
     <div className={styles.container}>
       <div className={styles.headerSection}>
         <h1 className={styles.title}>Team benefits</h1>
-        <p className={styles.description}>Update your team&apos;s benefits here.</p>
+        <p className={styles.description}>Highlight your team by adding some of its benefits here.</p>
       </div>
 
       {profile?.payload?.benefits?.map((benefit: Benefit, index: number) => (
@@ -34,7 +34,7 @@ const Benefits = () => {
         </div>
       ))}
       <Button className={styles.button} size="large" onClick={() => selectBenefit(undefined, undefined)} onSubmit={(e) => e.preventDefault()} type="primary">
-        Add benefit
+        + Add benefit
       </Button>
 
       <BenefitModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} benefit={selectedBenefit} index={selectedBenefitIndex} />

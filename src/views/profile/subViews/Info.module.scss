@@ -19,7 +19,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 1rem;
+
   margin-bottom: 1rem;
 
   .title {
@@ -151,13 +151,17 @@
   display: flex;
   flex-direction: column;
 
-  background-color: whitesmoke;
+  background-color: rgb(255, 255, 255);
+  border-radius: 12px;
+  box-shadow: 0 8px 5px rgba(0, 0, 0, 0.18);
+
+  border: 5px solid var(--primary);
+
   padding: 2rem;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 5px rgba(0, 0, 0, 0.013);
   }
 
   .benefitTitle {
