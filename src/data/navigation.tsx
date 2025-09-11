@@ -6,7 +6,6 @@ import { BsBox, BsBroadcastPin } from 'react-icons/bs';
 import { BsFillPeopleFill } from 'react-icons/bs';
 import { IoCodeSlashOutline } from 'react-icons/io5';
 import { MdMessage } from 'react-icons/md';
-import { profile } from 'console';
 
 export const navigation = (options?: any) => {
   return {
@@ -62,7 +61,7 @@ export const navigation = (options?: any) => {
       title: 'Account Details',
       links: {
         profile: {
-          title: 'Profile',
+          title: 'Team Profile',
           link: '/account_details/profile',
           icon: <BsFillPeopleFill />,
         },

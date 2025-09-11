@@ -146,3 +146,36 @@
   align-items: center;
   gap: 0.5rem;
 }
+
+.benefitContainer {
+  display: flex;
+  flex-direction: column;
+
+  background-color: whitesmoke;
+  padding: 2rem;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 5px rgba(0, 0, 0, 0.013);
+  }
+
+  .benefitTitle {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .benefitDescription {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}

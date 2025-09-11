@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './BasicInfo.module.scss';
+import styles from '../Info.module.scss';
 import formStyles from '@/styles/Form.module.scss';
 import { Button, Form, Input, Switch, ColorPicker } from 'antd';
 import { useQueryClient } from '@tanstack/react-query';

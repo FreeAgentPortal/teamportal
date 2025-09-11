@@ -1,10 +1,11 @@
 'use client';
-import styles from './Profile.module.scss';
 import { Tabs, TabsProps } from 'antd';
 import BasicInfo from './subViews/basicInfo/BasicInfo.component';
 import useApiHook from '@/hooks/useApi';
 import { useQueryClient } from '@tanstack/react-query';
 import UserManagement from './subViews/userManagement';
+import OtherInfo from './subViews/otherInfo/OtherInfo.view';
+import Benefits from './subViews/benefits/Benefits.view';
 
 const Profile = () => {
   const queryClient = useQueryClient();
@@ -22,14 +23,24 @@ const Profile = () => {
       children: <BasicInfo />,
     },
     {
-      label: 'User Management',
+      label: 'Additional Info',
       key: '2',
+      children: <OtherInfo />,
+    },
+    {
+      label: 'Benefits',
+      key: '3',
+      children: <Benefits />,
+    },
+    {
+      label: 'User Management',
+      key: '4',
       children: <UserManagement onUserRemoved={() => {}} />,
     },
   ];
 
   return (
-    <div className={styles.container}>
+    <div>
       <Tabs defaultActiveKey="1" type="card" items={tabs} animated />
     </div>
   );
