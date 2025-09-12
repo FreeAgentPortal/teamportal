@@ -18,7 +18,7 @@ const BenefitModal = (props: Props) => {
 
   useEffect(() => {
     form.setFieldsValue({ title: props.benefit?.title, description: props.benefit?.description });
-  }, [props.benefit]);
+  }, [props.benefit, props.isModalOpen]);
 
   const { mutate: updateProfile } = useApiHook({
     method: 'PUT',
