@@ -18,6 +18,11 @@
   gap: 0.5rem;
   transition: all 0.3s ease;
 
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
   &:hover {
     background: var(--secondary);
     transform: translateY(-2px);

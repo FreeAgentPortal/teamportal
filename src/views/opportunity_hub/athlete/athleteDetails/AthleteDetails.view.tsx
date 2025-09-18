@@ -14,6 +14,7 @@ import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import { useFavoriteAthlete } from '@/hooks/useFavoriteAthlete';
 import { useAthleteConversations } from '@/hooks/useAthleteConversation';
 import TheButton from '@/components/button/Button.component';
+import Resume from './subviews/resume/Resume.view';
 import Image from 'next/image';
 
 interface AthleteDetailsProps {
@@ -43,8 +44,8 @@ const AthleteDetails: React.FC<AthleteDetailsProps> = ({ athlete }) => {
       children: <MetricsView athlete={athlete} />,
     },
     {
-      key: 'measurements',
-      label: 'Measurements',
+      key: 'Personal-Info',
+      label: 'Personal Info',
       children: <MeasurementsView athlete={athlete} />,
     },
     {
@@ -56,6 +57,11 @@ const AthleteDetails: React.FC<AthleteDetailsProps> = ({ athlete }) => {
       key: 'agent',
       label: 'Agent',
       children: <AgentView athlete={athlete} />,
+    },
+    {
+      key: 'resume',
+      label: 'Resume',
+      children: <Resume athlete={athlete} />,
     },
   ];
 

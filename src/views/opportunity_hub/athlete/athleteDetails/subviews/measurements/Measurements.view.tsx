@@ -70,7 +70,7 @@ const MeasurementsView: React.FC<MeasurementsViewProps> = ({ athlete }) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.title}>Physical Measurements & Personal Information</h2>
+        <h2 className={styles.title}>Personal Information and Measurements</h2>
         <p className={styles.description}>Detailed physical measurements and personal details for {athlete?.fullName}</p>
       </div>
 
@@ -127,7 +127,7 @@ const MeasurementsView: React.FC<MeasurementsViewProps> = ({ athlete }) => {
                     </div>
                   </Descriptions.Item>
                 )}
-{/*}
+                {/*}
                 {athlete?.contactNumber && (
                   <Descriptions.Item label="Phone">
                     <a href={`tel:${athlete.contactNumber}`} className={styles.contactLink}>
