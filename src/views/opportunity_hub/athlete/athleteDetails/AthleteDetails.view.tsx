@@ -16,6 +16,8 @@ import { useAthleteConversations } from '@/hooks/useAthleteConversation';
 import TheButton from '@/components/button/Button.component';
 import Resume from './subviews/resume/Resume.view';
 import Image from 'next/image';
+import useViewUpdate from './hooks/useViewUpdate'; 
+import { useQueryClient } from '@tanstack/react-query';
 
 interface AthleteDetailsProps {
   athlete?: IAthlete;
@@ -26,6 +28,15 @@ const AthleteDetails: React.FC<AthleteDetailsProps> = ({ athlete }) => {
 
   const { isFavorited, handleToggleFavoriteAthlete } = useFavoriteAthlete(athlete);
   const { hasConversation, handleStartConversation, getConversationId } = useAthleteConversations(athlete);
+  const queryClient = useQueryClient();
+  const currentUser = queryClient.getQueryData(['profile', 'team']) as any;
+
+  // Track view update when component loads
+  useViewUpdate({
+    athleteId: athlete?._id || '',
+    profileId: currentUser?.payload?._id || '',
+    enabled: !!(athlete?._id && currentUser?.payload?._id),
+  });
 
   if (!athlete) {
     return (
