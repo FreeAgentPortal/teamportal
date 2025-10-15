@@ -1,6 +1,6 @@
 import { RiHome2Fill } from 'react-icons/ri';
 import { MdSupportAgent } from 'react-icons/md';
-import { FaRegBell } from 'react-icons/fa';
+import { FaCalendar, FaRegBell } from 'react-icons/fa';
 import { CgProfile } from 'react-icons/cg';
 import { BsBox, BsBroadcastPin } from 'react-icons/bs';
 import { BsFillPeopleFill } from 'react-icons/bs';
@@ -37,6 +37,11 @@ export const navigation = (options?: any) => {
           title: 'Dynamic Search Hub',
           link: '/opportunities_hub/search_preferences',
           icon: <BsFillPeopleFill />,
+        },
+        event_dashboard: {
+          title: 'Event Dashboard',
+          link: '/opportunities_hub/events',
+          icon: <FaCalendar />,
         },
         //TODO: add the ability to create a badge to wrap the icon to show how many new
         // reports there are

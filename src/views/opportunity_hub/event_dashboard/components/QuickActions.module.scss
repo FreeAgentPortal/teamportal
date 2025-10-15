@@ -1,0 +1,68 @@
+@import '@/styles/globals.scss';
+
+.container {
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 1.5rem 0;
+}
+
+.actionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.875rem 1rem;
+  background: #f8f9fa;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: $simple-animation;
+  text-align: left;
+
+  &:hover {
+    background: #f0f1f3;
+    border-color: #d0d0d0;
+  }
+
+  &.primary {
+    background: #1976d2;
+    color: white;
+    border-color: #1976d2;
+
+    &:hover {
+      background: #1565c0;
+      border-color: #1565c0;
+    }
+
+    .actionIcon,
+    .actionLabel {
+      color: white;
+    }
+  }
+}
+
+.actionIcon {
+  font-size: 1.1rem;
+  width: 20px;
+  text-align: center;
+}
+
+.actionLabel {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #1a1a1a;
+}
