@@ -5,6 +5,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useInterfaceStore } from '@/state/interface';
 import { default as themeOverride } from '@/styles/theme.json';
 import { ConfigProvider } from 'antd';
+import enUS from 'antd/locale/en_US';
+import dayjs from 'dayjs';
 import fontColorContrast from 'font-color-contrast';
 
 function ReactQueryProvider({ children }: React.PropsWithChildren) {
@@ -99,6 +101,7 @@ function ReactQueryProvider({ children }: React.PropsWithChildren) {
             fontFamily: 'var(--font-roboto)',
           },
         }}
+        locale={enUS}
       >
         {children}
         <ReactQueryDevtools initialIsOpen={false} />

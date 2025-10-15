@@ -1,0 +1,172 @@
+@import '@/styles/globals.scss';
+
+.modal {
+  .ant-modal-body {
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+}
+
+.form {
+  .ant-form-item {
+    margin-bottom: 1rem;
+  }
+
+  .ant-form-item-label > label {
+    font-weight: 500;
+    color: #1a1a1a;
+  }
+}
+
+.section {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 1.25rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e3f2fd;
+  display: inline-block;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+// Custom styling for form inputs
+.form {
+  .ant-input,
+  .ant-select-selector,
+  .ant-picker,
+  .ant-input-number {
+    border-radius: 6px;
+    border: 1px solid #d0d0d0;
+    transition: $simple-animation;
+
+    &:hover {
+      border-color: #1976d2;
+    }
+
+    &:focus,
+    &.ant-picker-focused,
+    &.ant-select-focused .ant-select-selector,
+    &.ant-input-number-focused {
+      border-color: #1976d2;
+      box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.1);
+    }
+  }
+
+  .ant-select-arrow,
+  .ant-picker-suffix {
+    color: #666;
+  }
+
+  // Textarea styling
+  .ant-input {
+    &.ant-input-textarea textarea {
+      border: none;
+      box-shadow: none;
+
+      &:focus {
+        border: none;
+        box-shadow: none;
+      }
+    }
+  }
+
+  // Switch styling
+  .ant-switch {
+    background-color: #d0d0d0;
+
+    &.ant-switch-checked {
+      background-color: #1976d2;
+    }
+  }
+
+  // Number input styling
+  .ant-input-number {
+    .ant-input-number-input {
+      border: none;
+      box-shadow: none;
+    }
+  }
+
+  // Date picker styling
+  .ant-picker {
+    .ant-picker-input > input {
+      border: none;
+      box-shadow: none;
+    }
+  }
+
+  // Select styling
+  .ant-select {
+    .ant-select-selection-placeholder {
+      color: #999;
+    }
+  }
+}
+
+// Error states
+.form {
+  .ant-form-item-has-error {
+    .ant-input,
+    .ant-select-selector,
+    .ant-picker,
+    .ant-input-number {
+      border-color: #ff4d4f;
+
+      &:hover,
+      &:focus,
+      &.ant-picker-focused,
+      &.ant-select-focused .ant-select-selector,
+      &.ant-input-number-focused {
+        border-color: #ff4d4f;
+        box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.1);
+      }
+    }
+  }
+
+  .ant-form-item-explain-error {
+    color: #ff4d4f;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+  }
+}
+
+// Responsive adjustments
+@include tablet {
+  .modal {
+    .ant-modal {
+      max-width: 90vw;
+      margin: 1rem;
+    }
+
+    .ant-modal-body {
+      padding: 1.5rem 1rem;
+    }
+  }
+}
+
+@include mobile {
+  .section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .sectionTitle {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+}

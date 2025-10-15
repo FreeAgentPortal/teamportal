@@ -2,6 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import axios from '@/utils/axios';
 import { EventDocument } from '@/types/IEventType';
 import { FilterOptions } from '../components/EventFilters';
+import useApiHook from '@/hooks/useApi';
+import { useSelectedProfile } from '@/hooks/useSelectedProfile';
+import { useUser } from '@/state/auth';
 
 export interface UseEventsParams {
   filters?: FilterOptions;
@@ -12,10 +15,14 @@ export interface UseEventsParams {
 }
 
 export interface EventsResponse {
-  events: EventDocument[];
-  totalCount: number;
-  currentPage: number;
-  totalPages: number;
+  payload: EventDocument[];
+  metadata: {
+    page: number;
+    pages: number;
+    totalCount: number;
+    prevPage: number | null;
+    nextPage: number | null;
+  }
 }
 
 /**
@@ -164,7 +171,7 @@ export const createEventCacheKey = (filters?: FilterOptions) => {
  * Utility function to format filters for cache key creation
  * This can be used outside the hook for cache invalidation
  */
-const formatFiltersForCache = (filterOptions: FilterOptions) => {
+export const formatFiltersForCache = (filterOptions: FilterOptions) => {
   const filterPairs: string[] = [];
   const includePairs: string[] = [];
 
@@ -205,4 +212,94 @@ const formatFiltersForCache = (filterOptions: FilterOptions) => {
     filterOptions: filterPairs.join('|'),
     includeOptions: includePairs.join('|'),
   };
+};
+
+/**
+ * Hook to create a new event
+ * Leverages useApiHook for consistent API handling and caching
+ */
+export const useCreateEvent = (cache: any) => {
+  return useApiHook({
+    method: 'POST',
+    url: '/feed/event',
+    key: 'createEvent',
+    successMessage: 'Event created successfully!',
+    queriesToInvalidate: ['events', cache],
+    onSuccessCallback: (data) => {
+      console.log('Event created:', data);
+    },
+    onErrorCallback: (error) => {
+      console.error('Failed to create event:', error);
+    },
+  });
+};
+
+/**
+ * Hook to update an existing event
+ * Leverages useApiHook for consistent API handling and caching
+ */
+export const useUpdateEvent = () => {
+  return useApiHook({
+    method: 'PUT',
+    key: 'updateEvent',
+    successMessage: 'Event updated successfully!',
+    queriesToInvalidate: ['events', 'event'],
+    onSuccessCallback: (data) => {
+      console.log('Event updated:', data);
+    },
+    onErrorCallback: (error) => {
+      console.error('Failed to update event:', error);
+    },
+  });
+};
+
+/**
+ * Hook to delete an event
+ * Leverages useApiHook for consistent API handling and caching
+ */
+export const useDeleteEvent = () => {
+  return useApiHook({
+    method: 'DELETE',
+    key: 'deleteEvent',
+    successMessage: 'Event deleted successfully!',
+    queriesToInvalidate: ['events'],
+    onSuccessCallback: (data) => {
+      console.log('Event deleted:', data);
+    },
+    onErrorCallback: (error) => {
+      console.error('Failed to delete event:', error);
+    },
+  });
+};
+
+/**
+ * Utility function to transform EventDocument to API format
+ * Removes client-side only fields and ensures proper structure
+ */
+export const transformEventForAPI = (eventData: Partial<EventDocument>): any => {
+  const transformed: any = {
+    ...eventData,
+    // Ensure dates are in ISO string format
+    startsAt: eventData.startsAt instanceof Date ? eventData.startsAt.toISOString() : eventData.startsAt,
+    endsAt: eventData.endsAt instanceof Date ? eventData.endsAt.toISOString() : eventData.endsAt,
+  };
+
+  // Transform registration dates if they exist
+  if (transformed.registration) {
+    const registration = transformed.registration;
+    transformed.registration = {
+      ...registration,
+      opensAt: registration.opensAt instanceof Date ? registration.opensAt.toISOString() : registration.opensAt,
+      closesAt: registration.closesAt instanceof Date ? registration.closesAt.toISOString() : registration.closesAt,
+    };
+  }
+
+  // Remove any undefined fields to keep payload clean
+  Object.keys(transformed).forEach((key) => {
+    if (transformed[key] === undefined) {
+      delete transformed[key];
+    }
+  });
+
+  return transformed;
 };

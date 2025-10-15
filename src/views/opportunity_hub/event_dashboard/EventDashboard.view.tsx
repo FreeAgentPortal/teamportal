@@ -6,14 +6,21 @@ import EventList from './components/EventList';
 import EventFilters, { FilterOptions } from './components/EventFilters';
 import EventStats from './components/EventStats';
 import QuickActions from './components/QuickActions';
-import { useEvents } from './hooks/useEvents';
+import EventModal from './components/EventModal';
+import { useEvents, useCreateEvent, useUpdateEvent, useDeleteEvent, transformEventForAPI, formatFiltersForCache } from './hooks/useEvents';
 import styles from './EventDashboard.module.scss';
+import { useSelectedProfile } from '@/hooks/useSelectedProfile';
+import { useUser } from '@/state/auth';
 
 const EventDashboard = () => {
   // State management
   const [filters, setFilters] = useState<FilterOptions>({});
   const [pageNumber, setPageNumber] = useState(1);
-
+  const [eventModalOpen, setEventModalOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<EventDocument | null>(null);
+  const [eventSubmitLoading, setEventSubmitLoading] = useState(false);
+  const { selectedProfile } = useSelectedProfile();
+  const { data: loggedInUser } = useUser();
   // Fetch events using the custom hook
   const {
     data: eventsData,
@@ -28,13 +35,19 @@ const EventDashboard = () => {
     sortOrder: 'asc',
   });
 
-  const events = eventsData?.events || [];
-  const loading = isLoading || isRefetching;
+  // Mutation hooks for event operations
+  const { mutate: createEvent, isLoading: createLoading } = useCreateEvent(formatFiltersForCache(filters)) as any;
+  const { mutate: updateEvent, isLoading: updateLoading } = useUpdateEvent() as any;
+  const { mutate: deleteEvent, isLoading: deleteLoading } = useDeleteEvent() as any;
 
-  // Placeholder handlers - to be implemented
+  const events = eventsData?.payload || [];
+  const loading = isLoading || isRefetching;
+  const modalLoading = eventSubmitLoading || createLoading || updateLoading;
+
+  // Modal handlers
   const handleCreateEvent = () => {
-    console.log('Create new event');
-    // TODO: Open event creation modal/form
+    setSelectedEvent(null); // Clear any selected event (for create mode)
+    setEventModalOpen(true);
   };
 
   const handleImportEvents = () => {
@@ -48,13 +61,17 @@ const EventDashboard = () => {
   };
 
   const handleEditEvent = (event: EventDocument) => {
-    console.log('Edit event:', event._id);
-    // TODO: Open edit event modal/form
+    setSelectedEvent(event); // Set the event to edit
+    setEventModalOpen(true);
   };
 
   const handleDeleteEvent = (eventId: string) => {
-    console.log('Delete event:', eventId);
-    // TODO: Show confirmation dialog and delete
+    // TODO: Add confirmation dialog here
+    if (confirm('Are you sure you want to delete this event? This action cannot be undone.')) {
+      deleteEvent({
+        url: `/feed/event/${eventId}`,
+      });
+    }
   };
 
   const handleFiltersChange = (newFilters: FilterOptions) => {
@@ -88,6 +105,63 @@ const EventDashboard = () => {
     setPageNumber(newPage);
   };
 
+  // Event submission handler
+  const handleEventSubmit = (eventData: Partial<EventDocument>) => {
+    setEventSubmitLoading(true);
+
+    // Transform the event data for API
+    const transformedData = transformEventForAPI({...eventData,
+      createdByUserId: loggedInUser?._id,
+      teamProfileId: selectedProfile?._id,
+    });
+
+    if (selectedEvent) {
+      // Update existing event
+      updateEvent(
+        {
+          url: `/feed/event/${selectedEvent._id}`,
+          formData: transformedData,
+        },
+        {
+          onSuccess: () => {
+            // Close modal and clear state on success
+            setEventModalOpen(false);
+            setSelectedEvent(null);
+            setEventSubmitLoading(false);
+          },
+          onError: () => {
+            // Error handling is managed by useApiHook, just reset loading
+            setEventSubmitLoading(false);
+          },
+        }
+      );
+    } else {
+      // Create new event
+      createEvent(
+        {
+          formData: transformedData,
+        },
+        {
+          onSuccess: () => {
+            // Close modal and clear state on success
+            setEventModalOpen(false);
+            setSelectedEvent(null);
+            setEventSubmitLoading(false);
+          },
+          onError: () => {
+            // Error handling is managed by useApiHook, just reset loading
+            setEventSubmitLoading(false);
+          },
+        }
+      );
+    }
+  };
+
+  const handleModalClose = () => {
+    setEventModalOpen(false);
+    setSelectedEvent(null);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -110,9 +184,9 @@ const EventDashboard = () => {
           <EventList
             events={events}
             loading={loading}
-            totalCount={eventsData?.totalCount || 0}
-            currentPage={eventsData?.currentPage || 1}
-            totalPages={eventsData?.totalPages || 1}
+            totalCount={eventsData?.metadata?.totalCount || 0}
+            currentPage={eventsData?.metadata?.page || 1}
+            totalPages={eventsData?.metadata?.pages || 1}
             onEventClick={handleEventClick}
             onEditEvent={handleEditEvent}
             onDeleteEvent={handleDeleteEvent}
@@ -128,6 +202,9 @@ const EventDashboard = () => {
           <EventFilters filters={filters} onFiltersChange={handleFiltersChange} />
         </div>
       </div>
+
+      {/* Event Modal for Create/Edit */}
+      <EventModal open={eventModalOpen} onClose={handleModalClose} onSubmit={handleEventSubmit} event={selectedEvent} loading={modalLoading} />
     </div>
   );
 };
