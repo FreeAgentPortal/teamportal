@@ -61,7 +61,13 @@ const AthleteList = ({ data, isTable, minimal }: ListProps) => {
     {
       title: 'Rating',
       key: 'rating',
-      render: (_: any, record: IAthlete) => <DiamondRating rating={record.diamondRating || 0} maxRating={5} size="small" showValue={true} />,
+      render: (_: any, record: IAthlete) => {
+        // if there is no rating, show N/A
+        if (record.diamondRating === undefined || record.diamondRating === null) {
+          return 'N/A';
+        }
+        return <DiamondRating rating={record.diamondRating || 0} maxRating={5} size="small" showValue={true} />;
+      },
     },
     {
       title: 'Actions',
