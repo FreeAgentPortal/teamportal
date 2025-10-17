@@ -42,6 +42,7 @@ export const navigation = (options?: any) => {
           title: 'Event Dashboard',
           link: '/opportunities_hub/events',
           icon: <FaCalendar />,
+          hidden: options?.user?.profileRefs['admin'] ? false : true,
         },
         //TODO: add the ability to create a badge to wrap the icon to show how many new
         // reports there are
