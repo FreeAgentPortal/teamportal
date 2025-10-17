@@ -7,7 +7,7 @@ import EventFilters, { FilterOptions } from './components/EventFilters';
 import EventStats from './components/EventStats';
 import QuickActions from './components/QuickActions';
 import EventModal from './components/EventModal';
-import { useEvents, useCreateEvent, useUpdateEvent, useDeleteEvent, transformEventForAPI, formatFiltersForCache } from './hooks/useEvents';
+import { useEvents, useCreateEvent, useUpdateEvent, useDeleteEvent, transformEventForAPI, formatFiltersForCache, useEventStats } from './hooks/useEvents';
 import styles from './EventDashboard.module.scss';
 import { useSelectedProfile } from '@/hooks/useSelectedProfile';
 import { useUser } from '@/state/auth';
@@ -34,6 +34,7 @@ const EventDashboard = () => {
     sortBy: 'startsAt',
     sortOrder: 'asc',
   });
+  const { data: eventStatsData } = useEventStats(selectedProfile?._id as string);
 
   // Mutation hooks for event operations
   const { mutate: createEvent, isLoading: createLoading } = useCreateEvent(formatFiltersForCache(filters)) as any;
@@ -110,10 +111,7 @@ const EventDashboard = () => {
     setEventSubmitLoading(true);
 
     // Transform the event data for API
-    const transformedData = transformEventForAPI({...eventData,
-      createdByUserId: loggedInUser?._id,
-      teamProfileId: selectedProfile?._id,
-    });
+    const transformedData = transformEventForAPI({ ...eventData, createdByUserId: loggedInUser?._id, teamProfileId: selectedProfile?._id });
 
     if (selectedEvent) {
       // Update existing event
@@ -195,7 +193,7 @@ const EventDashboard = () => {
         </div>
 
         <div className={styles.sidebar}>
-          <EventStats events={events} />
+          <EventStats events={events} statsData={eventStatsData} loading={!eventStatsData && isLoading} />
 
           <QuickActions onCreateEvent={handleCreateEvent} onViewCalendar={handleViewCalendar} onExportEvents={handleExportEvents} onManageTemplates={handleManageTemplates} />
 

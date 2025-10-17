@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from '@/utils/axios';
 import { EventDocument } from '@/types/IEventType';
 import { FilterOptions } from '../components/EventFilters';
+import { EventStatsData } from '../components/EventStats';
 import useApiHook from '@/hooks/useApi';
 import { useSelectedProfile } from '@/hooks/useSelectedProfile';
 import { useUser } from '@/state/auth';
@@ -22,7 +23,7 @@ export interface EventsResponse {
     totalCount: number;
     prevPage: number | null;
     nextPage: number | null;
-  }
+  };
 }
 
 /**
@@ -302,4 +303,19 @@ export const transformEventForAPI = (eventData: Partial<EventDocument>): any => 
   });
 
   return transformed;
+};
+
+// fetches from the API a list of event statistics
+export const useEventStats = (teamId: string) => {
+  return useQuery<EventStatsData>({
+    queryKey: ['events', 'stats', teamId],
+    queryFn: async (): Promise<EventStatsData> => {
+      const response = await axios.get(`/feed/event/${teamId}/stats`);
+      return response.data;
+    },
+    enabled: !!teamId,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+    retry: 2,
+  });
 };
