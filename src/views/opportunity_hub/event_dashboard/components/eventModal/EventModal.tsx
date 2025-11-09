@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Form, Input, Select, DatePicker, InputNumber, Switch, Button, Space, Row, Col } from 'antd';
+import { Modal, Form, Input, Select, DatePicker, InputNumber, Switch, Button, Space, Row, Col, Alert } from 'antd';
 import { EventDocument, EventType, Visibility, Audience, LocationKind } from '@/types/IEventType';
 import CustomQuestions, { CustomQuestion } from '../customQuestions/CustomQuestions';
 import dayjs from 'dayjs';
@@ -152,6 +152,7 @@ const EventModal: React.FC<EventModalProps> = ({ open, onClose, onSubmit, event,
   // Watch location kind to show/hide relevant fields
   const locationKind = Form.useWatch('locationKind', form);
   const registrationRequired = Form.useWatch('registrationRequired', form);
+  const price = Form.useWatch('price', form);
 
   return (
     <Modal
@@ -394,6 +395,16 @@ const EventModal: React.FC<EventModalProps> = ({ open, onClose, onSubmit, event,
                   </Form.Item>
                 </Col>
               </Row>
+
+              {price && price > 0 && (
+                <Alert
+                  message="Payment Collection Notice"
+                  description="FreeAgentPortal does NOT collect payments on behalf of teams. Payments should be collected day of the event or by a third party elsewhere. FAP is incapable of processing payments at this time, if payments are necessary for registration prior to the event its requested that the team organizer manage this externally."
+                  type="warning"
+                  showIcon
+                  style={{ marginBottom: '16px' }}
+                />
+              )}
 
               <Row gutter={16}>
                 <Col span={12}>
