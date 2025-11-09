@@ -81,17 +81,9 @@ const EventStats: React.FC<EventStatsProps> = ({ events, statsData, loading = fa
       const capacityUtilization = statsData.totalCapacity > 0 ? Math.round((statsData.totalRegistrations / statsData.totalCapacity) * 100) : 0;
 
       return {
-        totalEvents: statsData.totalEvents,
-        upcomingEvents: statsData.upcomingEvents,
-        completedEvents: statsData.completedEvents,
-        activeEvents: statsData.activeEvents,
-        totalRegistrations: statsData.totalRegistrations,
-        totalConfirmedRegistrations: statsData.totalConfirmedRegistrations,
-        totalInterestedRegistrations: statsData.totalInterestedRegistrations,
-        totalAppliedRegistrations: statsData.totalAppliedRegistrations,
-        totalCapacity: statsData.totalCapacity,
+        ...statsData,
         capacityUtilization,
-        popularEventType: statsData.mostPopularEventType.type,
+        popularEventType: statsData?.mostPopularEventType?.type,
       };
     }
 

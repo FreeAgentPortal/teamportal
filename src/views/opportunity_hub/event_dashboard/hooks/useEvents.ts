@@ -1,13 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from '@/utils/axios';
 import { EventDocument } from '@/types/IEventType';
-import { FilterOptions } from '../components/EventFilters';
-import { EventStatsData } from '../components/EventStats';
+import { FilterOptions } from '../components/eventFilters/EventFilters';
+import { EventStatsData } from '../components/eventStats/EventStats';
 import useApiHook from '@/hooks/useApi';
 import { useSelectedProfile } from '@/hooks/useSelectedProfile';
 import { useUser } from '@/state/auth';
+import { ITeamType } from '@/types/ITeamType';
 
 export interface UseEventsParams {
+  selectedProfile?: ITeamType;
   filters?: FilterOptions;
   pageNumber?: number;
   pageLimit?: number;
@@ -79,6 +81,9 @@ export const useEvents = (params: UseEventsParams = {}) => {
         filterPairs.push(`startsAt;<=${filterOptions.dateRange.end.toISOString()}`);
       }
     }
+
+    // filter options will always include a filter on _id based on selected profile
+    filterPairs.push(`teamProfileId;${params.selectedProfile?._id}`);
 
     return {
       filterOptions: filterPairs.join('|'),
@@ -225,7 +230,7 @@ export const useCreateEvent = (cache: any) => {
     url: '/feed/event',
     key: 'createEvent',
     successMessage: 'Event created successfully!',
-    queriesToInvalidate: ['events', cache],
+    queriesToInvalidate: [`events,${cache}`],
     onSuccessCallback: (data) => {
       console.log('Event created:', data);
     },

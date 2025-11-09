@@ -1,0 +1,90 @@
+@import '@/styles/globals.scss';
+
+.questionsSection {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.questionsSectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  h5 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+}
+
+.questionCard {
+  margin-bottom: 1rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+
+  &:hover {
+    border-color: #1976d2;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  }
+
+  :global(.ant-card-body) {
+    padding: 1rem;
+  }
+}
+
+.optionsSection {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f5f5f5;
+}
+
+.optionsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.optionsLabel {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #666;
+}
+
+.emptyState {
+  padding: 2rem;
+  text-align: center;
+  color: #999;
+  font-style: italic;
+  background: #fafafa;
+  border-radius: 6px;
+  border: 1px dashed #d0d0d0;
+}
+
+.emptyOptions {
+  padding: 1rem;
+  text-align: center;
+  color: #999;
+  font-size: 0.85rem;
+  font-style: italic;
+  background: #fafafa;
+  border-radius: 4px;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.saveButton {
+  margin-right: 0.25rem;
+}

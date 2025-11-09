@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import { EventDocument } from '@/types/IEventType';
 import TheButton from '@/components/button/Button.component';
-import EventList from './components/EventList';
-import EventFilters, { FilterOptions } from './components/EventFilters';
-import EventStats from './components/EventStats';
-import QuickActions from './components/QuickActions';
-import EventModal from './components/EventModal';
+import EventList from './components/eventList/EventList';
+import EventFilters, { FilterOptions } from './components/eventFilters/EventFilters';
+import EventStats from './components/eventStats/EventStats';
+import QuickActions from './components/quickActions/QuickActions';
+import EventModal from './components/eventModal/EventModal';
 import { useEvents, useCreateEvent, useUpdateEvent, useDeleteEvent, transformEventForAPI, formatFiltersForCache, useEventStats } from './hooks/useEvents';
 import styles from './EventDashboard.module.scss';
 import { useSelectedProfile } from '@/hooks/useSelectedProfile';
@@ -33,6 +33,7 @@ const EventDashboard = () => {
     pageLimit: 20,
     sortBy: 'startsAt',
     sortOrder: 'asc',
+    selectedProfile: selectedProfile as any,
   });
   const { data: eventStatsData } = useEventStats(selectedProfile?._id as string);
 

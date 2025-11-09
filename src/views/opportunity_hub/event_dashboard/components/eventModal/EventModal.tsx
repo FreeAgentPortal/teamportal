@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Form, Input, Select, DatePicker, InputNumber, Switch, Button, Space, Row, Col } from 'antd';
 import { EventDocument, EventType, Visibility, Audience, LocationKind } from '@/types/IEventType';
+import CustomQuestions, { CustomQuestion } from '../customQuestions/CustomQuestions';
 import dayjs from 'dayjs';
 import styles from './EventModal.module.scss';
 
@@ -19,19 +20,16 @@ const EventModal: React.FC<EventModalProps> = ({ open, onClose, onSubmit, event,
   const [form] = Form.useForm();
   const isEditing = !!event;
 
+  // State for managing custom registration questions
+  const [questions, setQuestions] = useState<CustomQuestion[]>([]);
+
   // Reset form when modal opens/closes or event changes
   useEffect(() => {
     if (open) {
       if (event) {
         // Populate form with event data for editing
         form.setFieldsValue({
-          title: event.title,
-          description: event.description,
-          type: event.type,
-          sport: event.sport,
-          audience: event.audience,
-          visibility: event.visibility,
-          timezone: event.timezone,
+          ...event,
           startsAt: event.startsAt ? dayjs(event.startsAt) : null,
           endsAt: event.endsAt ? dayjs(event.endsAt) : null,
           allDay: event.allDay || false,
@@ -58,9 +56,16 @@ const EventModal: React.FC<EventModalProps> = ({ open, onClose, onSubmit, event,
           price: event.registration?.price,
           currency: event.registration?.currency,
         });
+        // Load existing questions
+        if (event.registration?.questions) {
+          setQuestions(event.registration.questions);
+        } else {
+          setQuestions([]);
+        }
       } else {
         // Reset form for new event
         form.resetFields();
+        setQuestions([]);
         // Set some defaults
         form.setFieldsValue({
           type: EventType.PRACTICE,
@@ -127,7 +132,7 @@ const EventModal: React.FC<EventModalProps> = ({ open, onClose, onSubmit, event,
               allowWalkIns: values.allowWalkIns,
               price: values.price,
               currency: values.currency,
-              questions: [], // TODO: Add support for custom questions
+              questions: questions, // Include custom questions
             }
           : undefined,
       };
@@ -140,6 +145,7 @@ const EventModal: React.FC<EventModalProps> = ({ open, onClose, onSubmit, event,
 
   const handleCancel = () => {
     form.resetFields();
+    setQuestions([]);
     onClose();
   };
 
@@ -401,6 +407,9 @@ const EventModal: React.FC<EventModalProps> = ({ open, onClose, onSubmit, event,
                   </Form.Item>
                 </Col>
               </Row>
+
+              {/* Custom Registration Questions */}
+              <CustomQuestions questions={questions} onChange={setQuestions} />
             </>
           )}
         </div>
