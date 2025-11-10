@@ -44,8 +44,8 @@ const CreatePost = () => {
   }) as any;
 
   // Get user display information from profile or fallback to auth data
-  const userAvatar = selectedProfile?.profileImageUrl || loggedInData?.profileImageUrl;
-  const userName = selectedProfile?.fullName || loggedInData?.fullName || `${loggedInData?.firstName || ''} ${loggedInData?.lastName || ''}`.trim() || 'User';
+  const userAvatar = selectedProfile?.logoUrl || loggedInData?.profileImageUrl;
+  const userName = selectedProfile?.name || loggedInData?.fullName || `${loggedInData?.firstName || ''} ${loggedInData?.lastName || ''}`.trim() || 'User';
 
   const handleExpand = () => {
     setIsExpanded(true);
