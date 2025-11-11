@@ -7,10 +7,9 @@ import EventFilters, { FilterOptions } from './components/eventFilters/EventFilt
 import EventStats from './components/eventStats/EventStats';
 import QuickActions from './components/quickActions/QuickActions';
 import EventModal from './components/eventModal/EventModal';
-import { useEvents, useCreateEvent, useUpdateEvent, useDeleteEvent, transformEventForAPI, formatFiltersForCache, useEventStats } from './hooks/useEvents';
+import { useEvents, useDeleteEvent, useEventStats } from './hooks/useEvents';
 import styles from './EventDashboard.module.scss';
 import { useSelectedProfile } from '@/hooks/useSelectedProfile';
-import { useUser } from '@/state/auth';
 
 const EventDashboard = () => {
   // State management
@@ -18,9 +17,7 @@ const EventDashboard = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [eventModalOpen, setEventModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<EventDocument | null>(null);
-  const [eventSubmitLoading, setEventSubmitLoading] = useState(false);
   const { selectedProfile } = useSelectedProfile();
-  const { data: loggedInUser } = useUser();
   // Fetch events using the custom hook
   const {
     data: eventsData,
@@ -38,13 +35,10 @@ const EventDashboard = () => {
   const { data: eventStatsData } = useEventStats(selectedProfile?._id as string);
 
   // Mutation hooks for event operations
-  const { mutate: createEvent, isLoading: createLoading } = useCreateEvent(formatFiltersForCache(filters)) as any;
-  const { mutate: updateEvent, isLoading: updateLoading } = useUpdateEvent() as any;
   const { mutate: deleteEvent, isLoading: deleteLoading } = useDeleteEvent() as any;
 
   const events = eventsData?.payload || [];
   const loading = isLoading || isRefetching;
-  const modalLoading = eventSubmitLoading || createLoading || updateLoading;
 
   // Modal handlers
   const handleCreateEvent = () => {
@@ -107,55 +101,6 @@ const EventDashboard = () => {
     setPageNumber(newPage);
   };
 
-  // Event submission handler
-  const handleEventSubmit = (eventData: Partial<EventDocument>) => {
-    setEventSubmitLoading(true);
-
-    // Transform the event data for API
-    const transformedData = transformEventForAPI({ ...eventData, createdByUserId: loggedInUser?._id, teamProfileId: selectedProfile?._id });
-
-    if (selectedEvent) {
-      // Update existing event
-      updateEvent(
-        {
-          url: `/feed/event/${selectedEvent._id}`,
-          formData: transformedData,
-        },
-        {
-          onSuccess: () => {
-            // Close modal and clear state on success
-            setEventModalOpen(false);
-            setSelectedEvent(null);
-            setEventSubmitLoading(false);
-          },
-          onError: () => {
-            // Error handling is managed by useApiHook, just reset loading
-            setEventSubmitLoading(false);
-          },
-        }
-      );
-    } else {
-      // Create new event
-      createEvent(
-        {
-          formData: transformedData,
-        },
-        {
-          onSuccess: () => {
-            // Close modal and clear state on success
-            setEventModalOpen(false);
-            setSelectedEvent(null);
-            setEventSubmitLoading(false);
-          },
-          onError: () => {
-            // Error handling is managed by useApiHook, just reset loading
-            setEventSubmitLoading(false);
-          },
-        }
-      );
-    }
-  };
-
   const handleModalClose = () => {
     setEventModalOpen(false);
     setSelectedEvent(null);
@@ -203,7 +148,7 @@ const EventDashboard = () => {
       </div>
 
       {/* Event Modal for Create/Edit */}
-      <EventModal open={eventModalOpen} onClose={handleModalClose} onSubmit={handleEventSubmit} event={selectedEvent} loading={modalLoading} />
+      <EventModal open={eventModalOpen} onClose={handleModalClose} event={selectedEvent} filters={filters} onSuccess={handleModalClose} />
     </div>
   );
 };

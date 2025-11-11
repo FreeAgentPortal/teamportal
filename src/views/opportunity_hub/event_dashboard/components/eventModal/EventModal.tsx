@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Form, Input, Select, DatePicker, InputNumber, Switch, Button, Space, Row, Col, Alert } from 'antd';
 import { EventDocument, EventType, Visibility, Audience, LocationKind } from '@/types/IEventType';
 import CustomQuestions, { CustomQuestion } from '../customQuestions/CustomQuestions';
+import { useCreateEvent, useUpdateEvent, transformEventForAPI, formatFiltersForCache } from '../../hooks/useEvents';
+import { useSelectedProfile } from '@/hooks/useSelectedProfile';
+import { useUser } from '@/state/auth';
 import dayjs from 'dayjs';
 import styles from './EventModal.module.scss';
 
@@ -11,17 +14,25 @@ const { Option } = Select;
 interface EventModalProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (eventData: Partial<EventDocument>) => void;
   event?: EventDocument | null; // For editing
-  loading?: boolean;
+  filters?: any; // Optional filters for cache invalidation
+  onSuccess?: () => void; // Optional success callback
 }
 
-const EventModal: React.FC<EventModalProps> = ({ open, onClose, onSubmit, event, loading = false }) => {
+const EventModal: React.FC<EventModalProps> = ({ open, onClose, event, filters, onSuccess }) => {
   const [form] = Form.useForm();
   const isEditing = !!event;
+  const { selectedProfile } = useSelectedProfile();
+  const { data: loggedInUser } = useUser();
 
   // State for managing custom registration questions
   const [questions, setQuestions] = useState<CustomQuestion[]>([]);
+
+  // Mutation hooks for create/update
+  const { mutate: createEvent, isLoading: isCreating } = useCreateEvent(formatFiltersForCache(filters || {})) as any;
+  const { mutate: updateEvent, isLoading: isUpdating } = useUpdateEvent(event?._id) as any;
+
+  const loading = isCreating || isUpdating;
 
   // Reset form when modal opens/closes or event changes
   useEffect(() => {
@@ -137,7 +148,41 @@ const EventModal: React.FC<EventModalProps> = ({ open, onClose, onSubmit, event,
           : undefined,
       };
 
-      onSubmit(eventData);
+      // Add user and team information for create
+      const transformedData = transformEventForAPI({
+        ...eventData,
+        createdByUserId: loggedInUser?._id,
+        teamProfileId: selectedProfile?._id,
+      });
+
+      if (isEditing) {
+        // Update existing event
+        updateEvent(
+          {
+            url: `/feed/event/${event._id}`,
+            formData: transformedData,
+          },
+          {
+            onSuccess: () => {
+              handleCancel();
+              onSuccess?.();
+            },
+          }
+        );
+      } else {
+        // Create new event
+        createEvent(
+          {
+            formData: transformedData,
+          },
+          {
+            onSuccess: () => {
+              handleCancel();
+              onSuccess?.();
+            },
+          }
+        );
+      }
     } catch (error) {
       console.error('Form validation failed:', error);
     }

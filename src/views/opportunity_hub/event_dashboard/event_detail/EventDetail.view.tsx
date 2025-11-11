@@ -1,14 +1,10 @@
 'use client';
 import React, { useState } from 'react';
-import { useEvent, useUpdateEvent } from '../hooks';
+import { useEvent } from '../hooks';
 import { Tabs, Tag, Spin, Alert, Button } from 'antd';
-import { InfoCircleOutlined, TeamOutlined, FileTextOutlined, SettingOutlined, EditOutlined } from '@ant-design/icons';
-import EventOverview from './components/eventOverview/EventOverview';
-import EventRegistrations from './components/eventRegistrations/EventRegistrations';
-import EventPosts from './components/eventPosts/EventPosts';
-import EventSettings from './components/eventSettings/EventSettings';
+import { TeamOutlined, EditOutlined } from '@ant-design/icons';
+import { getEventDetailTabs } from './eventDetailTabs';
 import EventModal from '../components/eventModal/EventModal';
-import { EventDocument } from '@/types/IEventType';
 import dayjs from 'dayjs';
 import styles from './EventDetail.module.scss';
 dayjs.extend(require('dayjs/plugin/relativeTime'));
@@ -21,18 +17,6 @@ const EventDetail = ({ id }: EventDetailProps) => {
   const [activeTab, setActiveTab] = useState('overview');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { data: eventData, isLoading, error } = useEvent(id as string);
-  const { mutate: updateEvent, isLoading: isUpdating } = useUpdateEvent(id) as any;
-
-  const handleUpdateEvent = (updatedEventData: Partial<EventDocument>) => {
-    updateEvent(
-      { url: `/feed/event/${id}`, formData: updatedEventData },
-      {
-        onSuccess: () => {
-          setIsModalOpen(false);
-        },
-      }
-    );
-  };
 
   if (isLoading) {
     return (
@@ -63,48 +47,7 @@ const EventDetail = ({ id }: EventDetailProps) => {
     return colors[status] || 'default';
   };
 
-  const tabItems = [
-    {
-      key: 'overview',
-      label: (
-        <span>
-          <InfoCircleOutlined />
-          Overview
-        </span>
-      ),
-      children: <EventOverview event={event} />,
-    },
-    {
-      key: 'registrations',
-      label: (
-        <span>
-          <TeamOutlined />
-          Registrations
-        </span>
-      ),
-      children: <EventRegistrations eventId={id as string} />,
-    },
-    {
-      key: 'posts',
-      label: (
-        <span>
-          <FileTextOutlined />
-          Posts
-        </span>
-      ),
-      children: <EventPosts eventId={id as string} />,
-    },
-    {
-      key: 'settings',
-      label: (
-        <span>
-          <SettingOutlined />
-          Settings
-        </span>
-      ),
-      children: <EventSettings eventId={id as string} />,
-    },
-  ];
+  const tabItems = getEventDetailTabs(event, id as string);
 
   return (
     <div className={styles.container}>
@@ -134,7 +77,7 @@ const EventDetail = ({ id }: EventDetailProps) => {
       </div>
 
       {/* Event Edit Modal */}
-      <EventModal open={isModalOpen} onClose={() => setIsModalOpen(false)} onSubmit={handleUpdateEvent} event={event} loading={isUpdating} />
+      <EventModal open={isModalOpen} onClose={() => setIsModalOpen(false)} event={event} onSuccess={() => setIsModalOpen(false)} />
     </div>
   );
 };
