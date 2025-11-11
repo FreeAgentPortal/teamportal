@@ -145,8 +145,8 @@ export const useEvent = (eventId: string) => {
   return useQuery({
     queryKey: ['event', eventId],
     queryFn: async () => {
-      const response = await axios.get(`/api/events/${eventId}`);
-      return response.data as EventDocument;
+      const { data } = await axios.get(`/feed/event/${eventId}`);
+      return data as { payload: EventDocument, success: boolean};
     },
     enabled: !!eventId,
     staleTime: 5 * 60 * 1000,
@@ -244,12 +244,12 @@ export const useCreateEvent = (cache: any) => {
  * Hook to update an existing event
  * Leverages useApiHook for consistent API handling and caching
  */
-export const useUpdateEvent = () => {
+export const useUpdateEvent = (id?: string) => {
   return useApiHook({
     method: 'PUT',
     key: 'updateEvent',
     successMessage: 'Event updated successfully!',
-    queriesToInvalidate: ['events', 'event'],
+    queriesToInvalidate: ['events', `event,${id}`],
     onSuccessCallback: (data) => {
       console.log('Event updated:', data);
     },

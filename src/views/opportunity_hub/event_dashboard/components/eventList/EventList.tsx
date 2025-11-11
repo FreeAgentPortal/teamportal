@@ -1,6 +1,9 @@
 import React from 'react';
 import { EventDocument } from '@/types/IEventType';
 import styles from './EventList.module.scss';
+import { MdOutlineOpenInNew } from 'react-icons/md';
+import { FaEdit, FaTrash } from 'react-icons/fa';
+import Link from 'next/link';
 
 interface EventListProps {
   events: EventDocument[];
@@ -91,11 +94,16 @@ const EventList: React.FC<EventListProps> = ({
                 {event.audience} • {event.visibility}
               </div>
               <div className={styles.eventActions}>
+                <Link href={`/opportunities_hub/events/${event._id}`}>
+                  <button className={styles.actionButton}>
+                    <MdOutlineOpenInNew />
+                  </button>
+                </Link>
                 <button className={styles.actionButton} onClick={(e) => handleEditEvent(event, e)}>
-                  Edit
+                  <FaEdit />
                 </button>
                 <button className={styles.actionButton + ' ' + styles.danger} onClick={(e) => handleDeleteEvent(event._id, e)}>
-                  Delete
+                  <FaTrash />
                 </button>
               </div>
             </div>

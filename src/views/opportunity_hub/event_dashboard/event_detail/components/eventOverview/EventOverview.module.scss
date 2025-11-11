@@ -1,0 +1,283 @@
+@import '@/styles/globals.scss';
+
+.overviewContainer {
+  padding: 1.5rem 0;
+}
+
+.card {
+  margin-bottom: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e8e8e8;
+
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  :global(.ant-card-body) {
+    padding: 1.5rem;
+  }
+}
+
+.sidebarCard {
+  @extend .card;
+}
+
+.sectionTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  color: #262626;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  :global(.anticon) {
+    color: #1890ff;
+  }
+}
+
+.subsectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1rem 0 0.75rem 0;
+  color: #595959;
+}
+
+.description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #595959;
+  margin: 0;
+}
+
+// Descriptions Component Styling
+.descriptions {
+  :global(.ant-descriptions-item-label) {
+    width: 160px;
+    font-weight: 600;
+    color: #8c8c8c;
+  }
+
+  :global(.ant-descriptions-item-content) {
+    color: #262626;
+  }
+}
+
+// Location Details
+.locationDetails {
+  .venueName {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #262626;
+    margin-bottom: 0.5rem;
+  }
+
+  .address {
+    color: #595959;
+    font-size: 0.95rem;
+  }
+
+  .virtualEvent {
+    margin-bottom: 1rem;
+  }
+
+  .platform,
+  .passcode {
+    color: #595959;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .meetingLink {
+    margin: 0.75rem 0;
+
+    a {
+      color: #1890ff;
+      font-weight: 500;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Registration Questions
+.questionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.questionItem {
+  padding: 1rem;
+  background: #fafafa;
+  border-radius: 8px;
+  border: 1px solid #e8e8e8;
+
+  .questionLabel {
+    font-weight: 500;
+    color: #262626;
+    margin-bottom: 0.5rem;
+
+    .required {
+      color: #ff4d4f;
+      margin-left: 0.25rem;
+    }
+  }
+
+  .questionMeta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+
+    .questionOptions {
+      color: #8c8c8c;
+    }
+  }
+}
+
+// Opponents
+.opponentsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.opponentTag {
+  font-size: 0.95rem;
+  padding: 0.25rem 0.75rem;
+
+  .opponentLevel {
+    color: #8c8c8c;
+  }
+}
+
+// Media Gallery
+.mediaImage,
+.mediaVideo {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.mediaImage {
+  aspect-ratio: 16/9;
+}
+
+// Sidebar
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.infoItem {
+  .infoLabel {
+    font-size: 0.875rem;
+    color: #8c8c8c;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+
+  .infoValue {
+    font-size: 1rem;
+    color: #262626;
+    font-weight: 500;
+  }
+}
+
+// Eligibility
+.eligibilityList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.eligibilityItem {
+  .eligibilityLabel {
+    font-size: 0.875rem;
+    color: #8c8c8c;
+    margin-bottom: 0.25rem;
+  }
+
+  .eligibilityValue {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    color: #262626;
+  }
+}
+
+// Tags
+.tagsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+// Metadata
+.metadataList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.metadataItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .metadataLabel {
+    font-size: 0.875rem;
+    color: #8c8c8c;
+    font-weight: 500;
+  }
+
+  .metadataValue {
+    font-size: 0.875rem;
+    color: #262626;
+  }
+}
+
+// Responsive Design
+@media (max-width: 992px) {
+  .overviewContainer {
+    padding: 1rem 0;
+  }
+
+  .card {
+    margin-bottom: 1rem;
+
+    :global(.ant-card-body) {
+      padding: 1.25rem;
+    }
+  }
+
+  .sectionTitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .overviewContainer {
+    padding: 0.75rem 0;
+  }
+
+  .card {
+    :global(.ant-card-body) {
+      padding: 1rem;
+    }
+  }
+
+  .sectionTitle {
+    font-size: 0.95rem;
+  }
+
+  .description {
+    font-size: 0.9rem;
+  }
+}
