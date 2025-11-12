@@ -1,13 +1,5 @@
 @import '@/styles/globals.scss';
 
-.container {
-  padding: 2rem;
-
-  @include mobile {
-    padding: 1rem;
-  }
-}
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -45,27 +37,74 @@
 }
 
 .content {
-  display: grid;
-  grid-template-columns: 1fr 300px;
+  display: flex;
   gap: 2rem;
+  align-items: flex-start;
 
   @include tablet {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     gap: 1.5rem;
   }
 }
 
 .mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   background: white;
   border-radius: 8px;
   border: 1px solid #e5e5e5;
   overflow: hidden;
+  max-height: calc(100vh - 180px);
+
+  // EventList will scroll, pagination stays at bottom
+  > :first-child {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  @include tablet {
+    max-height: none;
+  }
 }
 
 .sidebar {
+  width: 300px;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  max-height: calc(100vh - 180px); // Adjust based on header height
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.5rem;
+
+  // Custom scrollbar styling
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+
+    &:hover {
+      background: #a8a8a8;
+    }
+  }
+
+  @include tablet {
+    width: 100%;
+    max-height: none;
+    overflow-y: visible;
+    padding-right: 0;
+  }
 }
 
 .statsCard {
@@ -102,4 +141,45 @@
 .statValue {
   font-weight: 600;
   color: #1a1a1a;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-top: 1px solid #f0f0f0;
+  background: white;
+
+  @include mobile {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.pageButton {
+  background: transparent;
+  border: 1px solid #d0d0d0;
+  color: #666;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: $simple-animation;
+
+  &:hover:not(:disabled) {
+    background: #f5f5f5;
+    border-color: #bbb;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.pageInfo {
+  font-size: 0.85rem;
+  color: #666;
+  text-align: center;
 }

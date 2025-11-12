@@ -107,8 +107,8 @@ const EventDashboard = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
+    <div>
+      {/* <div className={styles.header}>
         <div>
           <h1 className={styles.title}>Event Dashboard</h1>
           <p className={styles.subtitle}>Manage your team events, track registrations, and engage with athletes</p>
@@ -121,21 +121,28 @@ const EventDashboard = () => {
             Create Event
           </TheButton>
         </div>
-      </div>
+      </div> */}
 
       <div className={styles.content}>
         <div className={styles.mainContent}>
-          <EventList
-            events={events}
-            loading={loading}
-            totalCount={eventsData?.metadata?.totalCount || 0}
-            currentPage={eventsData?.metadata?.page || 1}
-            totalPages={eventsData?.metadata?.pages || 1}
-            onEventClick={handleEventClick}
-            onEditEvent={handleEditEvent}
-            onDeleteEvent={handleDeleteEvent}
-            onPageChange={handlePageChange}
-          />
+          <EventList events={events} loading={loading} onEventClick={handleEventClick} onEditEvent={handleEditEvent} onDeleteEvent={handleDeleteEvent} />
+
+          {/* Pagination */}
+          {(eventsData?.metadata?.pages || 1) > 1 && (
+            <div className={styles.pagination}>
+              <button className={styles.pageButton} onClick={() => handlePageChange(pageNumber - 1)} disabled={pageNumber === 1}>
+                ← Previous
+              </button>
+
+              <div className={styles.pageInfo}>
+                Page {eventsData?.metadata?.page || 1} of {eventsData?.metadata?.pages || 1} • {eventsData?.metadata?.totalCount || 0} total events
+              </div>
+
+              <button className={styles.pageButton} onClick={() => handlePageChange(pageNumber + 1)} disabled={pageNumber === (eventsData?.metadata?.pages || 1)}>
+                Next →
+              </button>
+            </div>
+          )}
         </div>
 
         <div className={styles.sidebar}>

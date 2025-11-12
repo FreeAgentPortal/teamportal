@@ -146,7 +146,7 @@ export const useEvent = (eventId: string) => {
     queryKey: ['event', eventId],
     queryFn: async () => {
       const { data } = await axios.get(`/feed/event/${eventId}`);
-      return data as { payload: EventDocument, success: boolean};
+      return data as { payload: EventDocument; success: boolean };
     },
     enabled: !!eventId,
     staleTime: 5 * 60 * 1000,

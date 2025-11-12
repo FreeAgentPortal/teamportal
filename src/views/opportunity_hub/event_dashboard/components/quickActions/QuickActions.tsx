@@ -34,27 +34,6 @@ const QuickActions: React.FC<QuickActionsProps> = ({ onCreateEvent, onViewCalend
       handler: handleCreateEvent,
       primary: true,
     },
-    {
-      id: 'view-calendar',
-      label: 'View Calendar',
-      icon: '📅',
-      handler: handleViewCalendar,
-      primary: false,
-    },
-    {
-      id: 'export-events',
-      label: 'Export Events',
-      icon: '📤',
-      handler: handleExportEvents,
-      primary: false,
-    },
-    {
-      id: 'manage-templates',
-      label: 'Event Templates',
-      icon: '📋',
-      handler: handleManageTemplates,
-      primary: false,
-    },
   ];
 
   return (

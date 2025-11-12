@@ -55,7 +55,7 @@ const EventFilters: React.FC<EventFiltersProps> = ({ filters, onFiltersChange })
   const eventTypes = Object.values(EventType);
   const visibilityOptions = Object.values(Visibility);
   const audienceOptions = Object.values(Audience);
-  const statusOptions = ['scheduled', 'completed', 'canceled', 'postponed'];
+  const statusOptions = ['active', 'scheduled', 'completed', 'canceled', 'postponed'];
 
   return (
     <div className={styles.container}>

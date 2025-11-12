@@ -8,26 +8,12 @@ import Link from 'next/link';
 interface EventListProps {
   events: EventDocument[];
   loading?: boolean;
-  totalCount?: number;
-  currentPage?: number;
-  totalPages?: number;
   onEventClick?: (event: EventDocument) => void;
   onEditEvent?: (event: EventDocument) => void;
   onDeleteEvent?: (eventId: string) => void;
-  onPageChange?: (page: number) => void;
 }
 
-const EventList: React.FC<EventListProps> = ({
-  events,
-  loading = false,
-  totalCount = 0,
-  currentPage = 1,
-  totalPages = 1,
-  onEventClick,
-  onEditEvent,
-  onDeleteEvent,
-  onPageChange,
-}) => {
+const EventList: React.FC<EventListProps> = ({ events, loading = false, onEventClick, onEditEvent, onDeleteEvent }) => {
   // Placeholder functions
   const handleEventClick = (event: EventDocument) => {
     onEventClick?.(event);
@@ -110,23 +96,6 @@ const EventList: React.FC<EventListProps> = ({
           </div>
         ))}
       </div>
-
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <div className={styles.pagination}>
-          <button className={styles.pageButton} onClick={() => onPageChange?.(currentPage - 1)} disabled={currentPage === 1}>
-            ← Previous
-          </button>
-
-          <div className={styles.pageInfo}>
-            Page {currentPage} of {totalPages} • {totalCount} total events
-          </div>
-
-          <button className={styles.pageButton} onClick={() => onPageChange?.(currentPage + 1)} disabled={currentPage === totalPages}>
-            Next →
-          </button>
-        </div>
-      )}
     </div>
   );
 };
