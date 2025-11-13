@@ -48,7 +48,7 @@ const PostDetail = ({ postId }: PostDetailProps) => {
   const interactions = post ? (post as any)?.interactions : null;
 
   // Update document title based on post summary
-  useEffect(() => { 
+  useEffect(() => {
     if (post?.objectDetails?.title) {
       // Use first 60 characters of title as summary for title
       const summary = post.objectDetails.title.substring(0, 60) + (post.objectDetails.title.length > 60 ? '...' : '');
