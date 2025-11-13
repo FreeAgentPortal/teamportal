@@ -32,7 +32,6 @@ const PostDetail = ({ postId }: PostDetailProps) => {
     key: ['post', postId],
     method: 'GET',
     url: `/feed/activity/${postId}`,
-    showErrorAlert: false,
     // 30 seconds
     refetchInterval: 30000,
   }) as any;

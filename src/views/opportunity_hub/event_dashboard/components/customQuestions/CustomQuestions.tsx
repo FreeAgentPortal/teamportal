@@ -102,7 +102,7 @@ const CustomQuestions: React.FC<CustomQuestionsProps> = ({ questions, onChange }
       </div>
 
       {questions.length === 0 && (
-        <div className={styles.emptyState}>No custom questions yet. Click "Add Question" to create questions that athletes will answer during registration.</div>
+        <div className={styles.emptyState}>No custom questions yet. Click &quot;Add Question&quot; to create questions that athletes will answer during registration.</div>
       )}
 
       {questions.map((question, questionIndex) => {

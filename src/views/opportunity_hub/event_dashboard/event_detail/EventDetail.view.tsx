@@ -6,8 +6,9 @@ import { TeamOutlined, EditOutlined } from '@ant-design/icons';
 import { getEventDetailTabs } from './eventDetailTabs';
 import EventModal from '../components/eventModal/EventModal';
 import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import styles from './EventDetail.module.scss';
-dayjs.extend(require('dayjs/plugin/relativeTime'));
+dayjs.extend(relativeTime);
 
 interface EventDetailProps {
   id?: string;
