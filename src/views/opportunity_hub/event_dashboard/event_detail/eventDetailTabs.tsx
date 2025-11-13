@@ -4,6 +4,7 @@ import EventOverview from './components/eventOverview/EventOverview';
 import EventRegistrations from './components/eventRegistrations/EventRegistrations';
 import EventPosts from './components/eventPosts/EventPosts';
 import EventSettings from './components/eventSettings/EventSettings';
+import { formatNumber } from '@/utils/formatNumber';
 
 export const getEventDetailTabs = (event: any, eventId: string) => {
   return [
@@ -22,7 +23,7 @@ export const getEventDetailTabs = (event: any, eventId: string) => {
       label: (
         <span>
           <TeamOutlined />
-          Registrations
+          Registrations <span>({formatNumber(event.registrations.total)})</span>
         </span>
       ),
       children: <EventRegistrations eventId={eventId} />,
