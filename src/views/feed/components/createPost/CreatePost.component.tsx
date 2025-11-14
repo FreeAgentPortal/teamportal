@@ -141,7 +141,7 @@ const CreatePost = () => {
     await createPost(
       {
         url: `/feed/post`,
-        formData: { ...postData, authorId: `user:${loggedInData?._id};profile:${selectedProfile?._id}`, profile: { type: 'athlete', id: selectedProfile?._id } },
+        formData: { ...postData, authorId: `user:${loggedInData?._id};profile:${selectedProfile?._id}`, profile: { type: 'team', id: selectedProfile?._id } },
       },
       {
         onSuccess: () => {
