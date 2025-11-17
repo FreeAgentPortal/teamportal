@@ -1,5 +1,5 @@
 .container {
-  position: sticky;
+  position: absolute;
   top: 1rem;
   width: 100%;
   z-index: 10000;
@@ -11,13 +11,13 @@
 }
 
 .alert {
-  padding: 1rem;
+  padding: .75rem;
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   font-weight: 500;
   transition: opacity 0.3s ease-in-out;
 }

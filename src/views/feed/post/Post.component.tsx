@@ -1,21 +1,20 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { BiComment } from 'react-icons/bi';
-import { Dropdown, Modal } from 'antd';
-import { MoreOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Dropdown } from 'antd';
+import { MoreOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Post as PostType } from '@/types/ISocialPost';
 import { renderPostContent } from '../utils/renderPostContent';
 import { usePostView } from '../hooks/usePostView';
 import { useSelectedProfile } from '@/hooks/useSelectedProfile';
-import { useInterfaceStore } from '@/state/interface';
-import axios from '@/utils/axios';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import styles from './Post.module.scss';
 import ReactionSummary from '../components/reactionSummary/ReactionSummary.component';
 import ReactionButton from '../components/reactionButton/ReactionButton.component';
+import DeletePostModal from '../modals/deletePostModal/DeletePostModal.component';
 
 interface PostProps {
   post: PostType;
@@ -23,10 +22,8 @@ interface PostProps {
 
 const Post = ({ post }: PostProps) => {
   dayjs.extend(relativeTime);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const queryClient = useQueryClient();
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const { selectedProfile } = useSelectedProfile();
-  const addAlert = useInterfaceStore((state) => state.addAlert);
 
   // Track post views - returns a callback ref
   const containerRef = usePostView({ postId: post._id, threshold: 5000 });
@@ -49,35 +46,8 @@ const Post = ({ post }: PostProps) => {
   const currentUserProfileId = selectedProfile?._id;
   const isOwner = postProfileId && currentUserProfileId && postProfileId === currentUserProfileId;
 
-  // Delete post mutation
-  const deleteMutation = useMutation({
-    mutationFn: async (postId: string) => {
-      await axios.delete(`/feed/activity/${postId}`);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['posts'] });
-      addAlert({ message: 'Post deleted successfully', type: 'success' });
-      setIsDeleting(false);
-    },
-    onError: (error: any) => {
-      addAlert({ message: error?.response?.data?.message || 'Failed to delete post', type: 'error' });
-      setIsDeleting(false);
-    },
-  });
-
   const handleDeleteClick = () => {
-    Modal.confirm({
-      title: 'Delete Post',
-      icon: <ExclamationCircleOutlined />,
-      content: 'Are you sure you want to delete this post? This action cannot be undone.',
-      okText: 'Delete',
-      okType: 'danger',
-      cancelText: 'Cancel',
-      onOk: () => {
-        setIsDeleting(true);
-        deleteMutation.mutate(post._id);
-      },
-    });
+    setDeleteModalOpen(true);
   };
 
   const menuItems = [
@@ -110,7 +80,7 @@ const Post = ({ post }: PostProps) => {
         <div className={styles.actions}>
           {isOwner && (
             <Dropdown menu={{ items: menuItems }} trigger={['click']} placement="bottomRight">
-              <button className={styles.menuButton} disabled={isDeleting}>
+              <button className={styles.menuButton}>
                 <MoreOutlined style={{ fontSize: '20px' }} />
               </button>
             </Dropdown>
@@ -133,12 +103,17 @@ const Post = ({ post }: PostProps) => {
           userReactionType={interactions?.userInteraction?.reactionType}
           reactionBreakdown={interactions?.reactionBreakdown}
         />
-        <button className={styles.interactionButton} disabled>
-          <BiComment size={18} />
-          <span>Comment</span>
-          {interactions?.counts?.comments > 0 && <span className={styles.count}>({interactions.counts.comments})</span>}
-        </button>
+        <Link href={`/feed/${post._id}`} className={styles.interactionButtonLink}>
+          <button className={styles.interactionButton}>
+            <BiComment size={18} />
+            <span>Comment</span>
+            {interactions?.counts?.comments > 0 && <span className={styles.count}>({interactions.counts.comments})</span>}
+          </button>
+        </Link>
       </div>
+
+      {/* Delete Post Modal */}
+      <DeletePostModal postId={post._id} open={deleteModalOpen} onClose={() => setDeleteModalOpen(false)} />
     </div>
   );
 };
