@@ -2,45 +2,39 @@ import React, { useState } from 'react';
 import styles from './Notifications.module.scss';
 import Link from 'next/link';
 import { IoIosNotifications } from 'react-icons/io';
-import { Avatar, Badge, Button, Empty, Tooltip } from 'antd';
-import getNotificationLink from '@/utils/getNotificationLink';
+import { Badge, Button, Empty, Tooltip } from 'antd';
 import NotificationItem from '@/components/notificationItem/NotificationItem.component';
 import NotificationType from '@/types/NotificationType';
 import useApiHook from '@/hooks/useApi';
 import { useUser } from '@/state/auth';
 
 const Notifications = () => {
-  const [isOpen, setIsOpen] = useState<any>();
   const { data: loggedInUser } = useUser();
+  const [isOpen, setIsOpen] = useState<any>();
+  // Extract all values from profileRefs map and combine with user ID
+  const getAllUserIds = () => {
+    const userIds: string[] = [];
 
-  // Create include query for user and all profile references
-  // const createIncludeQuery = () => {
-  //   if (!loggedInUser) return '';
+    // Add the main user ID
+    if (loggedInUser?._id) {
+      userIds.push(loggedInUser._id);
+    }
 
-  //   // Start with the user's direct ID
-  //   const includeItems = [`userTo;${loggedInUser._id}`];
-
-  //   // Add all profileRefs if they exist
-  //   if (loggedInUser.profileRefs && typeof loggedInUser.profileRefs === 'object') {
-  //     let counter = 0;
-  //     Object.values(loggedInUser.profileRefs).forEach((profileId) => {
-  //       if (profileId && profileId !== null) {
-  //         includeItems.push(`userTo${counter};${profileId}`);
-  //         counter++;
-  //       }
-  //     });
-  //   }
-
-  //   return includeItems.join('|');
-  // };
+    // Add all profile reference IDs
+    if (loggedInUser?.profileRefs) {
+      const profileRefValues = Object.values(loggedInUser.profileRefs).filter(Boolean) as string[];
+      userIds.push(...profileRefValues);
+    }
+    return userIds;
+  };
 
   const { data } = useApiHook({
     url: `/notification`,
-    key: ['notifications', 'header'],
+    key: 'notifications',
     method: 'GET',
-    filter: `userTo;${loggedInUser?._id}`,
-    limit: 5,
-  }) as any;
+    filter: `userTo;{"$in":"${getAllUserIds().join(',')}"}`,
+    enabled: !!loggedInUser?._id, // Only run query when user is loaded
+  });
 
   return (
     <div className={styles.container}>
@@ -65,7 +59,7 @@ const Notifications = () => {
         ) : (
           <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="You have no notifications" />
         )}
-        <Link href={'/home/notifications'} className={styles.viewAllButton}>
+        <Link href={'/notifications'} className={styles.viewAllButton}>
           <span>View all notifications</span>
         </Link>
       </div>

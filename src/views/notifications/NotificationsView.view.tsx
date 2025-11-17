@@ -1,68 +1,60 @@
-'use client';
-import Container from '@/layout/container/Container.layout';
-import styles from './NotificationsView.module.scss';
-import Link from 'next/link';
-import { Badge, Button, Empty, Skeleton } from 'antd';
-import { AiFillDelete, AiFillExclamationCircle } from 'react-icons/ai';
-import { FiExternalLink } from 'react-icons/fi';
-import Error from '@/components/error/Error.component';
-import { useState } from 'react';
-import getNotificationLink from '@/utils/getNotificationLink';
-import NotificationItem from '@/components/notificationItem/NotificationItem.component';
-import NotificationType from '@/types/NotificationType';
-import useApiHook from '@/hooks/useApi';
-import { useQueryClient } from '@tanstack/react-query';
-import { useUser } from '@/state/auth';
+"use client";
+import Container from "@/layout/container/Container.layout";
+import styles from "./NotificationsView.module.scss";
+import { Button, Empty } from "antd";
+import NotificationItem from "@/components/notificationItem/NotificationItem.component";
+import NotificationType from "@/types/NotificationType";
+import useApiHook from "@/hooks/useApi";
+import { useUser } from "@/state/auth";
 
 const NotificationsView = () => {
   const { data: loggedInUser } = useUser();
 
-  // Create include query for user and all profile references
-  const createIncludeQuery = () => {
-    if (!loggedInUser) return '';
+  // Extract all values from profileRefs map and combine with user ID
+  const getAllUserIds = () => {
+    const userIds: string[] = [];
 
-    // Start with the user's direct ID
-    const includeItems = [`userTo;${loggedInUser._id}`];
-
-    // Add all profileRefs if they exist
-    if (loggedInUser.profileRefs && typeof loggedInUser.profileRefs === 'object') {
-      Object.values(loggedInUser.profileRefs).forEach((profileId) => {
-        if (profileId && profileId !== null) {
-          includeItems.push(`userTo;${profileId}`);
-        }
-      });
+    // Add the main user ID
+    if (loggedInUser?._id) {
+      userIds.push(loggedInUser._id);
     }
 
-    return includeItems.join('|');
+    // Add all profile reference IDs
+    if (loggedInUser?.profileRefs) {
+      const profileRefValues = Object.values(loggedInUser.profileRefs).filter(Boolean) as string[];
+      userIds.push(...profileRefValues);
+    }
+
+    return userIds;
   };
 
   const { data } = useApiHook({
     url: `/notification`,
-    key: ['notifications', 'view'],
-    method: 'GET',
-    filter: `userTo;${loggedInUser?._id}`,
-    limit: 20,
-  }) as any;
+    key: "notifications",
+    method: "GET",
+    filter: `userTo;{"$in":"${getAllUserIds().join(",")}"}`,
+    enabled: !!loggedInUser?._id, // Only run query when user is loaded
+  });
 
   const { mutate: updateNotification } = useApiHook({
-    queriesToInvalidate: ['notifications'],
-    key: 'notifications',
-    method: 'POST',
+    queriesToInvalidate: ["notifications"],
+    key: "notification-update",
+    method: "POST",
   }) as any;
   return (
     <Container
       title={
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: "flex", alignItems: "center" }}>
           <span
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              flex: '1',
+              display: "flex",
+              alignItems: "center",
+              flex: "1",
             }}
           >
             Notifications
           </span>
-          <Button type="primary" onClick={() => updateNotification({ url: '' })}>
+          <Button type="primary" onClick={() => updateNotification({ url: "/notification/update/all" })}>
             Mark all Read
           </Button>
         </div>
